@@ -1,6 +1,6 @@
 {
-  "title": "Blog test",
-  "date": "2020-09-08T06:00:00.000Z",
-  "description": "Ipsa natus aliquid ",
-  "body": "## some Post\n\n### Some subheader\n\nLorem ipsum dolor websites amet.\n\n> A blockquote from a wise person."
+  "title": "SRP: El principio de una sola responsabilidad",
+  "date": "2021-02-14T17:27:29.784Z",
+  "description": "¿Cómo aplicar el Single Responsibility Principle? Desarrollaremos algunos consejos para aplicar este gran principio en nuestro código",
+  "body": "## ¿Qué es SRP?\nHay muchas definiciones sobre este principio. La que más me gusta es:\n\n> Una entidad de software debe tener una sola razón para cambiar\n\nEste principio fue recopilado y documentado por Robert C. Martin junto a otros 4 con la finalidad de promover un \"código limpio\" al que haré referencia como _código mantenible_ de aquí en adelante."
 }
