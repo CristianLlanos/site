@@ -1,8 +1,8 @@
 <template>
   <div class="main text-center flex flex-col items-center justify-center">
     <!-- <logo /> -->
-    <h1 class="title">Nuxt — Tailwind — Netlify CMS</h1>
-    <h2 class="subtitle">Boilerplate</h2>
+    <h1 class="title">Cristian Llanos</h1>
+    <h2 class="subtitle"><a href='https://twitter.com/cris_decode' target='_blank'>@cris_decode</a></h2>
   </div>
 </template>
 

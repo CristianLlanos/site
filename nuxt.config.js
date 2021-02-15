@@ -42,7 +42,19 @@ export default {
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400&display=swap'
-      }
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Fira+Code:ital,wght@0,400;0,700;1,400&display=swap'
+      },
+      // {
+      //   rel: 'stylesheet',
+      //   href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'
+      // },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap'
+      },
     ] // ? Imports the font 'Karla' and is optimized by the netlify plugin 'Subfont'
   },
   generate: {

@@ -11,33 +11,33 @@ module.exports = {
     darkSelector: '.dark-mode',
     extend: {
       fontFamily: {
-        sans: ['Karla', ...defaultTheme.fontFamily.sans],
+        sans: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
         mono: [...defaultTheme.fontFamily.mono]
       },
       colors: {
         primary: {
-          100: '#ECEFF5',
-          200: '#CBD2E1',
-          300: '#ABB6CD',
-          400: '#8C9AB7',
-          500: '#6F7FA0',
-          default: '#526488',
-          600: '#3E4F70',
-          700: '#2C3A57',
-          800: '#1C263B',
-          900: '#0D131E'
+          100: '#EEF2FF',
+          200: '#E0E7FF',
+          300: '#C7D2FE',
+          400: '#A5B4FC',
+          500: '#818CF8',
+          default: '#6366F1',
+          600: '#4F46E5',
+          700: '#4338CA',
+          800: '#3730A3',
+          900: '#312E81'
         },
         accent: {
-          100: '#F9E9EA',
-          200: '#EEC3C6',
-          300: '#E09FA4',
-          400: '#CF7D83',
-          500: '#BD5D65',
-          default: '#A84048',
-          600: '#8D2D34',
-          700: '#6E1D23',
-          800: '#4D1015',
-          900: '#280709'
+          100: '#FDF2F8',
+          200: '#FCE7F3',
+          300: '#FBCFE8',
+          400: '#F9A8D4',
+          500: '#F472B6',
+          default: '#EC4899',
+          600: '#DB2777',
+          700: '#BE185D',
+          800: '#9D174D',
+          900: '#831843'
         }
       },
       opacity: {
