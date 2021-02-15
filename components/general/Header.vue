@@ -1,6 +1,6 @@
 <template>
-  <nav class="">
-    <ul class="flex fixed top-0 inset-x-0 p-3">
+  <nav class="w-full">
+    <ul class="flex inset-x-0 p-3">
       <li class="flex-1 mr-2">
         <nuxt-link class="btn block" to="/">Home</nuxt-link>
       </li>
