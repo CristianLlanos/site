@@ -17,8 +17,8 @@
           <h3 class="article-title">{{ blogPost.title }}</h3>
           <h6
             v-if="blogPost.date"
-            class="inline-block py-1 px-2 bg-accent-500 text-white font-smaller rounded-sm dark:bg-accent-500 whitespace-no-wrap"
-          >{{ formatDate(blogPost.date) }}</h6>
+            class="text-white font-smaller"
+          ><span class="inline-block py-1 px-2 bg-accent-500 rounded-sm dark:bg-accent-500 whitespace-no-wrap">{{ formatDate(blogPost.date) }}</span></h6>
         </div>
         <div class="mt-4 mb-2">
           <p class="inline">{{ blogPost.description }}</p>
