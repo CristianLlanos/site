@@ -4,6 +4,7 @@ logo_url: https://cristianllanos.netlify.app/icon.png
 publish_mode: editorial_workflow
 backend:
   name: git-gateway
+  repo: CristianLlanos/site
   branch: master
 
 media_folder: static/img

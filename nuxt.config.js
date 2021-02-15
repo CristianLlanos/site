@@ -83,7 +83,19 @@ export default {
    */
   modules: ['@nuxtjs/markdownit', 'nuxt-purgecss'],
   markdownit: {
-    injected: true
+    injected: true,
+    highlight: (str, lang) => {
+      const hljs = require('highlight.js');
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return '<pre class="hljs"><code>' +
+            hljs.highlight(lang, str, true).value +
+            '</code></pre>';
+        } catch (__) {}
+      }
+
+      return '';
+    }
   },
   /*
    ** Build configuration
@@ -106,7 +118,11 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
   },
   /*
    ** Custom additions configuration
