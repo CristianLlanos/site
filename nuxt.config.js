@@ -133,7 +133,7 @@ export default {
   },
   purgeCSS: {
     mode: 'postcss',
-    whitelist: ['dark-mode', 'light-mode', 'btn', 'icon', 'main'],
+    whitelist: ['dark-mode', 'light-mode', 'btn', 'icon', 'main', 'blockquote'],
     whitelistPatterns: [/^article/, /image$/, /hljs.*/]
   },
   colorMode: {
