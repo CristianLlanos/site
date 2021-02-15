@@ -3,12 +3,12 @@
     v-if="blogPost"
     class="main article"
   >
-    <h1 class="article-title">{{ blogPost.title }}</h1>
+    <h1 class="article-title font-bold pt-6">{{ blogPost.title }}</h1>
     <div
       v-if="blogPost.date"
       class="inline-block py-1 px-2 my-2 bg-accent text-white font-medium rounded-sm dark:bg-accent whitespace-no-wrap"
     >{{ formatDate(blogPost.date) }}</div>
-    <div v-html="$md.render(blogPost.body)" />
+    <div v-html="$md.render(blogPost.body)" class='content'/>
   </article>
 </template>
 <script>
@@ -19,6 +19,18 @@ export default {
       return {
         blogPost: await require(`~/assets/content/blog/${params.blog}.json`)
       }
+  },
+  head() {
+    return {
+      title: this.blogPost.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.blogPost.description,
+        }
+      ]
+    }
   },
   methods: {
     formatDate(dateString) {
