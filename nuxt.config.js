@@ -80,7 +80,11 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/markdownit'],
+  modules: ['@nuxtjs/markdownit', '@nuxtjs/gtm'],
+
+  gtm: {
+    id: 'GTM-TPCTDS7',
+  },
 
   markdownit: {
     injected: true,
