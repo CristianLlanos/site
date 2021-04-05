@@ -1,5 +1,5 @@
 [build]
-command = "npm run generate"
+command = "nuxt generate"
 publish = "dist/"
 
 [[plugins]]
