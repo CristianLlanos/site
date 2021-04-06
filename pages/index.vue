@@ -136,6 +136,16 @@ export default {
           content: this.image,
         },
         {
+          hid: 'og:image:width',
+          property: 'og:image:width',
+          content: '1350',
+        },
+        {
+          hid: 'og:image:height',
+          property: 'og:image:height',
+          content: '904',
+        },
+        {
           hid: 'og:image:secure_url',
           property: 'og:image:secure_url',
           content: this.image,
