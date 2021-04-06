@@ -160,7 +160,7 @@ export default {
   },
   data() {
     return {
-      image: '/img/cristian-llanos-1350x904.jpg',
+      image: process.env.URL + '/img/cristian-llanos-1350x904.jpg',
     }
   },
   computed: {

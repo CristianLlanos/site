@@ -21,7 +21,7 @@ export default {
   env: {
     url:
       process.env.NODE_ENV === 'production'
-        ? process.env.URL || 'http://createADotEnvFileAndSetURL'
+        ? process.env.URL || 'https://cristianllanos.com'
         : 'http://localhost:3000',
     lang: SITE_INFO.sitelang || 'en-US',
   },
@@ -43,6 +43,11 @@ export default {
           SITE_INFO.sitedescription ||
           process.env.npm_package_description ||
           '',
+      },
+      {
+        hid: 'og:site_name',
+        name: 'og:site_name',
+        content: 'Cristian Llanos',
       },
       {
         hid: 'twitter:creator',

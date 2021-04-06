@@ -66,7 +66,7 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.blogPost.image,
+          content: process.env.URL + this.blogPost.image,
         },
         {
           hid: 'twitter:image:alt',
@@ -86,7 +86,7 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.blogPost.image,
+          content: process.env.URL + this.blogPost.image,
         },
         {
           hid: 'og:type',
@@ -96,7 +96,7 @@ export default {
         {
           hid: 'og:image:secure_url',
           property: 'og:image:secure_url',
-          content: this.blogPost.image,
+          content: process.env.URL + this.blogPost.image,
         },
         {
           hid: 'og:image:alt',
