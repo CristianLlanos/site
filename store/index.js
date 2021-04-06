@@ -1,8 +1,11 @@
-import * as SITE_INFO from '../assets/content/site/info.json'
 import { SET_BLOG_POSTS, SET_PROJECT_POSTS, SET_SITE_INFO } from './mutations.type'
 
 export const state = () => ({
-  siteInfo: SITE_INFO,
+  siteInfo: {
+    sitename: '',
+    sitedescription: '',
+    sitelang: '',
+  },
   blogPosts: [],
   projectPosts: [],
 })
@@ -31,6 +34,10 @@ export const actions = {
       .sort((a, b) => new Date(b.date) - new Date(a.date))
   },
   async nuxtServerInit({ commit }) {
+    // Site Info
+    const siteInfo = await require('~/assets/content/site/info.json')
+    await commit(SET_SITE_INFO, siteInfo)
+
     // Blog collection type
     const blogFiles = await require.context('~/assets/content/blog/', false, /\.json$/)
     await commit(SET_BLOG_POSTS, actions.getPosts(blogFiles))

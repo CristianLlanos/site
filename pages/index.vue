@@ -96,6 +96,11 @@ export default {
       script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }],
       meta: [
         {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary',
+        },
+        {
           hid: 'twitter:title',
           name: 'twitter:title',
           content: this.siteInfo.sitename,

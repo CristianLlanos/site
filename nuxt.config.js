@@ -44,6 +44,11 @@ export default {
           process.env.npm_package_description ||
           '',
       },
+      {
+        hid: 'twitter:site',
+        name: 'twitter:site',
+        content: '@cris_decode',
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

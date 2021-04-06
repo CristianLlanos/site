@@ -44,6 +44,11 @@ export default {
       title: this.blogPost.title,
       meta: [
         {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary',
+        },
+        {
           hid: 'description',
           name: 'description',
           content: this.blogPost.description,
