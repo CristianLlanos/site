@@ -34,10 +34,12 @@
 export default {
   async asyncData({ params, payload }) {
     if (payload) return { blogPost: payload }
-    else
+    else {
+      const blogPost = await require(`~/assets/content/blog/${params.blog}.json`)
       return {
-        blogPost: await require(`~/assets/content/blog/${params.blog}.json`),
+        blogPost,
       }
+    }
   },
   head() {
     return {
@@ -87,6 +89,16 @@ export default {
           hid: 'og:image',
           property: 'og:image',
           content: process.env.URL + this.blogPost.image,
+        },
+        {
+          hid: 'og:image:width',
+          property: 'og:image:width',
+          content: '2040',
+        },
+        {
+          hid: 'og:image:height',
+          property: 'og:image:height',
+          content: '1170',
         },
         {
           hid: 'og:type',
