@@ -113,7 +113,7 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.image,
+          content: this.socialImage,
         },
         {
           hid: 'twitter:image:alt',
@@ -133,7 +133,7 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.image,
+          content: this.socialImage,
         },
         {
           hid: 'og:image:width',
@@ -148,7 +148,7 @@ export default {
         {
           hid: 'og:image:secure_url',
           property: 'og:image:secure_url',
-          content: this.image,
+          content: this.socialImage,
         },
         {
           hid: 'og:image:alt',
@@ -159,8 +159,10 @@ export default {
     }
   },
   data() {
+    const image = '/img/cristian-llanos-1350x904.jpg'
     return {
-      image: process.env.URL + '/img/cristian-llanos-1350x904.jpg',
+      image,
+      socialImage: process.env.URL + image,
     }
   },
   computed: {
