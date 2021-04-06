@@ -46,7 +46,7 @@ export default {
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          content: 'summary',
+          content: 'summary_large_image',
         },
         {
           hid: 'description',

@@ -45,6 +45,11 @@ export default {
           '',
       },
       {
+        hid: 'twitter:creator',
+        name: 'twitter:creator',
+        content: '@cris_decode',
+      },
+      {
         hid: 'twitter:site',
         name: 'twitter:site',
         content: '@cris_decode',
