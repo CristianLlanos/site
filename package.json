@@ -17,6 +17,8 @@
     "@nuxtjs/markdownit": "^2.0.0",
     "core-js": "^3.9.1",
     "highlight.js": "^10.7.1",
+    "markdown-it-anchor": "^7.1.0",
+    "markdown-it-toc-done-right": "^4.2.0",
     "nuxt": "^2.15.3",
     "vue-feather-icons": "^5.1.0"
   },

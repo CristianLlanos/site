@@ -42,8 +42,26 @@
 
 .content a {
   color: var(--color-secondary-700);
+  word-break: break-word;
 }
 
 .content a:hover {
   text-decoration: underline;
+}
+
+.content ul ul, .content ol ol {
+  padding-left: 1em;
+}
+
+.content li::before {
+  content: '#';
+  margin-right: .2em;
+}
+
+.content li {
+  padding: .3em 0;
+}
+
+.content .table-of-contents {
+  padding: 2em 1em;
 }

@@ -104,6 +104,7 @@ export default {
   markdownit: {
     injected: true,
     linkify: true,
+    breaks: false,
     highlight: (str, lang) => {
       const hljs = require('highlight.js')
       if (lang && hljs.getLanguage(lang)) {
@@ -116,6 +117,7 @@ export default {
 
       return ''
     },
+    use: ['markdown-it-anchor', ['markdown-it-toc-done-right', { listType: 'ul' }]],
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
