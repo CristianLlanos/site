@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import matter from 'gray-matter'
 import { renderMarkdown } from './markdown'
 import type { BlogPost, ProjectPost, SiteInfo } from './types'
 
@@ -16,11 +17,15 @@ export function getBlogPosts(): BlogPost[] {
 
   return fs
     .readdirSync(dir)
-    .filter((file) => file.endsWith('.json'))
+    .filter((file) => file.endsWith('.md'))
     .map((file) => {
-      const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'))
-      data.slug = path.basename(file, '.json')
-      return data as BlogPost
+      const raw = fs.readFileSync(path.join(dir, file), 'utf-8')
+      const { data, content } = matter(raw)
+      return {
+        ...data,
+        body: content,
+        slug: path.basename(file, '.md'),
+      } as BlogPost
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
@@ -28,16 +33,20 @@ export function getBlogPosts(): BlogPost[] {
 export function getBlogPost(slug: string): BlogPost | null {
   const dir = path.join(contentDir, 'blog')
   const decoded = decodeURIComponent(slug)
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'))
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'))
   const file = files.find((f) => {
-    const name = path.basename(f, '.json')
+    const name = path.basename(f, '.md')
     return name === slug || name === decoded
   })
   if (!file) return null
 
-  const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'))
-  data.slug = slug
-  return data as BlogPost
+  const raw = fs.readFileSync(path.join(dir, file), 'utf-8')
+  const { data, content } = matter(raw)
+  return {
+    ...data,
+    body: content,
+    slug,
+  } as BlogPost
 }
 
 export function getProjectPosts(): ProjectPost[] {
@@ -46,24 +55,32 @@ export function getProjectPosts(): ProjectPost[] {
 
   return fs
     .readdirSync(dir)
-    .filter((file) => file.endsWith('.json'))
+    .filter((file) => file.endsWith('.md'))
     .map((file) => {
-      const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'))
-      data.slug = path.basename(file, '.json')
-      return data as ProjectPost
+      const raw = fs.readFileSync(path.join(dir, file), 'utf-8')
+      const { data, content } = matter(raw)
+      return {
+        ...data,
+        body: content,
+        slug: path.basename(file, '.md'),
+      } as ProjectPost
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 export function getProjectPost(slug: string): ProjectPost | null {
   const dir = path.join(contentDir, 'projects')
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'))
-  const file = files.find((f) => path.basename(f, '.json') === slug)
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md'))
+  const file = files.find((f) => path.basename(f, '.md') === slug)
   if (!file) return null
 
-  const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8'))
-  data.slug = slug
-  return data as ProjectPost
+  const raw = fs.readFileSync(path.join(dir, file), 'utf-8')
+  const { data, content } = matter(raw)
+  return {
+    ...data,
+    body: content,
+    slug,
+  } as ProjectPost
 }
 
 export function getCreditsHtml(): string {

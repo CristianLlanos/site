@@ -10,7 +10,7 @@ Personal portfolio and blog built with [Next.js](https://nextjs.org) 15, React 1
 - **Markdown:** markdown-it with syntax highlighting (highlight.js)
 - **Icons:** lucide-react
 - **Deployment:** Netlify
-- **CMS:** Netlify CMS (for content editing)
+- **Content:** Markdown files with YAML frontmatter
 
 ## Project Structure
 
@@ -25,9 +25,10 @@ app/
 └── layout.tsx        # Root layout with metadata and fonts
 
 components/           # Reusable React components
-content/              # JSON blog posts, projects, and site config
+content/              # Markdown blog posts, projects, and site config
 lib/                  # Utilities (content loading, markdown, types)
-public/               # Static assets (images, icons, admin)
+scripts/              # CLI tools (new-post generator)
+public/               # Static assets (images, icons)
 ```
 
 ## Development
@@ -48,7 +49,28 @@ npm run lint
 
 ## Content
 
-Blog posts and projects are stored as JSON files in `content/`. Each file contains metadata (title, date, description, image) and a markdown body.
+Blog posts and projects are stored as Markdown files with YAML frontmatter in `content/`.
+
+### Creating a new post
+
+```bash
+npm run new-post
+```
+
+This interactive CLI will prompt you for the type (blog/project), title, description, and other metadata, then generate the `.md` file with the correct filename and frontmatter.
+
+You can also create files manually. Blog posts go in `content/blog/` and projects in `content/projects/`:
+
+```md
+---
+title: "My Post Title"
+date: "2026-03-28T00:00:00.000Z"
+description: "A short description"
+image: "/img/my-image.png"
+---
+
+Your markdown content here.
+```
 
 ## Deployment
 

@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "new-post": "npx tsx scripts/new-post.ts"
   },
   "dependencies": {
     "@next/third-parties": "^15.3.0",
+    "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.488.0",
     "markdown-it": "^14.1.0",
