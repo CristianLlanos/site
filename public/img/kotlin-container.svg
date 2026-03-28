@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7F52FF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2B5EA7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1BA4E0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Gradient background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Editor window -->
+  <rect x="120" y="80" width="960" height="470" rx="12" ry="12" fill="#1e1e2e" filter="url(#shadow)"/>
+
+  <!-- Title bar -->
+  <rect x="120" y="80" width="960" height="40" rx="12" ry="12" fill="#313244"/>
+  <rect x="120" y="108" width="960" height="12" fill="#313244"/>
+
+  <!-- Traffic lights -->
+  <circle cx="152" cy="100" r="7" fill="#f38ba8"/>
+  <circle cx="176" cy="100" r="7" fill="#f9e2af"/>
+  <circle cx="200" cy="100" r="7" fill="#a6e3a1"/>
+
+  <!-- Filename tab -->
+  <text x="600" y="105" fill="#cdd6f4" font-family="monospace" font-size="13" text-anchor="middle" opacity="0.6">Container.kt</text>
+
+  <!-- Line numbers -->
+  <text x="152" y="160" fill="#585b70" font-family="monospace" font-size="15">1</text>
+  <text x="152" y="184" fill="#585b70" font-family="monospace" font-size="15">2</text>
+  <text x="152" y="208" fill="#585b70" font-family="monospace" font-size="15">3</text>
+  <text x="152" y="232" fill="#585b70" font-family="monospace" font-size="15">4</text>
+  <text x="152" y="256" fill="#585b70" font-family="monospace" font-size="15">5</text>
+  <text x="152" y="280" fill="#585b70" font-family="monospace" font-size="15">6</text>
+  <text x="152" y="304" fill="#585b70" font-family="monospace" font-size="15">7</text>
+  <text x="152" y="328" fill="#585b70" font-family="monospace" font-size="15">8</text>
+  <text x="152" y="352" fill="#585b70" font-family="monospace" font-size="15">9</text>
+  <text x="145" y="376" fill="#585b70" font-family="monospace" font-size="15">10</text>
+  <text x="145" y="400" fill="#585b70" font-family="monospace" font-size="15">11</text>
+  <text x="145" y="424" fill="#585b70" font-family="monospace" font-size="15">12</text>
+  <text x="145" y="448" fill="#585b70" font-family="monospace" font-size="15">13</text>
+  <text x="145" y="472" fill="#585b70" font-family="monospace" font-size="15">14</text>
+  <text x="145" y="496" fill="#585b70" font-family="monospace" font-size="15">15</text>
+
+  <!-- Code content -->
+  <!-- Line 1: class UserRepository -->
+  <text x="180" y="160" font-family="monospace" font-size="15">
+    <tspan fill="#cba6f7">class </tspan><tspan fill="#89b4fa">UserRepository</tspan><tspan fill="#cdd6f4">()</tspan>
+  </text>
+
+  <!-- Line 2: class UserService -->
+  <text x="180" y="184" font-family="monospace" font-size="15">
+    <tspan fill="#cba6f7">class </tspan><tspan fill="#89b4fa">UserService</tspan><tspan fill="#cdd6f4">(</tspan><tspan fill="#cba6f7">val </tspan><tspan fill="#cdd6f4">repo: </tspan><tspan fill="#89b4fa">UserRepository</tspan><tspan fill="#cdd6f4">)</tspan>
+  </text>
+
+  <!-- Line 3: blank -->
+
+  <!-- Line 4: fun main -->
+  <text x="180" y="232" font-family="monospace" font-size="15">
+    <tspan fill="#cba6f7">fun </tspan><tspan fill="#89dceb">main</tspan><tspan fill="#cdd6f4">() {</tspan>
+  </text>
+
+  <!-- Line 5: val container -->
+  <text x="210" y="256" font-family="monospace" font-size="15">
+    <tspan fill="#cba6f7">val </tspan><tspan fill="#cdd6f4">container = </tspan><tspan fill="#89dceb">Container</tspan><tspan fill="#cdd6f4">()</tspan>
+  </text>
+
+  <!-- Line 6: blank -->
+
+  <!-- Line 7: comment -->
+  <text x="210" y="304" font-family="monospace" font-size="15">
+    <tspan fill="#6c7086">// Zero config - auto resolved!</tspan>
+  </text>
+
+  <!-- Line 8: val service -->
+  <text x="210" y="328" font-family="monospace" font-size="15">
+    <tspan fill="#cba6f7">val </tspan><tspan fill="#cdd6f4">service = container.</tspan><tspan fill="#89dceb">resolve</tspan><tspan fill="#cdd6f4">&lt;</tspan><tspan fill="#89b4fa">UserService</tspan><tspan fill="#cdd6f4">&gt;()</tspan>
+  </text>
+
+  <!-- Line 9: blank -->
+
+  <!-- Line 10: comment -->
+  <text x="210" y="376" font-family="monospace" font-size="15">
+    <tspan fill="#6c7086">// Singletons &amp; factories</tspan>
+  </text>
+
+  <!-- Line 11: container.singleton -->
+  <text x="210" y="400" font-family="monospace" font-size="15">
+    <tspan fill="#cdd6f4">container.</tspan><tspan fill="#89dceb">singleton</tspan><tspan fill="#cdd6f4">&lt;</tspan><tspan fill="#89b4fa">Database</tspan><tspan fill="#cdd6f4">&gt; { </tspan><tspan fill="#89dceb">Postgres</tspan><tspan fill="#cdd6f4">() }</tspan>
+  </text>
+
+  <!-- Line 12: container.factory -->
+  <text x="210" y="424" font-family="monospace" font-size="15">
+    <tspan fill="#cdd6f4">container.</tspan><tspan fill="#89dceb">factory</tspan><tspan fill="#cdd6f4">&lt;</tspan><tspan fill="#89b4fa">Logger</tspan><tspan fill="#cdd6f4">&gt; { </tspan><tspan fill="#89dceb">FileLogger</tspan><tspan fill="#cdd6f4">() }</tspan>
+  </text>
+
+  <!-- Line 13: blank -->
+
+  <!-- Line 14: call -->
+  <text x="210" y="472" font-family="monospace" font-size="15">
+    <tspan fill="#cdd6f4">container.</tspan><tspan fill="#89dceb">call</tspan><tspan fill="#cdd6f4">(::handleRequest)</tspan>
+  </text>
+
+  <!-- Line 15: closing brace -->
+  <text x="180" y="496" font-family="monospace" font-size="15">
+    <tspan fill="#cdd6f4">}</tspan>
+  </text>
+</svg>

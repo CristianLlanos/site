@@ -39,7 +39,7 @@ async function main() {
 
   if (type === 'blog') {
     const image = await ask('Image path (e.g. /img/my-image.png): ')
-    const filename = `${datePrefix}-${slug}.md`
+    const filename = `${slug}.md`
     const filePath = path.join(process.cwd(), 'content', 'blog', filename)
 
     const content = `---

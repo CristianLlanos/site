@@ -4,3 +4,13 @@
 
 [build.environment]
   NEXT_PUBLIC_URL = "https://cristianllanos.com"
+
+[[redirects]]
+  from = "/blog/2021-03-24-single-responsibility-principle/"
+  to = "/blog/single-responsibility-principle/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/2021-04-23-cómo-generar-modelos-de-laravel-desde-una-base-de-datos-existente/"
+  to = "/blog/como-generar-modelos-de-laravel-desde-una-base-de-datos-existente/"
+  status = 301
