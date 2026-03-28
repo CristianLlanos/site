@@ -1,6 +1,6 @@
 [build]
-command = "nuxt generate"
-publish = "dist/"
+  command = "npm run build"
+  publish = "out"
 
-[[plugins]]
-package = "netlify-plugin-subfont"
+[build.environment]
+  NEXT_PUBLIC_URL = "https://cristianllanos.com"
