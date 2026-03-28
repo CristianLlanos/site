@@ -9,16 +9,7 @@ import DisqusComments from '@/components/disqus-comments'
 const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts()
-  const params: { slug: string }[] = []
-  for (const post of posts) {
-    params.push({ slug: post.slug })
-    const encoded = encodeURIComponent(post.slug)
-    if (encoded !== post.slug) {
-      params.push({ slug: encoded })
-    }
-  }
-  return params
+  return getBlogPosts().map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({
