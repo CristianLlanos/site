@@ -2,7 +2,7 @@
 title: "Inyección de dependencias en Kotlin sin configuración"
 date: "2026-03-28T15:00:00.000Z"
 description: "Presentando kotlin-container: un contenedor ligero con resolución automática, singletons, factories e invocación de funciones con DI para Kotlin."
-image: "/img/kotlin-container.svg"
+image: "/img/kotlin-container.png"
 ---
 
 ${toc}
