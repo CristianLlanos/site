@@ -91,6 +91,35 @@ val container = Container()
 container.register(DatabaseProvider())
 ```
 
+## Registro simplificado para clases concretas
+
+Cuando solo necesitas asignar un ciclo de vida a una clase concreta sin configuración adicional, puedes omitir el lambda por completo:
+
+```kotlin
+container.singleton<TenantService>()
+container.singleton<CalendarService>()
+container.singleton<BookingUrlService>()
+container.scoped<RequestContext>()
+container.factory<TempProcessor>()
+```
+
+Es equivalente a escribir `container.singleton<TenantService> { resolve() }` — el contenedor resuelve automáticamente las dependencias del constructor. Esto es especialmente útil cuando tienes muchos servicios concretos que solo necesitan un ciclo de vida específico:
+
+```kotlin
+class AppProvider : ServiceProvider {
+    override fun register(container: Container) {
+        // Interfaces — requieren lambda para especificar la implementación
+        container.singleton<PaymentGateway> { StripeGateway() }
+        container.singleton<Emitter> { resolve<EventBus>() }
+
+        // Clases concretas — solo necesitan el ciclo de vida
+        container.singleton<TenantService>()
+        container.singleton<CalendarService>()
+        container.singleton<BookingUrlService>()
+    }
+}
+```
+
 ## ¿Por qué otro contenedor de DI?
 
 Porque a veces no necesitas un framework completo. Si tu proyecto es una API pequeña, una herramienta CLI, o simplemente quieres DI sin la ceremonia de Dagger o la magia de Spring, `kotlin-container` ocupa ese espacio intermedio: suficiente potencia con mínima fricción.
