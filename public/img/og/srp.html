@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(34,197,94,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,197,94,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -80px; background: #22c55e; opacity: 0.15; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #7c3aed; opacity: 0.12; }
+  .glow-3 { width: 300px; height: 300px; top: 200px; left: 500px; background: #059669; opacity: 0.08; }
+
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #86efac;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 58px; font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #86efac 50%, #c4b5fd 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  .tagline em {
+    font-style: normal;
+    color: rgba(134,239,172,0.8);
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #22c55e, #7c3aed, #22c55e);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- SRP motif: one big bloated class splitting into focused ones -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Bloated class (crossed out) -->
+    <rect x="840" y="70" width="160" height="180" rx="8" stroke="#ef4444" stroke-width="1.5" fill="rgba(239,68,68,0.03)" opacity="0.3"/>
+    <text x="860" y="95" font-family="JetBrains Mono" font-size="11" fill="#fca5a5" opacity="0.3" font-weight="700">UserService</text>
+    <text x="860" y="118" font-family="JetBrains Mono" font-size="9" fill="#fca5a5" opacity="0.15">authenticate()</text>
+    <text x="860" y="134" font-family="JetBrains Mono" font-size="9" fill="#fca5a5" opacity="0.15">sendEmail()</text>
+    <text x="860" y="150" font-family="JetBrains Mono" font-size="9" fill="#fca5a5" opacity="0.15">generateReport()</text>
+    <text x="860" y="166" font-family="JetBrains Mono" font-size="9" fill="#fca5a5" opacity="0.15">validateInput()</text>
+    <text x="860" y="182" font-family="JetBrains Mono" font-size="9" fill="#fca5a5" opacity="0.15">formatOutput()</text>
+    <text x="860" y="198" font-family="JetBrains Mono" font-size="9" fill="#fca5a5" opacity="0.15">logActivity()</text>
+    <!-- X through it -->
+    <line x1="840" y1="70" x2="1000" y2="250" stroke="#ef4444" stroke-width="1.5" opacity="0.15"/>
+    <line x1="1000" y1="70" x2="840" y2="250" stroke="#ef4444" stroke-width="1.5" opacity="0.15"/>
+
+    <!-- Arrow down -->
+    <path d="M920 270 L920 320" stroke="url(#sg)" stroke-width="2" opacity="0.3"/>
+    <polygon points="920,328 915,318 925,318" fill="#22c55e" opacity="0.3"/>
+
+    <!-- Split focused classes -->
+    <rect x="820" y="345" width="120" height="70" rx="6" stroke="#22c55e" stroke-width="1.5" fill="rgba(34,197,94,0.03)" opacity="0.35"/>
+    <text x="835" y="368" font-family="JetBrains Mono" font-size="10" fill="#86efac" opacity="0.35" font-weight="700">AuthService</text>
+    <text x="835" y="385" font-family="JetBrains Mono" font-size="9" fill="#86efac" opacity="0.18">authenticate()</text>
+
+    <rect x="960" y="345" width="120" height="70" rx="6" stroke="#22c55e" stroke-width="1.5" fill="rgba(34,197,94,0.03)" opacity="0.35"/>
+    <text x="975" y="368" font-family="JetBrains Mono" font-size="10" fill="#86efac" opacity="0.35" font-weight="700">EmailService</text>
+    <text x="975" y="385" font-family="JetBrains Mono" font-size="9" fill="#86efac" opacity="0.18">send()</text>
+
+    <rect x="820" y="430" width="120" height="70" rx="6" stroke="#a78bfa" stroke-width="1.5" fill="rgba(167,139,250,0.03)" opacity="0.3"/>
+    <text x="835" y="453" font-family="JetBrains Mono" font-size="10" fill="#c4b5fd" opacity="0.3" font-weight="700">ReportService</text>
+    <text x="835" y="470" font-family="JetBrains Mono" font-size="9" fill="#c4b5fd" opacity="0.15">generate()</text>
+
+    <rect x="960" y="430" width="120" height="70" rx="6" stroke="#a78bfa" stroke-width="1.5" fill="rgba(167,139,250,0.03)" opacity="0.3"/>
+    <text x="975" y="453" font-family="JetBrains Mono" font-size="10" fill="#c4b5fd" opacity="0.3" font-weight="700">Logger</text>
+    <text x="975" y="470" font-family="JetBrains Mono" font-size="9" fill="#c4b5fd" opacity="0.15">log()</text>
+
+    <defs>
+      <linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#ef4444"/>
+        <stop offset="100%" stop-color="#22c55e"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="content">
+    <div class="badge">SOLID &middot; Principios de Dise&ntilde;o</div>
+    <h1>Single Responsibility Principle</h1>
+    <p class="tagline">Una clase, <em>una raz&oacute;n para cambiar</em>. Consejos pr&aacute;cticos para aplicar SRP en tu c&oacute;digo.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">Arquitectura</span>
+      <span class="pill">SOLID</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

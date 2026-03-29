@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(239,68,68,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(239,68,68,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -80px; background: #ef4444; opacity: 0.18; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #f97316; opacity: 0.12; }
+  .glow-3 { width: 300px; height: 300px; top: 180px; left: 450px; background: #dc2626; opacity: 0.08; }
+
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #fca5a5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px; font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #fca5a5 50%, #fdba74 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .tagline {
+    font-size: 21px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 580px;
+  }
+  .tagline em {
+    font-style: normal;
+    color: rgba(252,165,165,0.8);
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #ef4444, #f97316, #ef4444);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Database-to-code flowing arrows motif -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Database cylinder -->
+    <g transform="translate(880, 140)" opacity="0.4">
+      <ellipse cx="0" cy="0" rx="55" ry="18" stroke="#ef4444" stroke-width="1.5" fill="rgba(239,68,68,0.04)"/>
+      <line x1="-55" y1="0" x2="-55" y2="80" stroke="#ef4444" stroke-width="1.5"/>
+      <line x1="55" y1="0" x2="55" y2="80" stroke="#ef4444" stroke-width="1.5"/>
+      <ellipse cx="0" cy="80" rx="55" ry="18" stroke="#ef4444" stroke-width="1.5" fill="rgba(239,68,68,0.04)"/>
+      <ellipse cx="0" cy="27" rx="55" ry="18" stroke="#ef4444" stroke-width="0.8" fill="none" opacity="0.3"/>
+      <!-- Table rows -->
+      <line x1="-35" y1="42" x2="35" y2="42" stroke="#fca5a5" stroke-width="0.8" opacity="0.25"/>
+      <line x1="-35" y1="52" x2="35" y2="52" stroke="#fca5a5" stroke-width="0.8" opacity="0.2"/>
+      <line x1="-35" y1="62" x2="35" y2="62" stroke="#fca5a5" stroke-width="0.8" opacity="0.15"/>
+    </g>
+
+    <!-- Flowing arrows -->
+    <g opacity="0.35">
+      <path d="M920 240 C920 280, 960 300, 960 340" stroke="url(#flow-g)" stroke-width="2" fill="none"/>
+      <path d="M900 240 C880 290, 920 310, 940 360" stroke="url(#flow-g)" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M940 240 C960 280, 1000 300, 980 360" stroke="url(#flow-g)" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <!-- Arrow heads -->
+      <polygon points="960,348 955,338 965,338" fill="#f97316" opacity="0.5"/>
+      <polygon points="940,368 935,358 945,358" fill="#f97316" opacity="0.4"/>
+      <polygon points="980,368 975,358 985,358" fill="#f97316" opacity="0.4"/>
+    </g>
+
+    <!-- Code block representation -->
+    <g transform="translate(880, 380)" opacity="0.4">
+      <rect x="-60" y="0" width="160" height="120" rx="8" stroke="#f97316" stroke-width="1.5" fill="rgba(249,115,22,0.03)"/>
+      <text x="-45" y="25" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.5">class User</text>
+      <text x="-45" y="42" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.3">&nbsp;&nbsp;extends Model</text>
+      <text x="-45" y="59" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.3">{</text>
+      <text x="-45" y="76" font-family="JetBrains Mono" font-size="9" fill="#fdba74" opacity="0.2">&nbsp;&nbsp;$fillable</text>
+      <text x="-45" y="93" font-family="JetBrains Mono" font-size="9" fill="#fdba74" opacity="0.2">&nbsp;&nbsp;$casts</text>
+      <text x="-45" y="110" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.3">}</text>
+    </g>
+
+    <!-- Second database hint -->
+    <g transform="translate(1080, 100)" opacity="0.2">
+      <ellipse cx="0" cy="0" rx="35" ry="12" stroke="#ef4444" stroke-width="1" fill="none"/>
+      <line x1="-35" y1="0" x2="-35" y2="50" stroke="#ef4444" stroke-width="1"/>
+      <line x1="35" y1="0" x2="35" y2="50" stroke="#ef4444" stroke-width="1"/>
+      <ellipse cx="0" cy="50" rx="35" ry="12" stroke="#ef4444" stroke-width="1" fill="none"/>
+    </g>
+
+    <!-- Second code hint -->
+    <g transform="translate(1060, 420)" opacity="0.15">
+      <rect x="0" y="0" width="100" height="70" rx="6" stroke="#f97316" stroke-width="1" fill="none"/>
+      <text x="12" y="22" font-family="JetBrains Mono" font-size="9" fill="#fdba74">Order.php</text>
+    </g>
+
+    <defs>
+      <linearGradient id="flow-g" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#ef4444"/>
+        <stop offset="100%" stop-color="#f97316"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="content">
+    <div class="badge">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h10v10H3z" rx="2" stroke="#fca5a5" stroke-width="1.5"/><path d="M6 6h4M6 9h3" stroke="#fca5a5" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Laravel Package
+    </div>
+    <h1>reliese/laravel</h1>
+    <p class="tagline">Genera modelos de Eloquent desde bases de datos existentes. <em>Migra proyectos legacy sin escribir modelos a mano.</em></p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">PHP &middot; Laravel</span>
+      <span class="pill">3M+ descargas</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(239,68,68,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(239,68,68,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -80px; background: #ef4444; opacity: 0.18; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #f97316; opacity: 0.12; }
+  .glow-3 { width: 300px; height: 300px; top: 180px; left: 450px; background: #dc2626; opacity: 0.08; }
+
+  /* Database → Model motif */
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #fca5a5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 52px; font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #fca5a5 50%, #fdba74 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 580px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #ef4444, #f97316, #ef4444);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Database table → Eloquent model transformation -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Database table -->
+    <rect x="850" y="80" width="180" height="200" rx="8" stroke="#ef4444" stroke-width="1.5" fill="rgba(239,68,68,0.03)" opacity="0.4"/>
+    <line x1="850" y1="115" x2="1030" y2="115" stroke="#ef4444" stroke-width="1" opacity="0.25"/>
+    <text x="870" y="105" font-family="JetBrains Mono" font-size="12" fill="#fca5a5" opacity="0.4" font-weight="700">users</text>
+    <text x="870" y="140" font-family="JetBrains Mono" font-size="10" fill="#fca5a5" opacity="0.25">id</text>
+    <text x="870" y="158" font-family="JetBrains Mono" font-size="10" fill="#fca5a5" opacity="0.25">name</text>
+    <text x="870" y="176" font-family="JetBrains Mono" font-size="10" fill="#fca5a5" opacity="0.25">email</text>
+    <text x="870" y="194" font-family="JetBrains Mono" font-size="10" fill="#fca5a5" opacity="0.25">created_at</text>
+    <text x="870" y="212" font-family="JetBrains Mono" font-size="10" fill="#fca5a5" opacity="0.25">updated_at</text>
+    <text x="960" y="140" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.2">int</text>
+    <text x="960" y="158" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.2">varchar</text>
+    <text x="960" y="176" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.2">varchar</text>
+    <text x="960" y="194" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.2">timestamp</text>
+    <text x="960" y="212" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.2">timestamp</text>
+
+    <!-- Arrow -->
+    <path d="M940 300 L940 340" stroke="url(#arrow-g)" stroke-width="2" opacity="0.35"/>
+    <polygon points="940,348 935,338 945,338" fill="#fdba74" opacity="0.35"/>
+    <text x="952" y="328" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.2">generate</text>
+
+    <!-- Eloquent model -->
+    <rect x="850" y="360" width="180" height="180" rx="8" stroke="#f97316" stroke-width="1.5" fill="rgba(249,115,22,0.03)" opacity="0.4"/>
+    <line x1="850" y1="395" x2="1030" y2="395" stroke="#f97316" stroke-width="1" opacity="0.25"/>
+    <text x="870" y="385" font-family="JetBrains Mono" font-size="12" fill="#fdba74" opacity="0.4" font-weight="700">User.php</text>
+    <text x="870" y="420" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.25">$table</text>
+    <text x="870" y="438" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.25">$fillable</text>
+    <text x="870" y="456" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.25">$casts</text>
+    <text x="870" y="474" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.25">$dates</text>
+
+    <!-- Second table hint -->
+    <rect x="1060" y="120" width="100" height="100" rx="6" stroke="#ef4444" stroke-width="1" fill="none" opacity="0.12"/>
+    <text x="1075" y="145" font-family="JetBrains Mono" font-size="10" fill="#fca5a5" opacity="0.15">orders</text>
+
+    <!-- Third table hint -->
+    <rect x="1060" y="400" width="100" height="80" rx="6" stroke="#f97316" stroke-width="1" fill="none" opacity="0.1"/>
+    <text x="1072" y="425" font-family="JetBrains Mono" font-size="10" fill="#fdba74" opacity="0.12">Order.php</text>
+
+    <defs>
+      <linearGradient id="arrow-g" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#ef4444"/>
+        <stop offset="100%" stop-color="#f97316"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="content">
+    <div class="badge">Laravel &middot; reliese/laravel</div>
+    <h1>Generar modelos desde una base de datos</h1>
+    <p class="tagline">Eloquent models generados automáticamente desde tu schema existente. Sin escribir una sola línea.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">PHP</span>
+      <span class="pill">Laravel</span>
+      <span class="pill">3M+ downloads</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

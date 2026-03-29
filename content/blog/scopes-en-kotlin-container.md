@@ -1,8 +1,9 @@
 ---
 title: "Scopes en kotlin-container: singletons con ciclo de vida"
 date: "2026-03-28T18:00:00.000Z"
-description: "Cómo diseñé un sistema de scopes para kotlin-container inspirado por una pregunta de la comunidad. Investigación de Koin y Dagger, decisiones de diseño, y la implementación final."
+description: "Cómo diseñé scopes para kotlin-container inspirado por una pregunta de la comunidad. Investigación de Koin y Dagger, decisiones de diseño e implementación."
 image: "/img/kotlin-container-scopes.png"
+og: "/img/og/kotlin-container-scopes-blog.png"
 ---
 
 ${toc}

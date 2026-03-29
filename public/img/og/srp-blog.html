@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(34,197,94,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,197,94,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -80px; background: #22c55e; opacity: 0.15; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #7c3aed; opacity: 0.12; }
+  .glow-3 { width: 300px; height: 300px; top: 200px; left: 500px; background: #059669; opacity: 0.08; }
+
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #86efac;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 96px; font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #86efac 50%, #c4b5fd 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    max-width: 700px;
+  }
+  .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px; font-weight: 700;
+    color: rgba(134,239,172,0.6);
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #22c55e, #7c3aed, #22c55e);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Single gear/cog motif representing single responsibility -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Large cog gear -->
+    <g transform="translate(950, 315)" opacity="0.35">
+      <!-- Gear teeth -->
+      <path d="M0,-140 L15,-138 20,-120 35,-125 45,-108 28,-98 30,-80 48,-78 50,-58 32,-52 28,-34 44,-24 38,-6 20,-10 10,6 22,22 10,36 -6,26 -20,36 -10,22 -22,6 -10,-10 -20,-6 -38,-24 -44,-34 -28,-52 -32,-58 -50,-78 -48,-98 -30,-80 -28,-98 -45,-108 -35,-125 -20,-120 -15,-138"
+        stroke="#22c55e" stroke-width="2" fill="rgba(34,197,94,0.04)"/>
+      <!-- Outer ring of gear -->
+      <circle cx="0" cy="0" r="110" stroke="#22c55e" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <circle cx="0" cy="0" r="95" stroke="#22c55e" stroke-width="1" fill="none" opacity="0.2"/>
+      <!-- 12 gear teeth as rectangles around the circle -->
+      <g opacity="0.5">
+        <rect x="-8" y="-130" width="16" height="30" rx="3" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1"/>
+        <rect x="-8" y="100" width="16" height="30" rx="3" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1"/>
+        <rect x="100" y="-8" width="30" height="16" rx="3" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1"/>
+        <rect x="-130" y="-8" width="30" height="16" rx="3" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1"/>
+        <!-- Diagonal teeth -->
+        <rect x="62" y="-100" width="16" height="30" rx="3" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1" transform="rotate(30, 70, -85)"/>
+        <rect x="-78" y="-100" width="16" height="30" rx="3" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1" transform="rotate(-30, -70, -85)"/>
+        <rect x="62" y="70" width="16" height="30" rx="3" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1" transform="rotate(-30, 70, 85)"/>
+        <rect x="-78" y="70" width="16" height="30" rx="3" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1" transform="rotate(30, -70, 85)"/>
+        <rect x="85" y="-55" width="16" height="30" rx="3" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1" transform="rotate(60, 93, -40)"/>
+        <rect x="-101" y="-55" width="16" height="30" rx="3" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1" transform="rotate(-60, -93, -40)"/>
+        <rect x="85" y="25" width="16" height="30" rx="3" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1" transform="rotate(-60, 93, 40)"/>
+        <rect x="-101" y="25" width="16" height="30" rx="3" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-width="1" transform="rotate(60, -93, 40)"/>
+      </g>
+      <!-- Inner hub -->
+      <circle cx="0" cy="0" r="35" stroke="#22c55e" stroke-width="2" fill="rgba(34,197,94,0.06)" opacity="0.6"/>
+      <circle cx="0" cy="0" r="12" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1.5" opacity="0.7"/>
+      <!-- "1" in the center -->
+      <text x="0" y="6" text-anchor="middle" font-family="JetBrains Mono" font-size="16" font-weight="800" fill="#86efac" opacity="0.8">1</text>
+    </g>
+  </svg>
+
+  <div class="content">
+    <div class="badge">SOLID Principles</div>
+    <h1>SRP</h1>
+    <div class="subtitle">Single Responsibility</div>
+    <p class="tagline">C&oacute;mo aplicar el principio de responsabilidad &uacute;nica en tu c&oacute;digo</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">Arquitectura</span>
+      <span class="pill">Buenas pr&aacute;cticas</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

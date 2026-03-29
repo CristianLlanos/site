@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(236,72,153,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(236,72,153,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -80px; background: #ec4899; opacity: 0.18; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #7c3aed; opacity: 0.15; }
+  .glow-3 { width: 300px; height: 300px; top: 200px; left: 450px; background: #db2777; opacity: 0.08; }
+
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(236,72,153,0.12);
+    border: 1px solid rgba(236,72,153,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #f9a8d4;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  .badge svg { flex-shrink: 0; }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px; font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #f9a8d4 50%, #c4b5fd 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 620px;
+  }
+  .tagline em {
+    font-style: normal;
+    color: rgba(249,168,212,0.85);
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #ec4899, #7c3aed, #ec4899);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Signal/broadcast waves emanating from a point -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Broadcast point -->
+    <circle cx="960" cy="280" r="8" fill="#ec4899" opacity="0.6"/>
+    <circle cx="960" cy="280" r="16" stroke="#ec4899" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+    <!-- Concentric wave arcs -->
+    <circle cx="960" cy="280" r="50" stroke="#ec4899" stroke-width="1.2" fill="none" opacity="0.3" stroke-dasharray="8 4"/>
+    <circle cx="960" cy="280" r="90" stroke="#ec4899" stroke-width="1" fill="none" opacity="0.22" stroke-dasharray="10 6"/>
+    <circle cx="960" cy="280" r="135" stroke="#f9a8d4" stroke-width="0.8" fill="none" opacity="0.16" stroke-dasharray="12 8"/>
+    <circle cx="960" cy="280" r="185" stroke="#f9a8d4" stroke-width="0.6" fill="none" opacity="0.1" stroke-dasharray="14 10"/>
+    <circle cx="960" cy="280" r="240" stroke="#c4b5fd" stroke-width="0.5" fill="none" opacity="0.07" stroke-dasharray="16 12"/>
+
+    <!-- Listener nodes at various positions along the waves -->
+    <!-- Listener 1 -->
+    <circle cx="1060" cy="220" r="5" fill="#f9a8d4" opacity="0.5"/>
+    <circle cx="1060" cy="220" r="10" stroke="#f9a8d4" stroke-width="0.8" fill="none" opacity="0.2"/>
+    <line x1="960" y1="280" x2="1060" y2="220" stroke="#ec4899" stroke-width="0.5" opacity="0.12" stroke-dasharray="3 3"/>
+
+    <!-- Listener 2 -->
+    <circle cx="1080" cy="340" r="5" fill="#c4b5fd" opacity="0.45"/>
+    <circle cx="1080" cy="340" r="10" stroke="#c4b5fd" stroke-width="0.8" fill="none" opacity="0.2"/>
+    <line x1="960" y1="280" x2="1080" y2="340" stroke="#ec4899" stroke-width="0.5" opacity="0.12" stroke-dasharray="3 3"/>
+
+    <!-- Listener 3 -->
+    <circle cx="1000" cy="420" r="5" fill="#a78bfa" opacity="0.4"/>
+    <circle cx="1000" cy="420" r="10" stroke="#a78bfa" stroke-width="0.8" fill="none" opacity="0.2"/>
+    <line x1="960" y1="280" x2="1000" y2="420" stroke="#ec4899" stroke-width="0.5" opacity="0.12" stroke-dasharray="3 3"/>
+
+    <!-- Listener 4 -->
+    <circle cx="880" cy="180" r="4" fill="#f9a8d4" opacity="0.35"/>
+    <circle cx="880" cy="180" r="8" stroke="#f9a8d4" stroke-width="0.8" fill="none" opacity="0.15"/>
+    <line x1="960" y1="280" x2="880" y2="180" stroke="#ec4899" stroke-width="0.5" opacity="0.1" stroke-dasharray="3 3"/>
+
+    <!-- Listener 5 -->
+    <circle cx="850" cy="370" r="4" fill="#c4b5fd" opacity="0.3"/>
+    <circle cx="850" cy="370" r="8" stroke="#c4b5fd" stroke-width="0.8" fill="none" opacity="0.15"/>
+    <line x1="960" y1="280" x2="850" y2="370" stroke="#ec4899" stroke-width="0.5" opacity="0.1" stroke-dasharray="3 3"/>
+
+    <!-- Listener 6 (far) -->
+    <circle cx="1140" cy="160" r="3" fill="#f9a8d4" opacity="0.2"/>
+    <line x1="960" y1="280" x2="1140" y2="160" stroke="#ec4899" stroke-width="0.3" opacity="0.06" stroke-dasharray="3 3"/>
+
+    <!-- Listener 7 (far) -->
+    <circle cx="1130" cy="470" r="3" fill="#c4b5fd" opacity="0.15"/>
+
+    <!-- Small label hints -->
+    <text x="1070" y="215" font-family="JetBrains Mono" font-size="7" fill="#f9a8d4" opacity="0.25">onUser</text>
+    <text x="1090" y="338" font-family="JetBrains Mono" font-size="7" fill="#c4b5fd" opacity="0.2">onOrder</text>
+    <text x="940" y="275" font-family="JetBrains Mono" font-size="8" fill="#ec4899" opacity="0.35">emit</text>
+  </svg>
+
+  <div class="content">
+    <div class="badge">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="#f9a8d4" stroke-width="1.5"/><path d="M12 4a6 6 0 010 8M4 12a6 6 0 010-8" stroke="#f9a8d4" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Kotlin Library
+    </div>
+    <h1>kotlin-events</h1>
+    <p class="tagline">Event bus type-safe para Kotlin. <em>Listeners resueltos autom&aacute;ticamente</em> desde el contenedor de DI.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">Kotlin &middot; JVM</span>
+      <span class="pill">Maven Central</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

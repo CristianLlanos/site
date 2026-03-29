@@ -2,7 +2,8 @@
 title: "Cómo generar modelos de Laravel desde una base de datos existente"
 date: "2021-04-23T00:36:17.739Z"
 description: "Exploremos un mecanismo para generar modelos de Laravel desde nuestra base de datos existente. Súper útil al migrar proyectos existentes hacia Laravel."
-image: "/img/reliese-laravel.png"
+image: "/img/reliese-laravel-cover.png"
+og: "/img/og/reliese-laravel-blog.png"
 ---
 
 ${toc}

@@ -5,6 +5,7 @@ export interface BlogPost {
   description: string
   body: string
   image: string
+  og?: string
 }
 
 export interface ProjectPost {

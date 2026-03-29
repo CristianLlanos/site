@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -80px; background: #0ea5e9; opacity: 0.18; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #7c3aed; opacity: 0.12; }
+  .glow-3 { width: 300px; height: 300px; top: 200px; left: 450px; background: #0284c7; opacity: 0.08; }
+
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(14,165,233,0.12);
+    border: 1px solid rgba(14,165,233,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #7dd3fc;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  .badge svg { flex-shrink: 0; }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 88px; font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #7dd3fc 50%, #c4b5fd 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    max-width: 700px;
+  }
+  .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px; font-weight: 700;
+    color: rgba(125,211,252,0.5);
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  .tagline em {
+    font-style: normal;
+    color: rgba(125,211,252,0.8);
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #0ea5e9, #7c3aed, #0ea5e9);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Nested circles/rings representing scopes -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Outermost scope ring - Application -->
+    <circle cx="960" cy="300" r="200" stroke="#0ea5e9" stroke-width="1.5" fill="none" opacity="0.15" stroke-dasharray="12 6"/>
+    <text x="960" y="115" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7dd3fc" opacity="0.2">Application Scope</text>
+
+    <!-- Middle scope ring - Feature -->
+    <circle cx="960" cy="300" r="140" stroke="#0ea5e9" stroke-width="1.5" fill="rgba(14,165,233,0.02)" opacity="0.25"/>
+    <text x="960" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7dd3fc" opacity="0.25">Feature Scope</text>
+
+    <!-- Inner scope ring - Request -->
+    <circle cx="960" cy="300" r="80" stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.03)" opacity="0.35"/>
+    <text x="960" y="232" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#c4b5fd" opacity="0.3">Request Scope</text>
+
+    <!-- Core - singleton instance -->
+    <circle cx="960" cy="300" r="30" stroke="#c4b5fd" stroke-width="2" fill="rgba(196,181,253,0.06)" opacity="0.5"/>
+    <circle cx="960" cy="300" r="8" fill="#c4b5fd" opacity="0.5"/>
+
+    <!-- Dots along the rings representing bound instances -->
+    <!-- Outer ring dots -->
+    <circle cx="1140" cy="220" r="4" fill="#0ea5e9" opacity="0.3"/>
+    <circle cx="800" cy="200" r="4" fill="#0ea5e9" opacity="0.25"/>
+    <circle cx="1120" cy="420" r="4" fill="#0ea5e9" opacity="0.2"/>
+    <circle cx="820" cy="440" r="3" fill="#0ea5e9" opacity="0.2"/>
+
+    <!-- Middle ring dots -->
+    <circle cx="1080" cy="250" r="4" fill="#38bdf8" opacity="0.35"/>
+    <circle cx="860" cy="240" r="4" fill="#38bdf8" opacity="0.3"/>
+    <circle cx="1070" cy="380" r="4" fill="#38bdf8" opacity="0.3"/>
+    <circle cx="870" cy="400" r="3" fill="#38bdf8" opacity="0.25"/>
+
+    <!-- Inner ring dots -->
+    <circle cx="1020" cy="265" r="4" fill="#a78bfa" opacity="0.4"/>
+    <circle cx="910" cy="270" r="3" fill="#a78bfa" opacity="0.35"/>
+    <circle cx="1010" cy="340" r="4" fill="#a78bfa" opacity="0.35"/>
+    <circle cx="920" cy="350" r="3" fill="#a78bfa" opacity="0.3"/>
+
+    <!-- Lifecycle arrows (partial arcs) -->
+    <path d="M1160 300 A200 200 0 0 1 960 500" stroke="#0ea5e9" stroke-width="0.8" fill="none" opacity="0.1" stroke-dasharray="4 8"/>
+    <path d="M1100 300 A140 140 0 0 1 960 440" stroke="#38bdf8" stroke-width="0.8" fill="none" opacity="0.12" stroke-dasharray="4 6"/>
+  </svg>
+
+  <div class="content">
+    <div class="badge">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#7dd3fc" stroke-width="1.5"/><circle cx="8" cy="8" r="3" stroke="#7dd3fc" stroke-width="1.2"/><circle cx="8" cy="8" r="1" fill="#7dd3fc"/></svg>
+      Deep Dive
+    </div>
+    <h1>Scopes</h1>
+    <div class="subtitle">kotlin-container</div>
+    <p class="tagline">Singletons con ciclo de vida. <em>Inspirado por Koin y Dagger</em>, dise&ntilde;ado para ser simple.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">Kotlin &middot; JVM</span>
+      <span class="pill">Dise&ntilde;o de APIs</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

@@ -2,7 +2,8 @@
 title: "SRP: El principio de una sola responsabilidad"
 date: "2021-04-06T04:25:19.549Z"
 description: "¿Cómo aplicar el Single Responsibility Principle? Desarrollaremos algunos consejos para aplicar este gran principio en nuestro código"
-image: "/img/srp.png"
+image: "/img/srp-cover.png"
+og: "/img/og/srp-blog.png"
 ---
 
 ${toc}

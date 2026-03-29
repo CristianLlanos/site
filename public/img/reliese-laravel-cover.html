@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1400px; height: 700px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(8,145,178,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8,145,178,0.03) 1px, transparent 1px);
+    background-size: 70px 70px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(140px); }
+  .glow-1 { width: 500px; height: 500px; top: -50px; left: 100px; background: #0891b2; opacity: 0.12; }
+  .glow-2 { width: 500px; height: 500px; bottom: -100px; right: 100px; background: #7c3aed; opacity: 0.15; }
+  .glow-3 { width: 300px; height: 300px; top: 200px; left: 600px; background: #0891b2; opacity: 0.08; }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <svg viewBox="0 0 1400 700" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:1400px;height:700px;">
+    <defs>
+      <linearGradient id="cyanPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0891b2"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </linearGradient>
+      <linearGradient id="cyanPurpleFill" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0891b2" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.05"/>
+      </linearGradient>
+      <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#0891b2"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </linearGradient>
+      <linearGradient id="fadeLine" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#0891b2" stop-opacity="0"/>
+        <stop offset="30%" stop-color="#0891b2" stop-opacity="0.2"/>
+        <stop offset="70%" stop-color="#7c3aed" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="softGlow">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="bigGlow">
+        <feGaussianBlur stdDeviation="10"/>
+      </filter>
+      <marker id="arrowCyan" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0,0 8,3 0,6" fill="#0891b2" opacity="0.5"/>
+      </marker>
+      <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0,0 8,3 0,6" fill="#7c3aed" opacity="0.5"/>
+      </marker>
+    </defs>
+
+    <!-- === LEFT SIDE: Database schema === -->
+
+    <!-- Main table: users -->
+    <rect x="100" y="140" width="260" height="260" rx="8" stroke="#0891b2" stroke-width="1.5" fill="url(#cyanPurpleFill)" opacity="0.8"/>
+    <!-- Table header bar -->
+    <rect x="100" y="140" width="260" height="40" rx="8" fill="#0891b2" opacity="0.12"/>
+    <rect x="100" y="168" width="260" height="12" fill="#08080f"/>
+    <!-- Cylinder icon for DB -->
+    <ellipse cx="126" cy="157" rx="10" ry="6" stroke="#22d3ee" stroke-width="1.2" fill="none" opacity="0.6"/>
+    <line x1="116" y1="157" x2="116" y2="167" stroke="#22d3ee" stroke-width="1.2" opacity="0.6"/>
+    <line x1="136" y1="157" x2="136" y2="167" stroke="#22d3ee" stroke-width="1.2" opacity="0.6"/>
+    <ellipse cx="126" cy="167" rx="10" ry="6" stroke="#22d3ee" stroke-width="1.2" fill="none" opacity="0.4"/>
+    <text x="148" y="164" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#22d3ee" opacity="0.75">users</text>
+
+    <!-- Table rows -->
+    <line x1="100" y1="220" x2="360" y2="220" stroke="#0891b2" stroke-width="0.5" opacity="0.2"/>
+    <line x1="100" y1="255" x2="360" y2="255" stroke="#0891b2" stroke-width="0.5" opacity="0.2"/>
+    <line x1="100" y1="290" x2="360" y2="290" stroke="#0891b2" stroke-width="0.5" opacity="0.2"/>
+    <line x1="100" y1="325" x2="360" y2="325" stroke="#0891b2" stroke-width="0.5" opacity="0.2"/>
+    <line x1="100" y1="360" x2="360" y2="360" stroke="#0891b2" stroke-width="0.5" opacity="0.2"/>
+    <!-- Column divider -->
+    <line x1="240" y1="180" x2="240" y2="400" stroke="#0891b2" stroke-width="0.5" opacity="0.15"/>
+
+    <!-- Column names -->
+    <text x="120" y="205" font-family="JetBrains Mono, monospace" font-size="11" fill="#22d3ee" opacity="0.6">id</text>
+    <text x="120" y="240" font-family="JetBrains Mono, monospace" font-size="11" fill="#22d3ee" opacity="0.5">name</text>
+    <text x="120" y="275" font-family="JetBrains Mono, monospace" font-size="11" fill="#22d3ee" opacity="0.5">email</text>
+    <text x="120" y="310" font-family="JetBrains Mono, monospace" font-size="11" fill="#22d3ee" opacity="0.45">password</text>
+    <text x="120" y="345" font-family="JetBrains Mono, monospace" font-size="11" fill="#22d3ee" opacity="0.4">created_at</text>
+    <text x="120" y="380" font-family="JetBrains Mono, monospace" font-size="11" fill="#22d3ee" opacity="0.4">updated_at</text>
+
+    <!-- Types -->
+    <text x="255" y="205" font-family="JetBrains Mono, monospace" font-size="10" fill="#67e8f9" opacity="0.35">bigint</text>
+    <text x="255" y="240" font-family="JetBrains Mono, monospace" font-size="10" fill="#67e8f9" opacity="0.3">varchar</text>
+    <text x="255" y="275" font-family="JetBrains Mono, monospace" font-size="10" fill="#67e8f9" opacity="0.3">varchar</text>
+    <text x="255" y="310" font-family="JetBrains Mono, monospace" font-size="10" fill="#67e8f9" opacity="0.28">varchar</text>
+    <text x="255" y="345" font-family="JetBrains Mono, monospace" font-size="10" fill="#67e8f9" opacity="0.25">timestamp</text>
+    <text x="255" y="380" font-family="JetBrains Mono, monospace" font-size="10" fill="#67e8f9" opacity="0.25">timestamp</text>
+
+    <!-- Key icon for id -->
+    <circle cx="112" cy="201" r="3" stroke="#22d3ee" stroke-width="1" fill="none" opacity="0.5"/>
+
+
+    <!-- Second ghost table: orders -->
+    <rect x="130" y="440" width="200" height="140" rx="6" stroke="#0891b2" stroke-width="1" fill="none" opacity="0.3"/>
+    <rect x="130" y="440" width="200" height="32" rx="6" fill="#0891b2" opacity="0.06"/>
+    <rect x="130" y="462" width="200" height="10" fill="#08080f"/>
+    <text x="155" y="458" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#22d3ee" opacity="0.4">orders</text>
+    <text x="150" y="495" font-family="JetBrains Mono, monospace" font-size="10" fill="#22d3ee" opacity="0.25">id</text>
+    <text x="150" y="515" font-family="JetBrains Mono, monospace" font-size="10" fill="#22d3ee" opacity="0.25">user_id</text>
+    <text x="150" y="535" font-family="JetBrains Mono, monospace" font-size="10" fill="#22d3ee" opacity="0.25">total</text>
+    <text x="150" y="555" font-family="JetBrains Mono, monospace" font-size="10" fill="#22d3ee" opacity="0.22">status</text>
+
+    <!-- FK line from orders.user_id to users.id -->
+    <path d="M 330 515 Q 370 515, 370 400 Q 370 205, 360 205" stroke="#0891b2" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
+
+
+    <!-- === CENTER: Transformation flow === -->
+
+    <!-- Flowing particles from left to right -->
+    <circle cx="430" cy="270" r="3" fill="#22d3ee" opacity="0.45"/>
+    <circle cx="470" cy="310" r="2.5" fill="#0891b2" opacity="0.4"/>
+    <circle cx="500" cy="260" r="3" fill="#22d3ee" opacity="0.35"/>
+    <circle cx="530" cy="340" r="2.5" fill="#7c3aed" opacity="0.35"/>
+    <circle cx="560" cy="290" r="3" fill="#a78bfa" opacity="0.4"/>
+    <circle cx="590" cy="320" r="2.5" fill="#7c3aed" opacity="0.45"/>
+    <circle cx="620" cy="280" r="3" fill="#a78bfa" opacity="0.45"/>
+    <circle cx="650" cy="350" r="3" fill="#7c3aed" opacity="0.5"/>
+    <circle cx="680" cy="300" r="3.5" fill="#a78bfa" opacity="0.5"/>
+
+    <!-- Three flowing curves -->
+    <path d="M 400 250 C 500 220, 600 320, 720 270" stroke="url(#flowGrad)" stroke-width="2" fill="none" opacity="0.35"/>
+    <path d="M 400 350 C 500 350, 600 350, 720 350" stroke="url(#flowGrad)" stroke-width="2" fill="none" opacity="0.4"/>
+    <path d="M 400 440 C 500 470, 600 380, 720 430" stroke="url(#flowGrad)" stroke-width="2" fill="none" opacity="0.3"/>
+
+    <!-- Small arrow tips -->
+    <polygon points="728,268 718,264 720,274" fill="#7c3aed" opacity="0.4"/>
+    <polygon points="728,348 718,344 720,354" fill="#7c3aed" opacity="0.45"/>
+    <polygon points="728,428 718,424 720,434" fill="#7c3aed" opacity="0.35"/>
+
+    <!-- Central gear/cog icon representing the generation process -->
+    <g transform="translate(560, 350)" opacity="0.3">
+      <circle r="20" stroke="url(#cyanPurple)" stroke-width="1.5" fill="none"/>
+      <circle r="8" stroke="url(#cyanPurple)" stroke-width="1" fill="none"/>
+      <!-- Gear teeth -->
+      <rect x="-3" y="-25" width="6" height="10" rx="1" fill="#0891b2"/>
+      <rect x="-3" y="15" width="6" height="10" rx="1" fill="#7c3aed"/>
+      <rect x="-25" y="-3" width="10" height="6" rx="1" fill="#0891b2"/>
+      <rect x="15" y="-3" width="10" height="6" rx="1" fill="#7c3aed"/>
+      <rect x="13" y="-18" width="6" height="10" rx="1" fill="#0891b2" transform="rotate(45 16 -13)"/>
+      <rect x="-19" y="8" width="6" height="10" rx="1" fill="#7c3aed" transform="rotate(45 -16 13)"/>
+      <rect x="8" y="13" width="6" height="10" rx="1" fill="#0891b2" transform="rotate(-45 11 18)"/>
+      <rect x="-14" y="-23" width="6" height="10" rx="1" fill="#7c3aed" transform="rotate(-45 -11 -18)"/>
+    </g>
+
+
+    <!-- === RIGHT SIDE: Generated Eloquent model === -->
+
+    <!-- Code block container -->
+    <rect x="780" y="120" width="520" height="460" rx="10" stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.04)" opacity="0.8"/>
+
+    <!-- Title bar -->
+    <rect x="780" y="120" width="520" height="40" rx="10" fill="#7c3aed" opacity="0.08"/>
+    <rect x="780" y="148" width="520" height="12" fill="#08080f"/>
+    <!-- Window dots -->
+    <circle cx="805" cy="140" r="5" fill="#e2e2f0" opacity="0.15"/>
+    <circle cx="822" cy="140" r="5" fill="#e2e2f0" opacity="0.15"/>
+    <circle cx="839" cy="140" r="5" fill="#e2e2f0" opacity="0.15"/>
+    <!-- Filename -->
+    <text x="870" y="145" font-family="JetBrains Mono, monospace" font-size="12" fill="#c4b5fd" opacity="0.6">User.php</text>
+
+    <!-- Code lines -->
+    <!-- PHP tag -->
+    <text x="810" y="190" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity="0.35">&lt;?php</text>
+
+    <!-- Namespace -->
+    <rect x="810" y="210" width="160" height="10" rx="2" fill="#a78bfa" opacity="0.1"/>
+
+    <!-- Use statements -->
+    <rect x="810" y="235" width="220" height="10" rx="2" fill="#7c3aed" opacity="0.08"/>
+    <rect x="810" y="252" width="200" height="10" rx="2" fill="#7c3aed" opacity="0.07"/>
+
+    <!-- Class declaration -->
+    <text x="810" y="290" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity="0.5">class</text>
+    <text x="850" y="290" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#a78bfa" opacity="0.65">User</text>
+    <text x="885" y="290" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity="0.4">extends Model</text>
+
+    <!-- Opening brace -->
+    <text x="810" y="310" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity="0.35">{</text>
+
+    <!-- Properties -->
+    <text x="840" y="338" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c3aed" opacity="0.4">protected</text>
+    <text x="920" y="338" font-family="JetBrains Mono, monospace" font-size="10" fill="#c4b5fd" opacity="0.5">$table</text>
+    <text x="968" y="338" font-family="JetBrains Mono, monospace" font-size="10" fill="#e2e2f0" opacity="0.3">= 'users';</text>
+
+    <text x="840" y="365" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c3aed" opacity="0.38">protected</text>
+    <text x="920" y="365" font-family="JetBrains Mono, monospace" font-size="10" fill="#c4b5fd" opacity="0.45">$fillable</text>
+    <text x="985" y="365" font-family="JetBrains Mono, monospace" font-size="10" fill="#e2e2f0" opacity="0.25">= [</text>
+    <!-- Array items as bars -->
+    <rect x="860" y="378" width="100" height="8" rx="2" fill="#a78bfa" opacity="0.1"/>
+    <rect x="860" y="393" width="80" height="8" rx="2" fill="#a78bfa" opacity="0.08"/>
+    <rect x="860" y="408" width="110" height="8" rx="2" fill="#a78bfa" opacity="0.07"/>
+    <text x="840" y="430" font-family="JetBrains Mono, monospace" font-size="10" fill="#e2e2f0" opacity="0.25">];</text>
+
+    <text x="840" y="458" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c3aed" opacity="0.35">protected</text>
+    <text x="920" y="458" font-family="JetBrains Mono, monospace" font-size="10" fill="#c4b5fd" opacity="0.42">$casts</text>
+    <text x="968" y="458" font-family="JetBrains Mono, monospace" font-size="10" fill="#e2e2f0" opacity="0.25">= [</text>
+    <rect x="860" y="470" width="140" height="8" rx="2" fill="#a78bfa" opacity="0.07"/>
+    <rect x="860" y="485" width="130" height="8" rx="2" fill="#a78bfa" opacity="0.06"/>
+    <text x="840" y="508" font-family="JetBrains Mono, monospace" font-size="10" fill="#e2e2f0" opacity="0.25">];</text>
+
+    <!-- Relationship method hint -->
+    <text x="840" y="540" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c3aed" opacity="0.32">public function</text>
+    <text x="968" y="540" font-family="JetBrains Mono, monospace" font-size="10" fill="#c4b5fd" opacity="0.4">orders()</text>
+    <rect x="860" y="552" width="180" height="8" rx="2" fill="#a78bfa" opacity="0.06"/>
+
+    <!-- Closing brace -->
+    <text x="810" y="575" font-family="JetBrains Mono, monospace" font-size="11" fill="#c4b5fd" opacity="0.35">}</text>
+
+
+    <!-- "reliese/laravel" subtle label -->
+    <text x="700" y="640" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700" fill="#7c3aed" opacity="0.25" letter-spacing="0.15em">reliese/laravel</text>
+
+    <!-- Bottom gradient line -->
+    <rect x="0" y="696" width="1400" height="4" fill="url(#cyanPurple)" opacity="0.5"/>
+  </svg>
+</body>
+</html>

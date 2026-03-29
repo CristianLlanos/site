@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1400px; height: 700px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+    background-size: 70px 70px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(140px); }
+  .glow-1 { width: 500px; height: 500px; top: 50px; right: 150px; background: #7c3aed; opacity: 0.18; }
+  .glow-2 { width: 350px; height: 350px; bottom: 0; left: 100px; background: #0891b2; opacity: 0.12; }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <svg viewBox="0 0 1400 700" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:1400px;height:700px;">
+    <defs>
+      <linearGradient id="purpleCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7c3aed"/>
+        <stop offset="100%" stop-color="#0891b2"/>
+      </linearGradient>
+      <linearGradient id="purpleCyanFill" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#0891b2" stop-opacity="0.06"/>
+      </linearGradient>
+      <linearGradient id="fadeLine" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7c3aed" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#7c3aed" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#0891b2" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="softGlow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="bigGlow">
+        <feGaussianBlur stdDeviation="12"/>
+      </filter>
+    </defs>
+
+    <!-- Thin horizontal divider -->
+    <line x1="0" y1="350" x2="1400" y2="350" stroke="url(#fadeLine)" stroke-width="1"/>
+
+    <!-- === LEFT SIDE: Chaos / many responsibilities === -->
+
+    <!-- Cluttered overlapping shapes -->
+    <rect x="120" y="160" width="110" height="80" rx="4" stroke="#e2e2f0" stroke-width="1.5" fill="none" opacity="0.4" transform="rotate(-8 175 200)"/>
+    <rect x="180" y="200" width="90" height="60" rx="4" stroke="#e2e2f0" stroke-width="1.5" fill="none" opacity="0.35" transform="rotate(12 225 230)"/>
+    <rect x="80" y="240" width="130" height="50" rx="4" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.3" transform="rotate(-3 145 265)"/>
+    <rect x="200" y="130" width="70" height="100" rx="4" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.4" transform="rotate(6 235 180)"/>
+    <rect x="100" y="310" width="100" height="70" rx="4" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.28" transform="rotate(-15 150 345)"/>
+
+    <!-- Circles -->
+    <circle cx="160" cy="180" r="25" stroke="#e2e2f0" stroke-width="1.5" fill="none" opacity="0.35"/>
+    <circle cx="250" cy="280" r="18" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.3"/>
+    <circle cx="120" cy="300" r="30" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.28"/>
+
+    <!-- Triangles -->
+    <polygon points="280,170 310,230 250,230" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.35" transform="rotate(20 280 200)"/>
+    <polygon points="150,350 180,400 120,400" stroke="#e2e2f0" stroke-width="1.2" fill="none" opacity="0.28" transform="rotate(-10 150 375)"/>
+
+    <!-- Scattered dots -->
+    <circle cx="95" cy="195" r="3" fill="#e2e2f0" opacity="0.3"/>
+    <circle cx="230" cy="155" r="3" fill="#e2e2f0" opacity="0.25"/>
+    <circle cx="280" cy="310" r="3" fill="#e2e2f0" opacity="0.3"/>
+    <circle cx="145" cy="270" r="3" fill="#e2e2f0" opacity="0.22"/>
+    <circle cx="310" cy="250" r="3" fill="#e2e2f0" opacity="0.25"/>
+    <circle cx="100" cy="365" r="2.5" fill="#e2e2f0" opacity="0.22"/>
+
+    <!-- Lines connecting chaos shapes -->
+    <line x1="140" y1="180" x2="210" y2="220" stroke="#e2e2f0" stroke-width="1" opacity="0.3"/>
+    <line x1="250" y1="190" x2="200" y2="260" stroke="#e2e2f0" stroke-width="1" opacity="0.25"/>
+    <line x1="120" y1="280" x2="180" y2="330" stroke="#e2e2f0" stroke-width="1" opacity="0.22"/>
+    <line x1="270" y1="250" x2="310" y2="180" stroke="#e2e2f0" stroke-width="1" opacity="0.25"/>
+
+    <!-- More bottom-left chaos -->
+    <rect x="60" y="410" width="80" height="55" rx="3" stroke="#e2e2f0" stroke-width="1" fill="none" opacity="0.25" transform="rotate(8 100 438)"/>
+    <rect x="160" y="430" width="60" height="90" rx="3" stroke="#e2e2f0" stroke-width="1" fill="none" opacity="0.25" transform="rotate(-5 190 475)"/>
+    <circle cx="280" cy="420" r="22" stroke="#e2e2f0" stroke-width="1" fill="none" opacity="0.25"/>
+    <polygon points="100,490 130,540 70,540" stroke="#e2e2f0" stroke-width="1" fill="none" opacity="0.22"/>
+    <rect x="220" y="480" width="90" height="40" rx="3" stroke="#e2e2f0" stroke-width="1" fill="none" opacity="0.22" transform="rotate(10 265 500)"/>
+
+    <!-- Red X marks on some chaos shapes -->
+    <g opacity="0.45" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round">
+      <line x1="145" y1="165" x2="175" y2="195"/>
+      <line x1="175" y1="165" x2="145" y2="195"/>
+    </g>
+    <g opacity="0.35" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round">
+      <line x1="235" y1="265" x2="265" y2="295"/>
+      <line x1="265" y1="265" x2="235" y2="295"/>
+    </g>
+
+
+    <!-- === CENTRAL TRANSITION: flowing curves === -->
+
+    <path d="M 400 350 C 480 320, 520 250, 580 250 C 640 250, 660 340, 700 350" stroke="url(#purpleCyan)" stroke-width="2.5" opacity="0.6" fill="none"/>
+    <path d="M 400 350 C 480 380, 520 450, 580 450 C 640 450, 660 360, 700 350" stroke="url(#purpleCyan)" stroke-width="2.5" opacity="0.4" fill="none"/>
+
+    <!-- Convergence point -->
+    <circle cx="700" cy="350" r="5" fill="#7c3aed" opacity="0.7"/>
+    <circle cx="700" cy="350" r="18" stroke="#7c3aed" stroke-width="1.5" fill="none" opacity="0.35"/>
+
+    <!-- Arrow pointing right -->
+    <line x1="725" y1="350" x2="820" y2="350" stroke="url(#purpleCyan)" stroke-width="3" opacity="0.6"/>
+    <polygon points="832,350 815,340 815,360" fill="#0891b2" opacity="0.65"/>
+
+
+    <!-- === RIGHT SIDE: Single perfect hexagon === -->
+
+    <!-- Radial rings -->
+    <circle cx="1060" cy="350" r="190" stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.15"/>
+    <circle cx="1060" cy="350" r="150" stroke="#0891b2" stroke-width="0.8" fill="none" opacity="0.18"/>
+    <circle cx="1060" cy="350" r="110" stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.2"/>
+
+    <!-- The single perfect hexagon -->
+    <polygon
+      points="1060,230 1160,288 1160,406 1060,464 960,406 960,288"
+      stroke="url(#purpleCyan)" stroke-width="3"
+      fill="url(#purpleCyanFill)"
+      filter="url(#softGlow)"
+      opacity="0.9"
+    />
+
+    <!-- Inner hexagon -->
+    <polygon
+      points="1060,268 1128,302 1128,398 1060,432 992,398 992,302"
+      stroke="url(#purpleCyan)" stroke-width="1.5"
+      fill="none"
+      opacity="0.4"
+    />
+
+    <!-- Tiny inner hexagon -->
+    <polygon
+      points="1060,308 1090,325 1090,375 1060,392 1030,375 1030,325"
+      stroke="url(#purpleCyan)" stroke-width="1"
+      fill="none"
+      opacity="0.3"
+    />
+
+    <!-- Central dot -->
+    <circle cx="1060" cy="350" r="5" fill="url(#purpleCyan)" opacity="0.8"/>
+
+    <!-- Soft glow behind hexagon -->
+    <circle cx="1060" cy="350" r="80" fill="#7c3aed" filter="url(#bigGlow)" opacity="0.12"/>
+
+    <!-- Vertex dots -->
+    <circle cx="1060" cy="230" r="4" fill="#0891b2" opacity="0.6"/>
+    <circle cx="1160" cy="288" r="4" fill="#7c3aed" opacity="0.55"/>
+    <circle cx="1160" cy="406" r="4" fill="#0891b2" opacity="0.55"/>
+    <circle cx="1060" cy="464" r="4" fill="#7c3aed" opacity="0.55"/>
+    <circle cx="960" cy="406" r="4" fill="#0891b2" opacity="0.55"/>
+    <circle cx="960" cy="288" r="4" fill="#7c3aed" opacity="0.55"/>
+
+    <!-- Lines from vertices outward -->
+    <line x1="1060" y1="230" x2="1060" y2="185" stroke="#0891b2" stroke-width="1" opacity="0.3"/>
+    <line x1="1160" y1="288" x2="1195" y2="265" stroke="#7c3aed" stroke-width="1" opacity="0.28"/>
+    <line x1="1160" y1="406" x2="1195" y2="430" stroke="#0891b2" stroke-width="1" opacity="0.28"/>
+    <line x1="1060" y1="464" x2="1060" y2="510" stroke="#7c3aed" stroke-width="1" opacity="0.3"/>
+    <line x1="960" y1="406" x2="925" y2="430" stroke="#0891b2" stroke-width="1" opacity="0.28"/>
+    <line x1="960" y1="288" x2="925" y2="265" stroke="#7c3aed" stroke-width="1" opacity="0.28"/>
+
+    <!-- Green checkmark near hexagon -->
+    <g opacity="0.5" transform="translate(1060, 510)">
+      <polyline points="-8,0 -2,8 10,-8" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- "SRP" text below hexagon -->
+    <text x="1060" y="560" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="700" fill="#7c3aed" opacity="0.4" letter-spacing="0.35em">SRP</text>
+
+    <!-- Bottom gradient line -->
+    <rect x="0" y="696" width="1400" height="4" fill="url(#purpleCyan)" opacity="0.5"/>
+  </svg>
+</body>
+</html>

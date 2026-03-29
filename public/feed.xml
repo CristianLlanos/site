@@ -18,7 +18,7 @@
       <link>https://cristianllanos.com/blog/scopes-en-kotlin-container/</link>
       <guid>https://cristianllanos.com/blog/scopes-en-kotlin-container/</guid>
       <pubDate>Sat, 28 Mar 2026 18:00:00 GMT</pubDate>
-      <description>Cómo diseñé un sistema de scopes para kotlin-container inspirado por una pregunta de la comunidad. Investigación de Koin y Dagger, decisiones de diseño, y la implementación final.</description>
+      <description>Cómo diseñé scopes para kotlin-container inspirado por una pregunta de la comunidad. Investigación de Koin y Dagger, decisiones de diseño e implementación.</description>
     </item>
     <item>
       <title>Inyección de dependencias en Kotlin sin configuración</title>

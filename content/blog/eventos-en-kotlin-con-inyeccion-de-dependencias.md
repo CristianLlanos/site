@@ -3,6 +3,7 @@ title: "Eventos en Kotlin con inyección de dependencias"
 date: "2026-03-28T21:00:00.000Z"
 description: "Presentando kotlin-events: un event bus ligero y type-safe para Kotlin donde los listeners se resuelven automáticamente desde el contenedor de DI."
 image: "/img/kotlin-events.png"
+og: "/img/og/kotlin-events-blog.png"
 ---
 
 ${toc}
@@ -34,7 +35,7 @@ El patrón de eventos resuelve esto: el servicio anuncia que algo ocurrió, y lo
 
 [kotlin-events](https://github.com/CristianLlanos/kotlin-events) es un event bus ligero para Kotlin que implementa publish-subscribe con una diferencia clave: **los listeners se resuelven desde un contenedor de inyección de dependencias**. Esto significa que cada listener recibe sus dependencias automáticamente, igual que cualquier otro servicio.
 
-La librería está construida sobre [kotlin-container](https://github.com/CristianLlanos/kotlin-container) y publicada en Maven Central:
+La librería está construida sobre [kotlin-container](https://github.com/CristianLlanos/kotlin-container) ([documentación](/projects/kotlin-container/)) y publicada en Maven Central:
 
 ```kotlin
 dependencies {
