@@ -36,6 +36,16 @@ const md = new MarkdownIt({
 md.use(anchor)
 md.use(tocPlugin, { listType: 'ul' })
 
+const defaultTableOpen = md.renderer.rules.table_open || ((tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options))
+md.renderer.rules.table_open = (tokens, idx, options, env, self) => {
+  return '<div class="table-wrapper">' + defaultTableOpen(tokens, idx, options, env, self)
+}
+
+const defaultTableClose = md.renderer.rules.table_close || ((tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options))
+md.renderer.rules.table_close = (tokens, idx, options, env, self) => {
+  return defaultTableClose(tokens, idx, options, env, self) + '</div>'
+}
+
 export function renderMarkdown(body: string): string {
   return md.render(body)
 }

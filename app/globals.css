@@ -892,7 +892,9 @@ code {
   margin-bottom: var(--space-lg);
 }
 
-.content p code {
+.content p code,
+.content td code,
+.content li code {
   background: var(--bg-code-inline);
   padding: 2px 8px;
   border-radius: 4px;
@@ -1021,6 +1023,53 @@ code {
 .content .table-of-contents a:hover::before {
   opacity: 1;
   color: var(--accent-primary);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+.content .table-wrapper {
+  margin: var(--space-xl) 0;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.content thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.content th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-heading);
+  text-align: left;
+  padding: var(--space-md) var(--space-lg);
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.content td {
+  padding: var(--space-md) var(--space-lg);
+  color: var(--text-body);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.content tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* ============================================

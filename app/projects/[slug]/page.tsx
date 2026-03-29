@@ -1,6 +1,31 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getProjectPosts, getProjectPost } from '@/lib/content'
 import { renderMarkdown } from '@/lib/markdown'
+
+const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const post = getProjectPost(slug)
+  if (!post) return {}
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      ...(post.cover && {
+        images: [{ url: `${SITE_URL}${post.cover}`, alt: post.title }],
+      }),
+    },
+  }
+}
 
 export async function generateStaticParams() {
   const posts = getProjectPosts()

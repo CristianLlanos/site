@@ -30,6 +30,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       type: 'article',
+      publishedTime: post.date,
       images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
@@ -52,7 +53,35 @@ export default async function BlogPostPage({
 
   const bodyHtml = renderMarkdown(post.body)
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    image: `${SITE_URL}${post.image}`,
+    datePublished: post.date,
+    author: {
+      '@type': 'Person',
+      name: 'Cristian Llanos',
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Cristian Llanos',
+      url: SITE_URL,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/blog/${post.slug}/`,
+    },
+  }
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
     <article className="article">
       <img className="article__cover" src={post.image} alt={post.title} />
 
@@ -79,5 +108,6 @@ export default async function BlogPostPage({
 
       <DisqusComments />
     </article>
+    </>
   )
 }

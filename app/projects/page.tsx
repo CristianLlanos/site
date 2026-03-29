@@ -1,4 +1,14 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Proyectos',
+  description: 'Proyectos de software y experimentos técnicos de Cristian Llanos.',
+  openGraph: {
+    title: 'Proyectos | Cristian Llanos',
+    description: 'Proyectos de software y experimentos técnicos de Cristian Llanos.',
+  },
+}
 import { getProjectPosts } from '@/lib/content'
 
 export default function ProjectsListPage() {

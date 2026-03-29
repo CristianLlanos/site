@@ -10,6 +10,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ['latin', 'latin-ext'], variable: 
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin', 'latin-ext'], variable: '--font-code' })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cristianllanos.com'),
   title: {
     default: 'Cristian Llanos',
     template: '%s | Cristian Llanos',
@@ -21,6 +22,11 @@ export const metadata: Metadata = {
   twitter: {
     creator: '@cris_decode',
     site: '@cris_decode',
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
   },
   icons: {
     icon: [
