@@ -30,19 +30,45 @@ val service = container.resolve<UserService>()
 
 Eso es todo. Sin anotaciones, sin módulos, sin configuración.
 
+La resolución automática maneja:
+
+- **Clases concretas** — se resuelven recursivamente via su constructor primario
+- **Interfaces y abstractas registradas** — se resuelven desde el registro
+- **Parámetros opcionales con valores por defecto** — se omiten si no pueden resolverse
+- **Primitivos requeridos (String, Int, etc.)** — lanzan `UnresolvableDependencyException`
+
 ## Diseño basado en segregación de interfaces
 
-El contenedor está dividido en tres contratos independientes:
-
-- **Registrar** — registra dependencias (factories y singletons)
-- **Resolver** — resuelve dependencias registradas o auto-resolvibles
-- **Caller** — invoca funciones inyectando sus parámetros
+El contenedor está dividido en interfaces enfocadas. Cada parte del código recibe solo la capacidad que necesita:
 
 ```kotlin
-interface Container : Registrar, Resolver, Caller
+interface Registrar   // register(), factory(), singleton(), scoped()
+interface Resolver    // resolve()
+interface Caller      // call()
+interface Container : Registrar, Resolver, Caller  // child()
+interface Scope : Container, AutoCloseable          // close()
 ```
 
-Esto permite pasar solo la capacidad que cada parte del código necesita. Por ejemplo, un handler de ruta solo necesita `Resolver`, mientras que el setup de la aplicación necesita el `Container` completo.
+Por ejemplo:
+
+```kotlin
+// Setup — acceso completo
+fun bootstrap(): Container {
+    val container = Container()
+    container.register(AuthServiceProvider(), PaymentServiceProvider())
+    return container
+}
+
+// Rutas — solo puede resolver, no registrar
+fun userRoutes(resolver: Resolver) {
+    val service = resolver.resolve<UserService>()
+}
+
+// Middleware — solo puede invocar funciones
+fun runMiddleware(caller: Caller) {
+    caller.call(::authenticate)
+}
+```
 
 ## Registro manual cuando lo necesitas
 
@@ -60,6 +86,20 @@ container.singleton<Database> { PostgresDatabase("jdbc:...") }
 
 Las dependencias registradas siempre tienen prioridad sobre la resolución automática.
 
+Dentro de los lambdas de registro, `resolve<T>()` está disponible para referenciar otros bindings — útil cuando un binding depende de otro o cuando la misma implementación respalda múltiples interfaces:
+
+```kotlin
+class EventServiceProvider {
+    fun register(container: Container) {
+        container.singleton<EventBus> { EventBus(this) }
+        container.singleton<Emitter> { resolve<EventBus>() }
+        container.singleton<Subscriber> { resolve<EventBus>() }
+    }
+}
+```
+
+`this` dentro del lambda se refiere al contenedor, así que puedes pasarlo directamente a clases que lo necesiten. `resolve<T>()` obtiene instancias del registro, permitiendo compartir una misma instancia entre múltiples interfaces.
+
 ## Invocación de funciones con inyección
 
 Una de las características más útiles es la capacidad de invocar funciones resolviendo sus parámetros automáticamente:
@@ -71,6 +111,13 @@ fun handleRequest(service: UserService, db: Database): Response {
 }
 
 val response = container.call(::handleRequest)
+```
+
+También funciona con métodos de instancia:
+
+```kotlin
+val controller = OrderController()
+container.call(controller::processOrder)
 ```
 
 Los parámetros opcionales con valores por defecto se omiten si no pueden resolverse, en lugar de lanzar un error.
@@ -136,6 +183,22 @@ class AppProvider {
 }
 ```
 
+## Custom auto-resolver
+
+Si necesitas reemplazar la resolución automática basada en reflexión, puedes inyectar tu propia estrategia:
+
+```kotlin
+class MyAutoResolver : AutoResolver {
+    override fun <T : Any> resolve(type: Class<T>, resolver: Resolver): T {
+        // tu lógica de resolución
+    }
+}
+
+val container = Container(MyAutoResolver())
+```
+
+El contenedor usa `ReflectionAutoResolver` por defecto cuando no se provee uno personalizado.
+
 ## ¿Por qué otro contenedor de DI?
 
 Porque a veces no necesitas un framework completo. Si tu proyecto es una API pequeña, una herramienta CLI, o simplemente quieres DI sin la ceremonia de Dagger o la magia de Spring, `kotlin-container` ocupa ese espacio intermedio: suficiente potencia con mínima fricción.
@@ -143,5 +206,5 @@ Porque a veces no necesitas un framework completo. Si tu proyecto es una API peq
 El proyecto está publicado en Maven Central y disponible en [GitHub](https://github.com/CristianLlanos/kotlin-container).
 
 ```bash
-implementation("com.cristianllanos:container:0.1.0")
+implementation("com.cristianllanos:container:0.3.0")
 ```
