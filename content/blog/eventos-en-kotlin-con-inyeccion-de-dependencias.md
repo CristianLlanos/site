@@ -73,6 +73,23 @@ emitter.emit(UserCreated("Alice"))
 
 Cuando se emite `UserCreated`, el event bus resuelve `WelcomeEmailListener` desde el contenedor. Como `EmailService` está en su constructor, se inyecta automáticamente. El listener no se instancia a mano — el contenedor se encarga.
 
+Las suscripciones también se pueden configurar dentro de un service provider, donde los parámetros se resuelven automáticamente:
+
+```kotlin
+class OrderEventProvider {
+    fun register(subscriber: Subscriber) {
+        subscriber.subscribe<OrderPlaced>(
+            InventoryListener::class,
+            NotificationListener::class,
+        )
+    }
+}
+
+container.register(OrderEventProvider())
+```
+
+El provider pide `Subscriber` directamente — no necesita el contenedor completo. kotlin-container resuelve los parámetros de `register` automáticamente.
+
 ## Las decisiones de diseño
 
 ### Los listeners no son instancias, son clases
@@ -118,12 +135,12 @@ class OrderService(private val events: Emitter) {
 
 ### Service providers para organizar suscripciones
 
-Las suscripciones se agrupan naturalmente en service providers:
+Las suscripciones se agrupan naturalmente en service providers. Gracias a la resolución automática de parámetros en kotlin-container, el provider pide directamente lo que necesita:
 
 ```kotlin
-class OrderServiceProvider : ServiceProvider {
-    override fun register(container: Container) {
-        container.resolve<Subscriber>().subscribe<OrderPlaced>(
+class OrderEventProvider {
+    fun register(subscriber: Subscriber) {
+        subscriber.subscribe<OrderPlaced>(
             InventoryListener::class,
             NotificationListener::class,
         )
@@ -131,7 +148,7 @@ class OrderServiceProvider : ServiceProvider {
 }
 ```
 
-Esto mantiene el wiring centralizado y fuera de la lógica de negocio.
+Esto mantiene el wiring centralizado y fuera de la lógica de negocio. El provider no necesita recibir el contenedor completo — solo la interfaz que realmente usa.
 
 ## La implementación por dentro
 

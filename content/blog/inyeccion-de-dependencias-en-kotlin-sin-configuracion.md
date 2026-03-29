@@ -77,19 +77,35 @@ Los parámetros opcionales con valores por defecto se omiten si no pueden resolv
 
 ## Service Providers
 
-Para organizar el registro de dependencias en módulos reutilizables:
+Para organizar el registro de dependencias en módulos reutilizables, cualquier clase con un método `register()` funciona como provider. Los parámetros de `register` se resuelven automáticamente desde el contenedor:
 
 ```kotlin
-class DatabaseProvider : ServiceProvider {
-    override fun register(registrar: Registrar) {
-        registrar.singleton<Database> { PostgresDatabase("jdbc:...") }
-        registrar.singleton<Cache> { RedisCache() }
+class DatabaseProvider {
+    fun register(container: Container) {
+        container.singleton<Database> { PostgresDatabase("jdbc:...") }
+        container.singleton<Cache> { RedisCache() }
     }
 }
 
 val container = Container()
 container.register(DatabaseProvider())
 ```
+
+El provider puede pedir cualquier dependencia que necesite — no solo el contenedor:
+
+```kotlin
+class NotificationProvider {
+    fun register(container: Container, config: AppConfig) {
+        if (config.slackEnabled) {
+            container.singleton<Notifier> { SlackNotifier(config.slackWebhook) }
+        } else {
+            container.singleton<Notifier> { EmailNotifier() }
+        }
+    }
+}
+```
+
+No hay interfaz que implementar — es pura convención. El contenedor encuentra el método `register`, resuelve sus parámetros, y lo invoca.
 
 ## Registro simplificado para clases concretas
 
@@ -106,8 +122,8 @@ container.factory<TempProcessor>()
 Es equivalente a escribir `container.singleton<TenantService> { resolve() }` — el contenedor resuelve automáticamente las dependencias del constructor. Esto es especialmente útil cuando tienes muchos servicios concretos que solo necesitan un ciclo de vida específico:
 
 ```kotlin
-class AppProvider : ServiceProvider {
-    override fun register(container: Container) {
+class AppProvider {
+    fun register(container: Container) {
         // Interfaces — requieren lambda para especificar la implementación
         container.singleton<PaymentGateway> { StripeGateway() }
         container.singleton<Emitter> { resolve<EventBus>() }
