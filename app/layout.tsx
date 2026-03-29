@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
-import Script from 'next/script'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Footer from '@/components/footer'
 import ThemeToggle from '@/components/theme-toggle'
@@ -56,10 +55,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Footer />
         </div>
-        <Script
-          src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   )

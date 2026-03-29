@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getCreditsHtml } from '@/lib/content'
+import { breadcrumbList } from '@/lib/structured-data'
 
 export const metadata: Metadata = {
   title: 'Acerca de',
@@ -25,6 +26,11 @@ const jsonLd = {
   ],
 }
 
+const breadcrumbs = breadcrumbList([
+  { name: 'Inicio', url: '/' },
+  { name: 'Acerca de', url: '/about/' },
+])
+
 export default function AboutPage() {
   const about = getCreditsHtml()
 
@@ -33,6 +39,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
       <div className="page-content">
         <div className="content" dangerouslySetInnerHTML={{ __html: about }} />

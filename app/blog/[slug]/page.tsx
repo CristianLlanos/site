@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { getBlogPosts, getBlogPost } from '@/lib/content'
 import { renderMarkdown } from '@/lib/markdown'
 import { longDate } from '@/lib/date-formats'
+import { breadcrumbList } from '@/lib/structured-data'
 import GiscusComments from '@/components/giscus-comments'
 
 const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
@@ -31,6 +32,7 @@ export async function generateMetadata({
       description: post.description,
       type: 'article',
       publishedTime: post.date,
+      authors: ['Cristian Llanos'],
       images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
@@ -60,6 +62,7 @@ export default async function BlogPostPage({
     description: post.description,
     image: `${SITE_URL}${post.image}`,
     datePublished: post.date,
+    dateModified: post.date,
     author: {
       '@type': 'Person',
       name: 'Cristian Llanos',
@@ -76,11 +79,21 @@ export default async function BlogPostPage({
     },
   }
 
+  const breadcrumbs = breadcrumbList([
+    { name: 'Inicio', url: '/' },
+    { name: 'Blog', url: '/blog/' },
+    { name: post.title, url: `/blog/${post.slug}/` },
+  ])
+
   return (
     <>
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
     />
     <article className="article">
       <img className="article__cover" src={post.image} alt={post.title} />

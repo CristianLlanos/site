@@ -7,6 +7,13 @@
     <language>es-PE</language>
     <atom:link href="https://cristianllanos.com/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Eventos en Kotlin con inyección de dependencias</title>
+      <link>https://cristianllanos.com/blog/eventos-en-kotlin-con-inyeccion-de-dependencias/</link>
+      <guid>https://cristianllanos.com/blog/eventos-en-kotlin-con-inyeccion-de-dependencias/</guid>
+      <pubDate>Sat, 28 Mar 2026 21:00:00 GMT</pubDate>
+      <description>Presentando kotlin-events: un event bus ligero y type-safe para Kotlin donde los listeners se resuelven automáticamente desde el contenedor de DI.</description>
+    </item>
+    <item>
       <title>Scopes en kotlin-container: singletons con ciclo de vida</title>
       <link>https://cristianllanos.com/blog/scopes-en-kotlin-container/</link>
       <guid>https://cristianllanos.com/blog/scopes-en-kotlin-container/</guid>

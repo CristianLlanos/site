@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { getProjectPosts } from '@/lib/content'
+import { breadcrumbList } from '@/lib/structured-data'
 
 export const metadata: Metadata = {
   title: 'Proyectos',
@@ -9,12 +11,21 @@ export const metadata: Metadata = {
     description: 'Proyectos de software y experimentos técnicos de Cristian Llanos.',
   },
 }
-import { getProjectPosts } from '@/lib/content'
+
+const breadcrumbs = breadcrumbList([
+  { name: 'Inicio', url: '/' },
+  { name: 'Proyectos', url: '/projects/' },
+])
 
 export default function ProjectsListPage() {
   const projectPosts = getProjectPosts()
 
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+    />
     <div className="projects-list">
       <h1 className="projects-list__title">Projects</h1>
       {projectPosts.map((project) => (
@@ -31,5 +42,6 @@ export default function ProjectsListPage() {
         </Link>
       ))}
     </div>
+    </>
   )
 }

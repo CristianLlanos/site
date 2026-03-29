@@ -25,11 +25,35 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Cristian Llanos',
+  url: SITE_URL,
+  description: 'Creemos software escalable, seguro y mantenible juntos.',
+  inLanguage: 'es-PE',
+  author: {
+    '@type': 'Person',
+    name: 'Cristian Llanos',
+    url: SITE_URL,
+    jobTitle: 'Engineering Lead',
+    sameAs: [
+      'https://x.com/cris_decode',
+      'https://github.com/CristianLlanos',
+      'https://www.linkedin.com/in/cristian-llanos/',
+    ],
+  },
+}
+
 export default function HomePage() {
   const blogPosts = getBlogPosts()
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero */}
       <section className="hero">
         <div className="hero__avatar-wrapper">

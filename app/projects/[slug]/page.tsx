@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getProjectPosts, getProjectPost } from '@/lib/content'
 import { renderMarkdown } from '@/lib/markdown'
+import { breadcrumbList } from '@/lib/structured-data'
 
 const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
 
@@ -43,7 +44,18 @@ export default async function ProjectPostPage({
 
   const bodyHtml = renderMarkdown(post.body || '')
 
+  const breadcrumbs = breadcrumbList([
+    { name: 'Inicio', url: '/' },
+    { name: 'Proyectos', url: '/projects/' },
+    { name: post.title, url: `/projects/${post.slug}/` },
+  ])
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+    />
     <article className="article">
       <header className="article__header">
         <h1 className="article__title">{post.title}</h1>
@@ -75,5 +87,6 @@ export default async function ProjectPostPage({
         </div>
       )}
     </article>
+    </>
   )
 }
