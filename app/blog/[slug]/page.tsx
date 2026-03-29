@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { getBlogPosts, getBlogPost } from '@/lib/content'
 import { renderMarkdown } from '@/lib/markdown'
 import { longDate } from '@/lib/date-formats'
-import DisqusComments from '@/components/disqus-comments'
+import GiscusComments from '@/components/giscus-comments'
 
 const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
 
@@ -106,7 +106,7 @@ export default async function BlogPostPage({
         <div className="content" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
       </div>
 
-      <DisqusComments />
+      <GiscusComments />
     </article>
     </>
   )
