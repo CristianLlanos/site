@@ -206,5 +206,5 @@ Porque a veces no necesitas un framework completo. Si tu proyecto es una API peq
 El proyecto está publicado en Maven Central y disponible en [GitHub](https://github.com/CristianLlanos/kotlin-container).
 
 ```bash
-implementation("com.cristianllanos:container:0.3.0")
+implementation("com.cristianllanos:container:0.3.1")
 ```

@@ -38,7 +38,7 @@ La librería está construida sobre [kotlin-container](https://github.com/Cristi
 
 ```kotlin
 dependencies {
-    implementation("com.cristianllanos:events:0.1.0")
+    implementation("com.cristianllanos:events:0.2.1")
 }
 ```
 
