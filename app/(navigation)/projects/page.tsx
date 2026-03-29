@@ -1,14 +1,28 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getProjectPosts } from '@/lib/content'
+import { SITE_URL } from '@/lib/constants'
 import { breadcrumbList } from '@/lib/structured-data'
+import JsonLd from '@/components/json-ld'
+
+const DESCRIPTION = 'Proyectos open-source y experimentos de software de Cristian Llanos.'
 
 export const metadata: Metadata = {
   title: 'Proyectos',
-  description: 'Proyectos open-source y experimentos de software de Cristian Llanos.',
+  description: DESCRIPTION,
+  alternates: {
+    canonical: `${SITE_URL}/projects/`,
+  },
   openGraph: {
     title: 'Proyectos | Cristian Llanos',
-    description: 'Proyectos open-source y experimentos de software de Cristian Llanos.',
+    description: DESCRIPTION,
+    url: `${SITE_URL}/projects/`,
+    images: [{ url: `${SITE_URL}/img/og/site-default.png`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Proyectos | Cristian Llanos',
+    description: DESCRIPTION,
   },
 }
 
@@ -31,10 +45,7 @@ export default function ProjectsListPage() {
 
   return (
     <>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-    />
+    <JsonLd data={breadcrumbs} />
     <div className="projects-list">
       <h1 className="projects-list__title">Proyectos</h1>
       {[...featured, ...projectPosts].map((project) => (

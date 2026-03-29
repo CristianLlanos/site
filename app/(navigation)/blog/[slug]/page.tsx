@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPosts, getBlogPost } from '@/lib/content'
+import { SITE_URL } from '@/lib/constants'
+import { AUTHOR, breadcrumbList } from '@/lib/structured-data'
 import { renderMarkdown } from '@/lib/markdown'
 import { longDate } from '@/lib/date-formats'
-import { breadcrumbList } from '@/lib/structured-data'
+import JsonLd from '@/components/json-ld'
 import GiscusComments from '@/components/giscus-comments'
-
-const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
 
 export async function generateStaticParams() {
   return getBlogPosts().map((post) => ({ slug: post.slug }))
@@ -66,16 +66,8 @@ export default async function BlogPostPage({
     image: `${SITE_URL}${post.og ?? post.image}`,
     datePublished: post.date,
     dateModified: post.date,
-    author: {
-      '@type': 'Person',
-      name: 'Cristian Llanos',
-      url: SITE_URL,
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Cristian Llanos',
-      url: SITE_URL,
-    },
+    author: AUTHOR,
+    publisher: AUTHOR,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/blog/${post.slug}/`,
@@ -90,14 +82,8 @@ export default async function BlogPostPage({
 
   return (
     <>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-    />
+    <JsonLd data={jsonLd} />
+    <JsonLd data={breadcrumbs} />
     <article className="article">
       <img className="article__cover" src={post.image} alt={post.title} />
 

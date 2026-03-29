@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Github, Package, ArrowRight, Shield, Layers, Zap, Box, RefreshCw, Code2 } from 'lucide-react'
-import { breadcrumbList } from '@/lib/structured-data'
+import JsonLd from '@/components/json-ld'
+import { AUTHOR, breadcrumbList } from '@/lib/structured-data'
 import { CodeBlock } from './code'
 import { SITE_URL, BASE, VERSION, REPO_URL } from './constants'
 
@@ -62,11 +63,7 @@ const softwareJsonLd = {
   runtimePlatform: 'JVM',
   version: VERSION,
   license: 'https://opensource.org/licenses/MIT',
-  author: {
-    '@type': 'Person',
-    name: 'Cristian Llanos',
-    url: SITE_URL,
-  },
+  author: AUTHOR,
   offers: {
     '@type': 'Offer',
     price: '0',
@@ -179,18 +176,9 @@ const guides = [
 export default function KotlinContainerPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={breadcrumbs} />
+      <JsonLd data={softwareJsonLd} />
+      <JsonLd data={faqJsonLd} />
 
       {/* Hero */}
       <section className="lib-hero">

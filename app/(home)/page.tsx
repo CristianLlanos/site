@@ -2,48 +2,59 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Twitter, Github, Linkedin, Mail, Package, Download } from 'lucide-react'
 import { getBlogPosts, getSiteInfo } from '@/lib/content'
+import { SITE_URL } from '@/lib/constants'
+import { AUTHOR } from '@/lib/structured-data'
 import BlogCard from '@/components/blog-card'
+import JsonLd from '@/components/json-ld'
 import ThemeToggle from '@/components/theme-toggle'
-
-const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteInfo = getSiteInfo()
-  const socialImage = `${SITE_URL}/img/cristian-llanos-1350x904.jpg`
+  const ogImage = `${SITE_URL}/img/og/site-default.png`
 
   return {
+    alternates: {
+      canonical: `${SITE_URL}/`,
+    },
     openGraph: {
       title: siteInfo.sitename,
       description: siteInfo.sitedescription,
-      images: [{ url: socialImage, width: 1350, height: 904, alt: siteInfo.sitename }],
+      url: `${SITE_URL}/`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: siteInfo.sitename }],
     },
     twitter: {
       card: 'summary_large_image',
       title: siteInfo.sitename,
       description: siteInfo.sitedescription,
-      images: { url: socialImage, alt: siteInfo.sitename },
+      images: { url: ogImage, alt: siteInfo.sitename },
     },
   }
 }
 
-const jsonLd = {
+const jsonLdWebSite = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Cristian Llanos',
   url: SITE_URL,
   description: 'Creemos software escalable, seguro y mantenible juntos.',
   inLanguage: 'es-PE',
-  author: {
-    '@type': 'Person',
-    name: 'Cristian Llanos',
-    url: SITE_URL,
-    jobTitle: 'Engineering Lead',
-    sameAs: [
-      'https://x.com/cris_decode',
-      'https://github.com/CristianLlanos',
-      'https://www.linkedin.com/in/cristian-llanos/',
-    ],
-  },
+  author: AUTHOR,
+}
+
+const jsonLdPerson = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Cristian Llanos',
+  url: SITE_URL,
+  jobTitle: 'Engineering Lead',
+  knowsAbout: ['Software Architecture', 'Kotlin', 'TypeScript', 'PHP', 'Laravel', 'AWS', 'Dependency Injection'],
+  worksFor: { '@type': 'Organization', name: 'Captiview', url: 'https://captiview.com' },
+  alumniOf: { '@type': 'Organization', name: 'Fandango Latam' },
+  sameAs: [
+    'https://x.com/cris_decode',
+    'https://github.com/CristianLlanos',
+    'https://www.linkedin.com/in/cristian-llanos/',
+  ],
 }
 
 export default function HomePage() {
@@ -54,10 +65,8 @@ export default function HomePage() {
       <div className="theme-toggle--floating">
         <ThemeToggle />
       </div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLdWebSite} />
+      <JsonLd data={jsonLdPerson} />
       {/* Hero */}
       <section className="hero">
         <div className="hero__avatar-wrapper">
@@ -73,13 +82,13 @@ export default function HomePage() {
         </p>
         <p className="hero__meta">Engineering Lead · Lima, Perú</p>
         <div className="hero__social">
-          <a href="https://x.com/cris_decode" target="_blank" rel="noopener noreferrer" className="hero__social-link">
+          <a href="https://x.com/cris_decode" target="_blank" rel="me noopener noreferrer" className="hero__social-link">
             <Twitter size={20} />
           </a>
-          <a href="https://github.com/CristianLlanos" target="_blank" rel="noopener noreferrer" className="hero__social-link">
+          <a href="https://github.com/CristianLlanos" target="_blank" rel="me noopener noreferrer" className="hero__social-link">
             <Github size={20} />
           </a>
-          <a href="https://www.linkedin.com/in/cristian-llanos/" target="_blank" rel="noopener noreferrer" className="hero__social-link">
+          <a href="https://www.linkedin.com/in/cristian-llanos/" target="_blank" rel="me noopener noreferrer" className="hero__social-link">
             <Linkedin size={20} />
           </a>
           <a href="mailto:hello@cristianllanos.com" className="hero__social-link">

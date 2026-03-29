@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { breadcrumbList } from '@/lib/structured-data'
+import JsonLd from '@/components/json-ld'
+import { AUTHOR, breadcrumbList } from '@/lib/structured-data'
 import { SITE_URL, BASE } from '../../constants'
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ const techArticle = {
   headline: 'kotlin-container Changelog',
   description: 'Release history for kotlin-container — a lightweight dependency injection container for Kotlin.',
   url: `${SITE_URL}${BASE}/changelog/`,
-  author: { '@type': 'Person', name: 'Cristian Llanos', url: SITE_URL },
+  author: AUTHOR,
   isPartOf: { '@type': 'SoftwareSourceCode', name: 'kotlin-container', url: `${SITE_URL}${BASE}/` },
 }
 
@@ -102,14 +103,8 @@ const releases = [
 export default function ChangelogPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticle) }}
-      />
+      <JsonLd data={breadcrumbs} />
+      <JsonLd data={techArticle} />
       <article className="guide-content">
         <header className="guide-content__header">
           <h1 className="guide-content__title">Changelog</h1>

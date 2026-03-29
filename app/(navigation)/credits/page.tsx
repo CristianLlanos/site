@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getCreditsHtml } from '@/lib/content'
+import JsonLd from '@/components/json-ld'
 import { breadcrumbList } from '@/lib/structured-data'
 
 export const metadata: Metadata = {
@@ -23,10 +24,7 @@ export default function CreditsPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-      />
+      <JsonLd data={breadcrumbs} />
       <div className="page-content">
         <div className="content" dangerouslySetInnerHTML={{ __html: credits }} />
       </div>

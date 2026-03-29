@@ -1,4 +1,10 @@
-const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
+import { SITE_URL } from './constants'
+
+export const AUTHOR = {
+  '@type': 'Person',
+  name: 'Cristian Llanos',
+  url: SITE_URL,
+} as const
 
 export function breadcrumbList(items: { name: string; url: string }[]) {
   return {

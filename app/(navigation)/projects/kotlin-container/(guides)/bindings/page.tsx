@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { breadcrumbList } from '@/lib/structured-data'
+import JsonLd from '@/components/json-ld'
+import { AUTHOR, breadcrumbList } from '@/lib/structured-data'
 import { GuideNav, guideStep } from '../../guide-nav'
 import { CodeBlock } from '../../code'
 import { SITE_URL, BASE } from '../../constants'
@@ -31,7 +32,7 @@ const techArticle = {
   headline: 'Bindings in kotlin-container',
   description: 'Learn how to register factory, singleton, and scoped bindings in kotlin-container.',
   url: `${SITE_URL}${BASE}/bindings/`,
-  author: { '@type': 'Person', name: 'Cristian Llanos', url: SITE_URL },
+  author: AUTHOR,
   isPartOf: { '@type': 'SoftwareSourceCode', name: 'kotlin-container', url: `${SITE_URL}${BASE}/` },
 }
 
@@ -45,14 +46,8 @@ const breadcrumbs = breadcrumbList([
 export default function BindingsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticle) }}
-      />
+      <JsonLd data={breadcrumbs} />
+      <JsonLd data={techArticle} />
       <article className="guide-content">
           <header className="guide-content__header">
             <p className="guide-content__step">{guideStep(`${BASE}/bindings`)}</p>

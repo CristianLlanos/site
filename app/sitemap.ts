@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { getBlogPosts, getProjectPosts } from '@/lib/content'
+import { SITE_URL } from '@/lib/constants'
 
 export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://cristianllanos.com'
+  const baseUrl = SITE_URL
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, changeFrequency: 'weekly', priority: 1.0 },
