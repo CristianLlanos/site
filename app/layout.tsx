@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import Script from 'next/script'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Footer from '@/components/footer'
+import ThemeToggle from '@/components/theme-toggle'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-body' })
@@ -38,9 +39,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-PE" className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html lang="es-PE" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var s=localStorage.getItem('theme');var t=s==='dark'||s==='light'?s:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})()`,
+          }}
+        />
+      </head>
       <body style={{ fontFamily: 'var(--font-body)' }}>
         <GoogleTagManager gtmId="GTM-TPCTDS7" />
+        <div className="theme-toggle--floating">
+          <ThemeToggle />
+        </div>
         <div className="site-container">
           {children}
           <Footer />
