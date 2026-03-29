@@ -170,6 +170,8 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -830,6 +832,7 @@ code {
   max-width: var(--max-width-article);
   margin: 0 auto;
   padding: 0 var(--space-lg);
+  width: 100%;
 }
 
 .article__cover {
@@ -1503,6 +1506,83 @@ code {
   .nav__links {
     gap: var(--space-md);
   }
+
+  /* Article mobile readability */
+  .article {
+    padding: 0 var(--space-md);
+  }
+
+  .article__cover {
+    border-radius: var(--border-radius);
+    max-height: 280px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .article__header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+  }
+
+  .content {
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+  }
+
+  .content h2 {
+    font-size: var(--font-size-2xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .content h3 {
+    font-size: var(--font-size-xl);
+    margin-top: var(--space-xl);
+  }
+
+  .content h4 {
+    font-size: var(--font-size-lg);
+  }
+
+  .content blockquote {
+    margin-left: 0;
+    margin-right: 0;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  /* Code blocks: tighter padding, smaller font */
+  .code-block {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .code-block__body {
+    padding: var(--space-md);
+  }
+
+  .code-block__body code {
+    font-size: 0.8125rem;
+  }
+
+  /* Tables: edge-to-edge on mobile */
+  .content .table-wrapper {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .content th,
+  .content td {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  /* TOC: full width */
+  .content .table-of-contents {
+    padding: var(--space-md);
+  }
 }
 
 @media (max-width: 480px) {
@@ -1512,5 +1592,13 @@ code {
 
   .nav__brand-name {
     display: none;
+  }
+
+  .article__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .content h2 {
+    font-size: var(--font-size-xl);
   }
 }
