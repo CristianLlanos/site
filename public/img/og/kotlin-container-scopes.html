@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,58,237,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,58,237,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 400px; height: 400px; top: 50px; right: 0; background: #6d28d9; opacity: 0.2; }
+  .glow-2 { width: 350px; height: 350px; bottom: -50px; right: 200px; background: #0891b2; opacity: 0.15; }
+
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .series-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: rgba(167,139,250,0.6);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .step {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 28px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 800;
+    color: #08080f;
+    background: linear-gradient(135deg, #a78bfa, #22d3ee);
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(226,226,240,0.4);
+    letter-spacing: 0.05em;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px; font-weight: 800;
+    line-height: 1.08; letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #c4b5fd 50%, #22d3ee 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5; max-width: 580px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between; z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .lib-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(167,139,250,0.45);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: 100px; padding: 5px 16px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #7c3aed, #0891b2);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- Nested concentric scopes -->
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Outer scope -->
+    <rect x="830" y="80" width="320" height="470" rx="16" stroke="#7c3aed" stroke-width="2" fill="none" opacity="0.2"/>
+    <text x="850" y="108" font-family="JetBrains Mono" font-size="11" fill="#7c3aed" opacity="0.3">root</text>
+    <!-- Middle scope -->
+    <rect x="860" y="130" width="260" height="200" rx="12" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity="0.2"/>
+    <text x="878" y="155" font-family="JetBrains Mono" font-size="11" fill="#a78bfa" opacity="0.3">request</text>
+    <!-- Inner scope -->
+    <rect x="890" y="175" width="200" height="120" rx="8" stroke="#22d3ee" stroke-width="1.5" fill="none" opacity="0.25"/>
+    <text x="905" y="197" font-family="JetBrains Mono" font-size="11" fill="#22d3ee" opacity="0.35">transaction</text>
+    <!-- Nodes inside inner -->
+    <circle cx="940" cy="240" r="6" fill="#22d3ee" opacity="0.5"/>
+    <circle cx="980" cy="255" r="4" fill="#22d3ee" opacity="0.4"/>
+    <circle cx="1050" cy="235" r="5" fill="#22d3ee" opacity="0.45"/>
+    <!-- Nodes in middle but outside inner -->
+    <circle cx="890" cy="305" r="5" fill="#a78bfa" opacity="0.4"/>
+    <circle cx="950" cy="310" r="4" fill="#a78bfa" opacity="0.35"/>
+    <!-- Second scope sibling -->
+    <rect x="860" y="360" width="260" height="160" rx="12" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity="0.15"/>
+    <text x="878" y="385" font-family="JetBrains Mono" font-size="11" fill="#a78bfa" opacity="0.25">background</text>
+    <circle cx="930" cy="440" r="5" fill="#a78bfa" opacity="0.3"/>
+    <circle cx="990" cy="450" r="4" fill="#a78bfa" opacity="0.25"/>
+    <circle cx="1060" cy="430" r="6" fill="#a78bfa" opacity="0.3"/>
+    <!-- Dispose arrows -->
+    <path d="M1160 530 L1160 100" stroke="url(#sg)" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+    <polygon points="1160,95 1155,105 1165,105" fill="#22d3ee" opacity="0.3"/>
+    <text x="1166" y="320" font-family="JetBrains Mono" font-size="10" fill="#22d3ee" opacity="0.2" transform="rotate(-90 1166 320)">dispose cascade</text>
+    <defs>
+      <linearGradient id="sg" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#7c3aed" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#22d3ee"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="content">
+    <div class="series-label">kotlin-container docs</div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <span class="step-text">Guide</span>
+    </div>
+    <h1>Scopes</h1>
+    <p class="tagline">Lifecycle management, dispose hooks, nested scopes, and contextual environments.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <span class="lib-name">kotlin-container</span>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

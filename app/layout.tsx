@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Footer from '@/components/footer'
-import ThemeToggle from '@/components/theme-toggle'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-body' })
@@ -18,6 +17,7 @@ export const metadata: Metadata = {
   description: 'Creemos software escalable, seguro y mantenible juntos. ¿Qué aprenderemos hoy?',
   openGraph: {
     siteName: 'Cristian Llanos',
+    images: [{ url: '/img/og/site-default.png', width: 1200, height: 630 }],
   },
   twitter: {
     creator: '@cris_decode',
@@ -48,9 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body style={{ fontFamily: 'var(--font-body)' }}>
         <GoogleTagManager gtmId="GTM-TPCTDS7" />
-        <div className="theme-toggle--floating">
-          <ThemeToggle />
-        </div>
         <div className="site-container">
           {children}
           <Footer />

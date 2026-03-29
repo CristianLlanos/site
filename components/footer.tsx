@@ -33,11 +33,11 @@ export default function Footer() {
         </a>
       </div>
       <nav className="footer__nav">
-        <Link href="/" className="footer__nav-link">Home</Link>
+        <Link href="/" className="footer__nav-link">Inicio</Link>
         <span className="footer__separator">·</span>
         <Link href="/blog" className="footer__nav-link">Blog</Link>
         <span className="footer__separator">·</span>
-        <Link href="/about" className="footer__nav-link">About</Link>
+        <Link href="/credits" className="footer__nav-link">Créditos</Link>
       </nav>
       <p className="footer__copyright">© {year} Cristian Llanos</p>
       <p className="footer__license">

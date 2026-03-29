@@ -5,10 +5,10 @@ import { breadcrumbList } from '@/lib/structured-data'
 
 export const metadata: Metadata = {
   title: 'Proyectos',
-  description: 'Proyectos de software y experimentos técnicos de Cristian Llanos.',
+  description: 'Proyectos open-source y experimentos de software de Cristian Llanos.',
   openGraph: {
     title: 'Proyectos | Cristian Llanos',
-    description: 'Proyectos de software y experimentos técnicos de Cristian Llanos.',
+    description: 'Proyectos open-source y experimentos de software de Cristian Llanos.',
   },
 }
 
@@ -16,6 +16,15 @@ const breadcrumbs = breadcrumbList([
   { name: 'Inicio', url: '/' },
   { name: 'Proyectos', url: '/projects/' },
 ])
+
+const featured = [
+  {
+    slug: 'kotlin-container',
+    title: 'kotlin-container',
+    description: 'Inyección de dependencias liviana para Kotlin. Auto-resolución, scopes, service providers — sin configuración.',
+    project_type: 'open-source',
+  },
+]
 
 export default function ProjectsListPage() {
   const projectPosts = getProjectPosts()
@@ -27,8 +36,8 @@ export default function ProjectsListPage() {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
     />
     <div className="projects-list">
-      <h1 className="projects-list__title">Projects</h1>
-      {projectPosts.map((project) => (
+      <h1 className="projects-list__title">Proyectos</h1>
+      {[...featured, ...projectPosts].map((project) => (
         <Link
           key={project.slug}
           href={`/projects/${project.slug}`}

@@ -190,4 +190,4 @@ Construir esta feature cambió cómo pienso sobre la gestión de tiempos de vida
 
 4. **Las mejores features nacen de preguntas.** Toda esta feature empezó con un tweet. Gracias [@RoFerreiraDev](https://twitter.com/RoFerreiraDev) por hacer la pregunta correcta.
 
-La feature de scoping está disponible en [kotlin-container](https://github.com/CristianLlanos/kotlin-container). Revisa el [README](https://github.com/CristianLlanos/kotlin-container#scopes) para la documentación completa de la API.
+La feature de scoping está disponible en [kotlin-container](https://github.com/CristianLlanos/kotlin-container). Revisa la [guía de Scopes](/projects/kotlin-container/scopes/) para la documentación completa, o consulta la [referencia de API](/projects/kotlin-container/api/).

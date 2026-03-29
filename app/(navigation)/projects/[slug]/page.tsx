@@ -30,6 +30,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const posts = getProjectPosts()
+  if (posts.length === 0) return [{ slug: '__placeholder' }]
   return posts.map((post) => ({ slug: post.slug }))
 }
 

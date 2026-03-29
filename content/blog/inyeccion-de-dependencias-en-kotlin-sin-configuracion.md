@@ -13,7 +13,7 @@ Si trabajas con Kotlin, probablemente has usado frameworks como Spring, Koin o D
 
 ¿Y si pudiéramos resolver dependencias automáticamente, sin configuración, aprovechando la reflexión de Kotlin?
 
-Con esa idea nació [kotlin-container](https://github.com/CristianLlanos/kotlin-container).
+Con esa idea nació [kotlin-container](https://github.com/CristianLlanos/kotlin-container). Puedes explorar la [documentación completa](/projects/kotlin-container/) en este sitio.
 
 ## ¿Qué es kotlin-container?
 
@@ -203,7 +203,7 @@ El contenedor usa `ReflectionAutoResolver` por defecto cuando no se provee uno p
 
 Porque a veces no necesitas un framework completo. Si tu proyecto es una API pequeña, una herramienta CLI, o simplemente quieres DI sin la ceremonia de Dagger o la magia de Spring, `kotlin-container` ocupa ese espacio intermedio: suficiente potencia con mínima fricción.
 
-El proyecto está publicado en Maven Central y disponible en [GitHub](https://github.com/CristianLlanos/kotlin-container).
+El proyecto está publicado en Maven Central y disponible en [GitHub](https://github.com/CristianLlanos/kotlin-container). Para guías paso a paso, consulta la [documentación de kotlin-container](/projects/kotlin-container/guide/).
 
 ```bash
 implementation("com.cristianllanos:container:0.3.1")

@@ -1,0 +1,29 @@
+# cristianllanos.com
+
+> Personal site of Cristian Llanos — Engineering Lead, open-source maintainer, and technical writer.
+
+## About
+
+Cristian Llanos is a software engineer with 11+ years building platforms serving millions of users across 18+ countries. Creator of reliese/laravel (3M+ downloads) and kotlin-container.
+
+## Open Source Projects
+
+- [kotlin-container](https://cristianllanos.com/projects/kotlin-container/): Lightweight, thread-safe dependency injection container for Kotlin. Constructor auto-resolution, scoped lifecycles, service providers — no code generation, no annotations, zero configuration. Available on Maven Central as `com.cristianllanos:container`.
+  - [Getting Started](https://cristianllanos.com/projects/kotlin-container/guide/): Installation, first container, DSL builder.
+  - [Bindings](https://cristianllanos.com/projects/kotlin-container/bindings/): Factory, singleton, scoped — control instance lifetimes.
+  - [Scopes](https://cristianllanos.com/projects/kotlin-container/scopes/): Lifecycle management, dispose hooks, nested scopes, contextual scopes, Android.
+  - [Service Providers](https://cristianllanos.com/projects/kotlin-container/providers/): Group registrations into reusable modules.
+  - [Advanced](https://cristianllanos.com/projects/kotlin-container/advanced/): Thread safety, callable injection, custom resolvers, interface segregation.
+  - [API Reference](https://cristianllanos.com/projects/kotlin-container/api/): Complete public API — interfaces, extension functions, types, exceptions.
+  - [Changelog](https://cristianllanos.com/projects/kotlin-container/changelog/): Release history and notable changes.
+- [reliese/laravel](https://github.com/reliese/laravel): Eloquent model generator from existing databases for Laravel. 3M+ downloads.
+
+## Blog
+
+Technical writing about software architecture, Kotlin, Laravel, and engineering leadership.
+
+## Links
+
+- GitHub: https://github.com/CristianLlanos
+- Twitter/X: https://x.com/cris_decode
+- LinkedIn: https://www.linkedin.com/in/cristian-llanos/

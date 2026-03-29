@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Twitter, Github, Linkedin, Mail, Package, Download } from 'lucide-react'
 import { getBlogPosts, getSiteInfo } from '@/lib/content'
 import BlogCard from '@/components/blog-card'
+import ThemeToggle from '@/components/theme-toggle'
 
 const SITE_URL = process.env.NEXT_PUBLIC_URL || 'https://cristianllanos.com'
 
@@ -50,6 +51,9 @@ export default function HomePage() {
 
   return (
     <>
+      <div className="theme-toggle--floating">
+        <ThemeToggle />
+      </div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -82,6 +86,13 @@ export default function HomePage() {
             <Mail size={20} />
           </a>
         </div>
+        <nav className="hero__nav">
+          <Link href="/blog" className="hero__nav-link">Blog</Link>
+          <span className="hero__nav-separator">·</span>
+          <Link href="/projects" className="hero__nav-link">Proyectos</Link>
+          <span className="hero__nav-separator">·</span>
+          <Link href="/credits" className="hero__nav-link">Créditos</Link>
+        </nav>
       </section>
 
       {/* Bio */}
@@ -159,26 +170,40 @@ export default function HomePage() {
       {/* Open Source */}
       <section className="opensource">
         <h2 className="opensource__title">Open Source</h2>
-        <a
-          href="https://github.com/reliese/laravel"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="opensource__card"
-        >
-          <div className="opensource__card-header">
-            <Package size={20} className="opensource__card-icon" />
-            <span className="opensource__card-name">reliese/laravel</span>
-          </div>
-          <p className="opensource__card-desc">
-            Generador de modelos de Eloquent desde bases de datos existentes. Ideal para migrar proyectos legacy a Laravel sin escribir modelos a mano.
-          </p>
-          <div className="opensource__card-stats">
-            <span className="opensource__stat">
-              <Download size={14} /> 3M+ descargas
-            </span>
-            <span className="opensource__stat">PHP · Laravel</span>
-          </div>
-        </a>
+        {[
+          {
+            href: 'https://github.com/reliese/laravel',
+            external: true,
+            name: 'reliese/laravel',
+            desc: 'Generador de modelos de Eloquent desde bases de datos existentes. Ideal para migrar proyectos legacy a Laravel sin escribir modelos a mano.',
+            stats: [<><Download size={14} /> 3M+ descargas</>, 'PHP · Laravel'],
+          },
+          {
+            href: '/projects/kotlin-container',
+            external: false,
+            name: 'kotlin-container',
+            desc: 'Inyección de dependencias liviana para Kotlin. Auto-resolución, scopes, service providers — sin anotaciones, sin generación de código.',
+            stats: ['Kotlin · JVM', 'Maven Central'],
+          },
+        ].map((project) => (
+          <a
+            key={project.name}
+            href={project.href}
+            className="opensource__card"
+            {...(project.external && { target: '_blank', rel: 'noopener noreferrer' })}
+          >
+            <div className="opensource__card-header">
+              <Package size={20} className="opensource__card-icon" />
+              <span className="opensource__card-name">{project.name}</span>
+            </div>
+            <p className="opensource__card-desc">{project.desc}</p>
+            <div className="opensource__card-stats">
+              {project.stats.map((stat, i) => (
+                <span key={i} className="opensource__stat">{stat}</span>
+              ))}
+            </div>
+          </a>
+        ))}
       </section>
 
       {/* Blog */}
