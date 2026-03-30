@@ -2137,6 +2137,12 @@ code {
   margin-right: 4px;
 }
 
+/* Search FAB (mobile only) */
+
+.guide-search__fab {
+  display: none;
+}
+
 /* Guide content */
 
 .guide-content {
@@ -2442,7 +2448,6 @@ code {
     border-bottom: 1px solid var(--border-subtle);
     padding-bottom: var(--space-md);
     min-width: 0;
-    overflow: hidden;
   }
 
   .guide-sidebar__list {
@@ -2454,9 +2459,13 @@ code {
     max-width: 100%;
   }
 
+  .guide-sidebar__back {
+    font-size: var(--font-size-base);
+  }
+
   .guide-sidebar__link {
     padding: var(--space-xs) var(--space-sm);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     white-space: nowrap;
   }
 
@@ -2470,6 +2479,29 @@ code {
 
   .guide-search__trigger {
     display: none;
+  }
+
+  .guide-search__fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-lg);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border-accent-light);
+    background: var(--bg-elevated);
+    color: var(--accent-primary);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    z-index: 50;
+    transition: all var(--transition);
+  }
+
+  .guide-search__fab:active {
+    transform: scale(0.95);
   }
 
   .guide-content {

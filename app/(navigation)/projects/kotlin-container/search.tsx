@@ -181,6 +181,14 @@ export function GuideSearch() {
           <span>⌘</span>K
         </kbd>
       </button>
+      <button
+        type="button"
+        className="guide-search__fab"
+        onClick={() => setOpen(true)}
+        aria-label="Search docs"
+      >
+        <Search size={18} />
+      </button>
 
       {open && createPortal(
         <div className="guide-search__overlay" onClick={close}>
