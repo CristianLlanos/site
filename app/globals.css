@@ -312,6 +312,7 @@ code {
   max-width: 700px;
   margin: 0 auto;
   position: relative;
+  overflow-x: clip;
 }
 
 .hero::before {
@@ -1505,6 +1506,7 @@ code {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
+  overflow-x: clip;
 }
 
 .lib-hero::before {
@@ -1572,6 +1574,9 @@ code {
   padding: var(--space-md) var(--space-xl);
   margin-bottom: var(--space-2xl);
   user-select: all;
+  max-width: 100%;
+  overflow-x: auto;
+  word-break: break-all;
 }
 
 .lib-hero__actions {
