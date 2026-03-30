@@ -2259,6 +2259,7 @@ code {
 
 .guide-table table {
   width: 100%;
+  min-width: 480px;
   border-collapse: separate;
   border-spacing: 0;
 }
