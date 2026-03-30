@@ -2423,6 +2423,10 @@ code {
   .guide-layout {
     grid-template-columns: 1fr;
     gap: 0;
+    width: 100%;
+    max-width: 100vw;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
 
   .guide-sidebar {
@@ -2431,17 +2435,42 @@ code {
     margin-bottom: var(--space-xl);
     border-bottom: 1px solid var(--border-subtle);
     padding-bottom: var(--space-md);
+    min-width: 0;
+    overflow: hidden;
   }
 
   .guide-sidebar__list {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     gap: var(--space-xs);
+    max-width: 100%;
   }
 
   .guide-sidebar__link {
     padding: var(--space-xs) var(--space-sm);
     font-size: var(--font-size-xs);
+    white-space: nowrap;
+  }
+
+  .guide-sidebar__section-label {
+    display: none;
+  }
+
+  .guide-sidebar__sublist {
+    display: none;
+  }
+
+  .guide-search__trigger {
+    display: none;
+  }
+
+  .guide-content {
+    min-width: 0;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .guide-content__title {
@@ -2450,6 +2479,16 @@ code {
 
   .guide-nav__link {
     padding: var(--space-sm) var(--space-md);
+  }
+
+  .guide-content .code-block {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .guide-content .guide-table {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
