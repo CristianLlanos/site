@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import JsonLd from '@/components/json-ld'
 import { AUTHOR, breadcrumbList } from '@/lib/structured-data'
 import { SITE_URL, BASE } from '../../constants'
+import { CodeBlock } from '../../code'
 
 export const metadata: Metadata = {
   title: 'Changelog — kotlin-container',
@@ -137,6 +138,46 @@ export default function ChangelogPage() {
                     <li key={i}>{item}</li>
                   ))}
                 </ul>
+              </>
+            )}
+            {release.version === '0.4.0' && (
+              <>
+                <h3 className="changelog-release__label changelog-release__label--added">DSL Builder — Container {"{ }"}</h3>
+                <CodeBlock code={`// Before (0.3.1)
+val container = Container()
+container.singleton<Logger> { ConsoleLogger() }
+container.factory<PaymentGateway> { StripeGateway() }
+
+// Now (0.4.0)
+val container = Container {
+    singleton<Logger> { ConsoleLogger() }
+    factory<PaymentGateway> { StripeGateway() }
+}`} />
+                <h3 className="changelog-release__label changelog-release__label--added">Scope block — scope {"{ }"}</h3>
+                <CodeBlock code={`// Before (0.3.1)
+val scope = container.child()
+scope.scoped<DbConnection> { DbConnection() }
+val db = scope.resolve<DbConnection>()
+// ... use db
+scope.close()
+
+// Now (0.4.0)
+container.scope { scope ->
+    val db = scope.resolve<DbConnection>()
+    // ... use db
+}  // auto-closes`} />
+                <h3 className="changelog-release__label changelog-release__label--added">Scope with providers — scope(providers) {"{ }"}</h3>
+                <CodeBlock code={`// Before (0.3.1)
+val scope = container.child()
+scope.register(RequestScopeProvider(request))
+scope.register(LoggingProvider())
+scope.resolve<RequestHandler>().handle()
+scope.close()
+
+// Now (0.4.0)
+container.scope(RequestScopeProvider(request), LoggingProvider()) { scope ->
+    scope.resolve<RequestHandler>().handle()
+}  // auto-closes, providers pre-registered`} />
               </>
             )}
           </section>

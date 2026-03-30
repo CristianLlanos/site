@@ -2431,6 +2431,14 @@ code {
   border: 1px solid var(--accent-secondary-alpha-01);
 }
 
+.changelog-release .code-block__body code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  color: #e6edf3;
+}
+
 @media (max-width: 768px) {
   .guide-layout {
     grid-template-columns: 1fr;
