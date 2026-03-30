@@ -2,6 +2,16 @@
 
 Personal website and blog for Cristian Llanos. Static Next.js 15 site deployed on Netlify. The `master` branch autodeploys to production.
 
+## Deploy budget
+
+Netlify gives 300 build credits per cycle (resets on the 14th of each month). Each deploy costs 15 credits → **20 deploys per cycle**.
+
+- **Max 4 deploys per week** to maintain a steady pace
+- **Reserve 4 deploys per cycle** for urgent bug fixes
+- Batch non-urgent changes on `main` and merge to `master` deliberately
+- **Never push to `master` just for small or cosmetic changes** — accumulate them
+- Before merging to `master`, consider how many deploys remain in the current cycle
+
 ## Commands
 
 - `npm run dev` — local dev server
