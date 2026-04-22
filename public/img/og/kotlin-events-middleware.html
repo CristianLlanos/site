@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(236,72,153,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(236,72,153,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 450px; height: 450px; top: -100px; right: 50px; background: #7c3aed; opacity: 0.25; }
+  .glow-2 { width: 350px; height: 350px; bottom: -80px; left: 100px; background: #ec4899; opacity: 0.15; }
+
+  /* Chain/pipeline motif */
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.45;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .series-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: rgba(167,139,250,0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .step {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 28px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 800;
+    color: #08080f;
+    background: linear-gradient(135deg, #a78bfa, #f9a8d4);
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(226,226,240,0.4);
+    letter-spacing: 0.05em;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 56px; font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #c4b5fd 60%, #ec4899 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 580px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .lib-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(167,139,250,0.45);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: 100px; padding: 5px 16px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #7c3aed, #ec4899);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Chain/pipeline — nodes connected in sequence with arrows -->
+    <line x1="870" y1="300" x2="930" y2="300" stroke="url(#pg)" stroke-width="2" stroke-dasharray="6 4" opacity="0.4"/>
+    <line x1="970" y1="300" x2="1010" y2="300" stroke="url(#pg)" stroke-width="2" stroke-dasharray="6 4" opacity="0.4"/>
+    <line x1="1050" y1="300" x2="1090" y2="300" stroke="url(#pg)" stroke-width="2" stroke-dasharray="6 4" opacity="0.4"/>
+    <!-- Nodes -->
+    <rect x="830" y="275" width="40" height="50" rx="8" stroke="#ec4899" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <rect x="930" y="275" width="40" height="50" rx="8" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <rect x="1010" y="275" width="40" height="50" rx="8" stroke="#7c3aed" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <rect x="1090" y="275" width="40" height="50" rx="8" stroke="#ec4899" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <!-- Inner dots -->
+    <circle cx="850" cy="300" r="4" fill="#ec4899" opacity="0.6"/>
+    <circle cx="950" cy="300" r="4" fill="#a78bfa" opacity="0.5"/>
+    <circle cx="1030" cy="300" r="4" fill="#7c3aed" opacity="0.6"/>
+    <circle cx="1110" cy="300" r="4" fill="#ec4899" opacity="0.6"/>
+    <!-- Arrows between nodes -->
+    <polygon points="930,300 922,295 922,305" fill="#ec4899" opacity="0.5"/>
+    <polygon points="1010,300 1002,295 1002,305" fill="#a78bfa" opacity="0.5"/>
+    <polygon points="1090,300 1082,295 1082,305" fill="#7c3aed" opacity="0.5"/>
+    <!-- Second row — error branch -->
+    <path d="M 950 325 L 950 400 L 1030 400" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.3"/>
+    <rect x="1030" y="380" width="40" height="40" rx="8" stroke="#ec4899" stroke-width="1" fill="none" opacity="0.3"/>
+    <text x="1050" y="405" font-family="JetBrains Mono" font-size="14" fill="#ec4899" opacity="0.3" text-anchor="middle">!</text>
+    <defs>
+      <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ec4899"/>
+        <stop offset="50%" stop-color="#7c3aed"/>
+        <stop offset="100%" stop-color="#ec4899"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="content">
+    <div class="series-label">kotlin-events docs</div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <span class="step-text">Guide</span>
+    </div>
+    <h1>Middleware &amp; Errors</h1>
+    <p class="tagline">Intercept dispatch, handle errors, inspect the bus.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <span class="lib-name">kotlin-events</span>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

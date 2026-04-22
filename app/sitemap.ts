@@ -1,8 +1,10 @@
 import type { MetadataRoute } from 'next'
 import { getBlogPosts, getProjectPosts } from '@/lib/content'
 import { SITE_URL } from '@/lib/constants'
-import { guides, resources } from './(navigation)/projects/kotlin-container/guide-data'
-import { BASE } from './(navigation)/projects/kotlin-container/constants'
+import { guides as containerGuides, resources as containerResources } from './(navigation)/projects/kotlin-container/guide-data'
+import { BASE as CONTAINER_BASE } from './(navigation)/projects/kotlin-container/constants'
+import { guides as eventsGuides, resources as eventsResources } from './(navigation)/projects/kotlin-events/guide-data'
+import { BASE as EVENTS_BASE } from './(navigation)/projects/kotlin-events/constants'
 
 export const dynamic = 'force-static'
 
@@ -17,8 +19,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const kotlinContainerPages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}${BASE}/`, changeFrequency: 'monthly', priority: 0.8 },
-    ...[...guides, ...resources].map((g) => ({
+    { url: `${baseUrl}${CONTAINER_BASE}/`, changeFrequency: 'monthly', priority: 0.8 },
+    ...[...containerGuides, ...containerResources].map((g) => ({
+      url: `${baseUrl}${g.href}/`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]
+
+  const kotlinEventsPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}${EVENTS_BASE}/`, changeFrequency: 'monthly', priority: 0.8 },
+    ...[...eventsGuides, ...eventsResources].map((g) => ({
       url: `${baseUrl}${g.href}/`,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
@@ -39,5 +50,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
-  return [...staticPages, ...kotlinContainerPages, ...blogPages, ...projectPages]
+  return [...staticPages, ...kotlinContainerPages, ...kotlinEventsPages, ...blogPages, ...projectPages]
 }

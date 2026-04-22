@@ -194,6 +194,13 @@ export default function HomePage() {
             desc: 'Inyección de dependencias liviana para Kotlin. Auto-resolución, scopes, service providers — sin anotaciones, sin generación de código.',
             stats: ['Kotlin · JVM', 'Maven Central'],
           },
+          {
+            href: '/projects/kotlin-events',
+            external: false,
+            name: 'kotlin-events',
+            desc: 'Event bus type-safe para Kotlin. Listeners con DI, middleware, coroutines — ligero y thread-safe.',
+            stats: ['Kotlin · JVM', 'Maven Central'],
+          },
         ].map((project) => (
           <a
             key={project.name}

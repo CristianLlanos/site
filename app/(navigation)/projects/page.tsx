@@ -38,6 +38,12 @@ const featured = [
     description: 'Inyección de dependencias liviana para Kotlin. Auto-resolución, scopes, service providers — sin configuración.',
     project_type: 'open-source',
   },
+  {
+    slug: 'kotlin-events',
+    title: 'kotlin-events',
+    description: 'Event bus type-safe para Kotlin. Listeners con inyección de dependencias, middleware, coroutines — ligero y thread-safe.',
+    project_type: 'open-source',
+  },
 ]
 
 export default function ProjectsListPage() {

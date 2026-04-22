@@ -33,7 +33,7 @@ El patrón de eventos resuelve esto: el servicio anuncia que algo ocurrió, y lo
 
 ## kotlin-events
 
-[kotlin-events](https://github.com/CristianLlanos/kotlin-events) es un event bus ligero para Kotlin que implementa publish-subscribe con una diferencia clave: **los listeners se resuelven desde un contenedor de inyección de dependencias**. Esto significa que cada listener recibe sus dependencias automáticamente, igual que cualquier otro servicio.
+[kotlin-events](/projects/kotlin-events/) es un event bus ligero para Kotlin que implementa publish-subscribe con una diferencia clave: **los listeners se resuelven desde un contenedor de inyección de dependencias**. Esto significa que cada listener recibe sus dependencias automáticamente, igual que cualquier otro servicio.
 
 La librería está construida sobre [kotlin-container](https://github.com/CristianLlanos/kotlin-container) ([documentación](/projects/kotlin-container/)) y publicada en Maven Central:
 
@@ -217,4 +217,4 @@ Si mañana hay que notificar al warehouse, se agrega un listener y se registra. 
 
 kotlin-events resuelve el caso sincrónico: emitir un evento y ejecutar listeners en el mismo hilo. Para muchas aplicaciones eso es suficiente. Pero hay escenarios donde se necesita ejecución asincrónica — listeners que no bloqueen al emisor, colas de eventos, retry logic. Esas son extensiones naturales sobre esta base.
 
-El proyecto está disponible en [GitHub](https://github.com/CristianLlanos/kotlin-events) y en [Maven Central](https://central.sonatype.com/artifact/com.cristianllanos/events).
+El proyecto está disponible en [GitHub](https://github.com/CristianLlanos/kotlin-events), en [Maven Central](https://central.sonatype.com/artifact/com.cristianllanos/events), y con [documentación completa](/projects/kotlin-events/) incluyendo guías, API reference y changelog.

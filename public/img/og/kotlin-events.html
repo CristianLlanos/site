@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(236,72,153,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(236,72,153,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.3; }
+  .glow-1 { width: 500px; height: 500px; top: -150px; right: -100px; background: #7c3aed; }
+  .glow-2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: #ec4899; opacity: 0.2; }
+  .glow-3 { width: 300px; height: 300px; top: 200px; left: 400px; background: #6d28d9; opacity: 0.12; }
+
+  .graph {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px;
+    opacity: 0.5;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(236,72,153,0.12);
+    border: 1px solid rgba(236,72,153,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #f9a8d4;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 72px; font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #f9a8d4 50%, #a78bfa 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    max-width: 800px;
+  }
+  .tagline {
+    font-size: 24px; font-weight: 500;
+    color: rgba(226,226,240,0.65);
+    line-height: 1.5;
+    max-width: 650px;
+  }
+  .tagline em {
+    font-style: normal;
+    color: rgba(249,168,212,0.9);
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226,226,240,0.3);
+    border: 1px solid rgba(226,226,240,0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #ec4899, #7c3aed, #ec4899);
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <svg class="graph" viewBox="0 0 1200 630" fill="none">
+    <!-- Event emitter (center node) -->
+    <circle cx="920" cy="200" r="14" fill="#ec4899" opacity="0.7"/>
+    <circle cx="920" cy="200" r="28" stroke="#ec4899" stroke-width="1.5" fill="none" opacity="0.25"/>
+    <circle cx="920" cy="200" r="44" stroke="#ec4899" stroke-width="1" fill="none" opacity="0.1"/>
+    <!-- Listener nodes -->
+    <line x1="934" y1="200" x2="1060" y2="100" stroke="url(#eg)" stroke-width="1.5" opacity="0.4"/>
+    <line x1="934" y1="200" x2="1080" y2="200" stroke="url(#eg)" stroke-width="1.5" opacity="0.35"/>
+    <line x1="934" y1="200" x2="1060" y2="300" stroke="url(#eg)" stroke-width="1.5" opacity="0.4"/>
+    <line x1="934" y1="200" x2="1020" y2="400" stroke="url(#eg)" stroke-width="1.5" opacity="0.3"/>
+    <line x1="920" y1="186" x2="880" y2="80" stroke="url(#eg)" stroke-width="1.5" opacity="0.25"/>
+    <line x1="920" y1="214" x2="850" y2="360" stroke="url(#eg)" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="1060" cy="100" r="8" fill="#a78bfa" opacity="0.6"/>
+    <circle cx="1060" cy="100" r="16" stroke="#a78bfa" stroke-width="1" fill="none" opacity="0.2"/>
+    <circle cx="1080" cy="200" r="6" fill="#8b5cf6" opacity="0.5"/>
+    <circle cx="1060" cy="300" r="8" fill="#a78bfa" opacity="0.6"/>
+    <circle cx="1060" cy="300" r="16" stroke="#a78bfa" stroke-width="1" fill="none" opacity="0.2"/>
+    <circle cx="1020" cy="400" r="6" fill="#7c3aed" opacity="0.45"/>
+    <circle cx="880" cy="80" r="5" fill="#f9a8d4" opacity="0.4"/>
+    <circle cx="850" cy="360" r="5" fill="#f9a8d4" opacity="0.35"/>
+    <!-- Middleware chain lines -->
+    <line x1="800" y1="200" x2="906" y2="200" stroke="rgba(249,168,212,0.3)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <circle cx="800" cy="200" r="4" fill="#f9a8d4" opacity="0.3"/>
+    <circle cx="840" cy="200" r="3" fill="#f9a8d4" opacity="0.2"/>
+    <defs>
+      <linearGradient id="eg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ec4899"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="content">
+    <div class="badge">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" fill="#f9a8d4"/><circle cx="8" cy="8" r="6" stroke="#f9a8d4" stroke-width="1.2" fill="none" opacity="0.5"/></svg>
+      Kotlin Library
+    </div>
+    <h1>kotlin-events</h1>
+    <p class="tagline">
+      Type-safe event bus for Kotlin.<br>
+      <em>DI-resolved listeners, middleware, coroutines</em> — thread-safe.
+    </p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <div class="pills">
+      <span class="pill">Maven Central</span>
+      <span class="pill">MIT License</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

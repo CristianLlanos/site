@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(248,113,113,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248,113,113,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 450px; height: 450px; top: -100px; right: 50px; background: #7c3aed; opacity: 0.25; }
+  .glow-2 { width: 350px; height: 350px; bottom: -80px; left: 100px; background: #f87171; opacity: 0.15; }
+
+  /* Shield/lock — hexagonal motif */
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.45;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .series-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: rgba(167,139,250,0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .step {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 28px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 800;
+    color: #08080f;
+    background: linear-gradient(135deg, #a78bfa, #fca5a5);
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(226,226,240,0.4);
+    letter-spacing: 0.05em;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px; font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #c4b5fd 60%, #f87171 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 580px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .lib-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(167,139,250,0.45);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: 100px; padding: 5px 16px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #7c3aed, #f87171);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Shield/lock — hexagonal shape with inner pattern -->
+    <!-- Outer hexagon -->
+    <polygon points="1000,160 1070,200 1070,300 1000,340 930,300 930,200" stroke="#f87171" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <!-- Middle hexagon -->
+    <polygon points="1000,190 1045,215 1045,275 1000,300 955,275 955,215" stroke="#a78bfa" stroke-width="1.5" fill="none" opacity="0.35"/>
+    <!-- Inner hexagon -->
+    <polygon points="1000,220 1020,232 1020,260 1000,272 980,260 980,232" stroke="#7c3aed" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <!-- Center dot -->
+    <circle cx="1000" cy="250" r="4" fill="#f87171" opacity="0.6"/>
+    <!-- Lock keyhole -->
+    <rect x="996" y="248" width="8" height="14" rx="2" fill="none" stroke="#f87171" stroke-width="1" opacity="0.5"/>
+    <circle cx="1000" cy="246" r="6" fill="none" stroke="#f87171" stroke-width="1" opacity="0.5"/>
+    <!-- Radiating lines from hexagon -->
+    <line x1="1070" y1="200" x2="1110" y2="175" stroke="#f87171" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+    <line x1="1070" y1="300" x2="1110" y2="325" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+    <line x1="930" y1="200" x2="890" y2="175" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+    <line x1="930" y1="300" x2="890" y2="325" stroke="#f87171" stroke-width="1" stroke-dasharray="4 4" opacity="0.25"/>
+    <!-- Smaller satellite hexagons -->
+    <polygon points="1120,165 1140,177 1140,197 1120,209 1100,197 1100,177" stroke="#f87171" stroke-width="1" fill="none" opacity="0.2"/>
+    <polygon points="1120,325 1140,337 1140,357 1120,369 1100,357 1100,337" stroke="#a78bfa" stroke-width="1" fill="none" opacity="0.2"/>
+    <polygon points="880,165 900,177 900,197 880,209 860,197 860,177" stroke="#a78bfa" stroke-width="1" fill="none" opacity="0.2"/>
+    <polygon points="880,325 900,337 900,357 880,369 860,357 860,337" stroke="#f87171" stroke-width="1" fill="none" opacity="0.2"/>
+    <!-- Lower decorative hexagons -->
+    <polygon points="960,420 1000,445 1000,495 960,520 920,495 920,445" stroke="#f87171" stroke-width="1" fill="none" opacity="0.15"/>
+    <polygon points="1050,420 1090,445 1090,495 1050,520 1010,495 1010,445" stroke="#7c3aed" stroke-width="1" fill="none" opacity="0.15"/>
+  </svg>
+
+  <div class="content">
+    <div class="series-label">kotlin-events docs</div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <span class="step-text">Guide</span>
+    </div>
+    <h1>Advanced</h1>
+    <p class="tagline">Thread safety, interface segregation, and once guarantees.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <span class="lib-name">kotlin-events</span>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

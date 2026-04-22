@@ -16,6 +16,14 @@ Cristian Llanos is a software engineer with 11+ years building platforms serving
   - [Advanced](https://cristianllanos.com/projects/kotlin-container/advanced/): Thread safety, callable injection, custom resolvers, interface segregation.
   - [API Reference](https://cristianllanos.com/projects/kotlin-container/api/): Complete public API — interfaces, extension functions, types, exceptions.
   - [Changelog](https://cristianllanos.com/projects/kotlin-container/changelog/): Release history and notable changes.
+- [kotlin-events](https://cristianllanos.com/projects/kotlin-events/): Type-safe event bus for Kotlin with DI-resolved listeners, middleware pipeline, coroutines support, and thread safety. Available on Maven Central as `com.cristianllanos:events` and `com.cristianllanos:events-coroutines`.
+  - [Getting Started](https://cristianllanos.com/projects/kotlin-events/guide/): Installation, events and listeners, DI wiring, service provider.
+  - [Listeners](https://cristianllanos.com/projects/kotlin-events/listeners/): Lambda handlers, one-shot, catch-all, multiple listeners, registration DSL.
+  - [Middleware & Errors](https://cristianllanos.com/projects/kotlin-events/middleware/): Middleware pipeline, error resilience, inspector, event hierarchy.
+  - [Coroutines](https://cristianllanos.com/projects/kotlin-events/coroutines/): Suspending listeners and emit, mixed handlers, suspend onError, migration.
+  - [Advanced](https://cristianllanos.com/projects/kotlin-events/advanced/): Thread safety, interface segregation, once guarantees.
+  - [API Reference](https://cristianllanos.com/projects/kotlin-events/api/): Complete public API — interfaces, factory functions, extension functions, types, exceptions.
+  - [Changelog](https://cristianllanos.com/projects/kotlin-events/changelog/): Release history and notable changes.
 - [reliese/laravel](https://github.com/reliese/laravel): Eloquent model generator from existing databases for Laravel. 3M+ downloads.
 
 ## Blog

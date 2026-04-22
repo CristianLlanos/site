@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(129,140,248,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(129,140,248,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { width: 450px; height: 450px; top: -100px; right: 50px; background: #7c3aed; opacity: 0.25; }
+  .glow-2 { width: 350px; height: 350px; bottom: -80px; left: 100px; background: #818cf8; opacity: 0.15; }
+
+  /* Async wave motif */
+  .motif {
+    position: absolute; top: 0; left: 0; width: 1200px; height: 630px; opacity: 0.45;
+  }
+
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .series-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: rgba(167,139,250,0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .step {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 28px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 800;
+    color: #08080f;
+    background: linear-gradient(135deg, #a78bfa, #a5b4fc);
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(226,226,240,0.4);
+    letter-spacing: 0.05em;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 64px; font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f0f0f8 0%, #c4b5fd 60%, #818cf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 22px; font-weight: 500;
+    color: rgba(226,226,240,0.55);
+    line-height: 1.5;
+    max-width: 580px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226,226,240,0.35);
+  }
+  .lib-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: rgba(167,139,250,0.45);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: 100px; padding: 5px 16px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #7c3aed, #818cf8);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <svg class="motif" viewBox="0 0 1200 630" fill="none">
+    <!-- Async wave — interleaving sine-like curves -->
+    <path d="M 820 200 C 860 140, 900 140, 940 200 C 980 260, 1020 260, 1060 200 C 1100 140, 1140 140, 1180 200" stroke="#818cf8" stroke-width="2" fill="none" opacity="0.4"/>
+    <path d="M 820 280 C 860 220, 900 220, 940 280 C 980 340, 1020 340, 1060 280 C 1100 220, 1140 220, 1180 280" stroke="#a78bfa" stroke-width="2" fill="none" opacity="0.3"/>
+    <path d="M 820 360 C 860 300, 900 300, 940 360 C 980 420, 1020 420, 1060 360 C 1100 300, 1140 300, 1180 360" stroke="#7c3aed" stroke-width="2" fill="none" opacity="0.35"/>
+    <path d="M 820 440 C 860 380, 900 380, 940 440 C 980 500, 1020 500, 1060 440 C 1100 380, 1140 380, 1180 440" stroke="#818cf8" stroke-width="2" fill="none" opacity="0.25"/>
+    <!-- Suspension points -->
+    <circle cx="940" cy="200" r="5" fill="#818cf8" opacity="0.6"/>
+    <circle cx="1060" cy="200" r="5" fill="#818cf8" opacity="0.6"/>
+    <circle cx="940" cy="280" r="4" fill="#a78bfa" opacity="0.5"/>
+    <circle cx="1060" cy="280" r="4" fill="#a78bfa" opacity="0.5"/>
+    <circle cx="940" cy="360" r="5" fill="#7c3aed" opacity="0.5"/>
+    <circle cx="1060" cy="360" r="5" fill="#7c3aed" opacity="0.5"/>
+    <circle cx="940" cy="440" r="4" fill="#818cf8" opacity="0.4"/>
+    <circle cx="1060" cy="440" r="4" fill="#818cf8" opacity="0.4"/>
+    <!-- Vertical dashed connectors between waves -->
+    <line x1="940" y1="205" x2="940" y2="275" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+    <line x1="1060" y1="205" x2="1060" y2="275" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+    <line x1="940" y1="285" x2="940" y2="355" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+    <line x1="1060" y1="285" x2="1060" y2="355" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 4" opacity="0.2"/>
+  </svg>
+
+  <div class="content">
+    <div class="series-label">kotlin-events docs</div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <span class="step-text">Guide</span>
+    </div>
+    <h1>Coroutines</h1>
+    <p class="tagline">Suspending listeners and emit, mixed sync/async handlers.</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com</span>
+    <span class="lib-name">kotlin-events</span>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>
