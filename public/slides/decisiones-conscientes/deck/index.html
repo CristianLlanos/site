@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Decisiones conscientes — Diseñar con IA antes de escribir código</title>
+<meta name="description" content="Charla técnica: diseñar con IA antes de escribir código, con el método /spec — discovery, tradeoffs y captura de decisiones. Por Cris Llanos." />
+<link rel="canonical" href="https://cristianllanos.com/slides/decisiones-conscientes/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Decisiones conscientes — Diseñar con IA antes de escribir código" />
+<meta property="og:description" content="Charla técnica sobre diseñar con IA antes de codear, con el método /spec." />
+<meta property="og:url" content="https://cristianllanos.com/slides/decisiones-conscientes/" />
+<meta property="og:image" content="https://cristianllanos.com/img/og/decisiones-conscientes.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Decisiones conscientes — Diseñar con IA antes de escribir código" />
+<meta name="twitter:image" content="https://cristianllanos.com/img/og/decisiones-conscientes.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0D0D12; --surface:#15151E; --raised:#1E1E2A; --border:#303045;
+    --tx:#E4E4EF; --tx2:#9494AE; --dim:#606078;
+    --violet:#8B6AFF; --magenta:#B44AEA; --green:#5CD89A;
+    --amber:#F0A840; --pink:#F06080; --gold:#F0C060;
+    --display:"Geist", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    --mono:"JetBrains Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--bg); color:var(--tx);
+    font-family:var(--display); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow:hidden;
+  }
+  /* atmosphere */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(58vw 58vw at 10% 4%, rgba(139,106,255,.13), transparent 60%),
+      radial-gradient(52vw 52vw at 92% 96%, rgba(180,74,234,.10), transparent 62%),
+      radial-gradient(40vw 40vw at 80% 0%, rgba(92,216,154,.05), transparent 60%);
+  }
+  body::after{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.04; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* slides */
+  .slide{
+    position:fixed; inset:0; z-index:1;
+    display:grid; place-items:center;
+    padding:clamp(2rem,5.5vw,6.5rem);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .5s ease;
+  }
+  .slide.active{opacity:1; visibility:visible; pointer-events:auto}
+  .inner{width:min(1320px,100%)}
+  .inner.center{text-align:center; justify-items:center; display:grid; gap:clamp(1rem,2.4vw,2rem)}
+  .stack{display:grid; gap:clamp(1.1rem,2.4vw,2rem)}
+
+  /* reveal */
+  .reveal{opacity:0}
+  .slide.active .reveal{animation:rise .62s cubic-bezier(.16,1,.3,1) both; animation-delay:calc(var(--i,0)*85ms)}
+  @keyframes rise{from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:none}}
+
+  /* type */
+  .kicker{
+    font-family:var(--mono); font-size:clamp(.72rem,1.02vw,1rem);
+    letter-spacing:.3em; text-transform:uppercase; color:var(--tx2);
+    display:inline-flex; align-items:center; gap:.9em;
+  }
+  .center .kicker{justify-content:center}
+  .h1{font-family:var(--display); font-weight:700; font-size:clamp(2.7rem,6.6vw,6.2rem); line-height:1.0; letter-spacing:-.028em; margin:0}
+  .h2{font-family:var(--display); font-weight:650; font-weight:600; font-size:clamp(2rem,4.6vw,3.7rem); line-height:1.06; letter-spacing:-.022em; margin:0}
+  .h3{font-family:var(--display); font-weight:600; font-size:clamp(1.5rem,3vw,2.5rem); line-height:1.1; letter-spacing:-.015em; margin:0}
+  .lead{font-size:clamp(1.12rem,2vw,1.8rem); line-height:1.5; color:var(--tx2); margin:0; max-width:34ch}
+  .center .lead{max-width:30ch; margin-inline:auto}
+  .lead.wide{max-width:46ch}
+  .big{font-family:var(--display); font-weight:600; font-size:clamp(2.2rem,5.4vw,4.9rem); line-height:1.04; letter-spacing:-.028em; margin:0}
+  .quote{font-family:var(--display); font-weight:500; font-size:clamp(2rem,4.8vw,4.4rem); line-height:1.12; letter-spacing:-.022em; margin:0; max-width:20ch}
+  .attr{font-family:var(--mono); font-size:clamp(.9rem,1.3vw,1.2rem); color:var(--tx2); letter-spacing:.04em}
+
+  .ac{color:var(--violet)} .gr{color:var(--green)} .pk{color:var(--pink)} .am{color:var(--amber)} .go{color:var(--gold)} .mg{color:var(--magenta)}
+  .mut{color:var(--tx2)}
+
+  .dot{display:inline-block; vertical-align:middle; width:.62em; height:.62em; border-radius:50%; background:var(--green); flex:none; box-shadow:0 0 0 0 rgba(92,216,154,.5); animation:pulse 2.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(92,216,154,.5)} 70%{box-shadow:0 0 0 .8em rgba(92,216,154,0)} 100%{box-shadow:0 0 0 0 rgba(92,216,154,0)}}
+
+  /* anvil window */
+  .win{
+    width:100%; border:1px solid var(--border); border-radius:16px; overflow:hidden;
+    background:linear-gradient(180deg,#16161F,#111118);
+    box-shadow:0 40px 90px -36px rgba(0,0,0,.85), inset 0 0 0 1px rgba(255,255,255,.02);
+  }
+  .win-bar{display:flex; align-items:center; gap:.75rem; padding:.72rem 1.05rem; border-bottom:1px solid var(--border); background:rgba(255,255,255,.014)}
+  .tl{display:flex; gap:.52rem}
+  .tl i{width:.8rem; height:.8rem; border-radius:50%; display:block}
+  .tl i:nth-child(1){background:#F06080} .tl i:nth-child(2){background:#F0A840} .tl i:nth-child(3){background:#5CD89A}
+  .win-name{font-family:var(--mono); font-size:clamp(.82rem,1.12vw,1.1rem); color:var(--tx2); margin-left:.35rem; letter-spacing:.02em}
+  .win-body{margin:0; padding:clamp(1.1rem,2vw,1.9rem); font-family:var(--mono); font-size:clamp(.92rem,1.4vw,1.46rem); line-height:1.72; overflow:auto; color:var(--tx)}
+  .win-body code{font-family:inherit; white-space:pre; display:block}
+
+  /* syntax tokens (anvil palette) */
+  .t-kw{color:#B44AEA; font-weight:700}
+  .t-fn{color:#F0A840}
+  .t-str,.t-url{color:#5CD89A}
+  .t-num{color:#F0A840}
+  .t-var{color:#F0C060}
+  .t-key,.t-hdr{color:#8B6AFF}
+  .t-cmt{color:#606078; font-style:italic}
+  .t-punc{color:#9494AE}
+  .t-ty{color:#8B6AFF}
+  .l-dec{color:#5CD89A; font-weight:700}
+  .l-why{color:#8B6AFF; font-weight:700}
+  .l-no{color:#F06080; font-weight:700}
+
+  /* cards */
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1rem,2.2vw,1.8rem)}
+  .grid-side{display:grid; grid-template-columns:0.92fr 1.08fr; gap:clamp(1.4rem,3vw,3rem); align-items:center}
+  @media (max-width:900px){.grid2,.grid-side{grid-template-columns:1fr}}
+  .card{border:1px solid var(--border); border-radius:15px; background:var(--surface); padding:clamp(1.4rem,2.6vw,2.3rem)}
+  .card .tag{font-family:var(--mono); font-size:clamp(.74rem,1vw,.95rem); letter-spacing:.18em; text-transform:uppercase; display:inline-flex; align-items:center; gap:.6em}
+  .card h3{font-family:var(--display); font-weight:600; font-size:clamp(1.3rem,2.4vw,2rem); margin:.55rem 0 .55rem; letter-spacing:-.01em}
+  .card p{margin:0; color:var(--tx2); font-size:clamp(1.02rem,1.55vw,1.4rem); line-height:1.48}
+  .card.no{border-color:rgba(240,96,128,.42)} .card.no .tag,.card.no h3{color:var(--pink)}
+  .card.yes{border-color:rgba(92,216,154,.42)} .card.yes .tag,.card.yes h3{color:var(--green)}
+
+  /* steps / lists */
+  .steps{display:grid; gap:clamp(.85rem,1.7vw,1.4rem)}
+  .step{display:flex; gap:clamp(.9rem,1.5vw,1.4rem); align-items:baseline}
+  .step .n{font-family:var(--mono); color:var(--violet); font-size:clamp(1.05rem,1.7vw,1.6rem); min-width:1.7em; font-weight:500}
+  .step .tx{font-size:clamp(1.12rem,1.95vw,1.75rem); color:var(--tx); line-height:1.34}
+  .step .tx small{display:block; color:var(--tx2); font-size:.66em; margin-top:.18em; font-family:var(--mono); letter-spacing:.01em}
+
+  /* compare */
+  .cmp{display:grid; gap:clamp(.7rem,1.5vw,1.15rem)}
+  .cmp .row{display:flex; gap:1rem; align-items:center; font-family:var(--mono); font-size:clamp(1.05rem,1.8vw,1.7rem); line-height:1.3}
+  .cmp .mk{font-weight:700; flex:none}
+  .cmp .bad .mk{color:var(--pink)} .cmp .ok .mk{color:var(--green)}
+  .cmp .bad{color:var(--dim)} .cmp .ok{color:var(--tx)}
+
+  /* flow + chips */
+  .flow{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.6rem clamp(.5rem,1.4vw,1.1rem)}
+  .chip{font-family:var(--mono); border:1px solid var(--border); background:var(--surface); border-radius:999px; padding:.62em 1.15em; font-size:clamp(.92rem,1.55vw,1.45rem); color:var(--tx); white-space:nowrap}
+  .chip.v{border-color:rgba(139,106,255,.45); color:#cfc4ff}
+  .arr{color:var(--violet); font-size:clamp(1.05rem,1.7vw,1.55rem)}
+  .layers{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(.7rem,1.5vw,1.2rem)}
+  @media (max-width:900px){.layers{grid-template-columns:1fr 1fr}}
+  .layer{border:1px solid var(--border); border-radius:14px; background:var(--surface); padding:clamp(1rem,2vw,1.7rem); text-align:center}
+  .layer .f{font-family:var(--mono); color:var(--violet); font-size:clamp(.92rem,1.4vw,1.25rem); margin-bottom:.45rem; word-break:break-word}
+  .layer .d{color:var(--tx2); font-size:clamp(.92rem,1.35vw,1.2rem); line-height:1.35}
+
+  /* divider */
+  .divnum{font-family:var(--mono); color:var(--violet); font-size:clamp(1rem,1.6vw,1.5rem); letter-spacing:.32em}
+  .divider .h1{font-size:clamp(3rem,8vw,7.5rem)}
+
+  /* title meta */
+  .metarow{display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem 1.8rem; font-family:var(--mono); font-size:clamp(.85rem,1.25vw,1.18rem); color:var(--tx2); letter-spacing:.03em}
+  .metarow .sep{color:var(--dim)}
+  .link{color:var(--violet); text-decoration:none; border-bottom:1px solid rgba(139,106,255,.38); transition:border-color .15s, color .15s; cursor:pointer}
+  .link:hover{color:#ab92ff; border-bottom-color:var(--violet)}
+  .brandtop{font-family:var(--mono); font-size:clamp(.82rem,1.1vw,1.05rem); letter-spacing:.22em; text-transform:uppercase; color:var(--tx2); display:inline-flex; align-items:center; gap:.8em}
+
+  /* chrome */
+  #progress{position:fixed; left:0; bottom:0; height:3px; width:100%; z-index:60; background:rgba(255,255,255,.04)}
+  #bar{height:100%; background:linear-gradient(90deg,var(--violet),var(--magenta)); transform-origin:left; transform:scaleX(0); transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  #counter{position:fixed; right:clamp(1rem,3vw,2.6rem); bottom:clamp(1rem,2.8vw,2rem); z-index:60; font-family:var(--mono); font-size:clamp(.76rem,1.02vw,1rem); color:var(--tx2); letter-spacing:.14em}
+  #hint{position:fixed; left:clamp(1rem,3vw,2.6rem); bottom:clamp(1rem,2.8vw,2rem); z-index:60; font-family:var(--mono); font-size:clamp(.7rem,.95vw,.92rem); color:var(--dim); letter-spacing:.05em}
+  .navbtn{position:fixed; top:50%; transform:translateY(-50%); z-index:60; width:clamp(2.4rem,4vw,3.2rem); height:clamp(2.4rem,4vw,3.2rem); border-radius:50%; border:1px solid var(--border); background:rgba(21,21,30,.6); color:var(--tx2); font-size:1.2rem; cursor:pointer; opacity:.22; transition:opacity .2s, color .2s, border-color .2s; backdrop-filter:blur(6px)}
+  .navbtn:hover{opacity:1; color:var(--tx); border-color:var(--violet)}
+  #prev{left:clamp(.7rem,1.6vw,1.4rem)} #next{right:clamp(.7rem,1.6vw,1.4rem)}
+
+  /* Quick switcher (command palette) */
+  #switcher{position:fixed; inset:0; z-index:100; display:none; background:rgba(8,8,12,.62); backdrop-filter:blur(10px)}
+  #switcher.open{display:block}
+  .palette{position:absolute; left:50%; top:13vh; transform:translateX(-50%); width:min(660px,92vw); background:linear-gradient(180deg,#181821,#121218); border:1px solid var(--border); border-radius:16px; box-shadow:0 44px 110px -30px rgba(0,0,0,.85), inset 0 0 0 1px rgba(255,255,255,.02); overflow:hidden; animation:palIn .15s ease-out}
+  @keyframes palIn{from{opacity:0; transform:translateX(-50%) scale(.97) translateY(6px)} to{opacity:1; transform:translateX(-50%) scale(1) translateY(0)}}
+  .pal-search{display:flex; align-items:center; gap:.7rem; padding:1rem 1.2rem; border-bottom:1px solid var(--border)}
+  .pal-prompt{font-family:var(--mono); color:var(--violet); font-size:1.25rem; line-height:1}
+  #pal-input{flex:1; min-width:0; background:transparent; border:0; outline:0; color:var(--tx); font-family:var(--display); font-weight:500; font-size:clamp(1.1rem,2vw,1.5rem)}
+  #pal-input::placeholder{color:var(--dim)}
+  .pal-list{max-height:48vh; overflow:auto; padding:.5rem}
+  .pal-item{display:flex; gap:1rem; align-items:baseline; width:100%; text-align:left; background:transparent; border:0; border-left:2px solid transparent; border-radius:10px; padding:.6rem .9rem; color:var(--tx); font-family:var(--display); font-weight:500; font-size:clamp(1rem,1.5vw,1.28rem); cursor:pointer}
+  .pal-item:hover{background:var(--surface)}
+  .pal-item.sel{background:var(--raised); border-left-color:var(--violet)}
+  .pal-num{font-family:var(--mono); color:var(--violet); font-size:.85em; flex:none; min-width:1.7em}
+  .pal-empty{padding:1.2rem; color:var(--tx2); font-family:var(--mono); font-size:.95rem}
+  .pal-hint{padding:.7rem 1.2rem; border-top:1px solid var(--border); font-family:var(--mono); font-size:.78rem; color:var(--dim); letter-spacing:.05em}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{animation:none!important; opacity:1!important}
+    .dot{animation:none} #bar{transition:none} .slide{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- 1 — TITLE -->
+  <section class="slide active" data-title="Portada">
+    <div class="inner center">
+      <div class="reveal brandtop" style="--i:0"><span class="dot"></span> anvil · cliente HTTP</div>
+      <div class="reveal kicker" style="--i:1">Charla técnica · IA + Diseño de software</div>
+      <h1 class="reveal h1" style="--i:2">Decisiones<br>conscientes</h1>
+      <p class="reveal big" style="--i:3">Diseñar con IA <span class="ac">antes</span><br>de escribir código</p>
+      <div class="reveal metarow" style="--i:4">
+        <span>Cris Llanos</span><span class="sep">·</span>
+        <span>Engineering Lead</span><span class="sep">·</span>
+        <a class="link" href="https://cristianllanos.com" target="_blank" rel="noopener">cristianllanos.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 — WHO -->
+  <section class="slide" data-title="Quién habla">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0"><span class="dot"></span> Quién habla</div>
+      <h2 class="reveal h2" style="--i:1">Cris Llanos</h2>
+      <div class="reveal grid2" style="--i:2">
+        <div class="card">
+          <span class="tag ac">Rol</span>
+          <h3>Engineering Lead</h3>
+          <p>11+ años construyendo software que escala a millones, en 18+ países.</p>
+        </div>
+        <div class="card">
+          <span class="tag gr">Open source</span>
+          <h3>Herramientas para devs</h3>
+          <p><span class="go">reliese/laravel</span> (3M+ descargas) · kotlin-container · kotlin-events.</p>
+        </div>
+      </div>
+      <p class="reveal lead wide" style="--i:3">Hoy construyo <span class="ac">anvil</span> — un cliente HTTP de escritorio. Será nuestro ejemplo de principio a fin.</p>
+    </div>
+  </section>
+
+  <!-- 3 — HOOK -->
+  <section class="slide" data-title="Gancho">
+    <div class="inner center">
+      <p class="reveal lead" style="--i:0">Abres tu propio código de hace 3 meses…</p>
+      <h1 class="reveal big" style="--i:1">“¿Por qué lo<br><span class="ac">hice así?</span>”</h1>
+    </div>
+  </section>
+
+  <!-- 4 — TRUTH -->
+  <section class="slide" data-title="La verdad incómoda">
+    <div class="inner center">
+      <h1 class="reveal big" style="--i:0">La decisión existió.</h1>
+      <h1 class="reveal big" style="--i:1"><span class="pk">Nadie la escribió.</span></h1>
+    </div>
+  </section>
+
+  <!-- 5 — PROBLEM = MEMORY -->
+  <section class="slide" data-title="El problema">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">El problema</div>
+      <h2 class="reveal h2" style="--i:1">Las decisiones implícitas<br><span class="mut">se evaporan.</span></h2>
+      <p class="reveal lead wide" style="--i:2">Tú en 3 meses, el siguiente dev, o un agente de IA: todos <span class="ac">re-derivan</span>, <span class="ac">rediscuten</span> y <span class="pk">adivinan mal</span>.</p>
+    </div>
+  </section>
+
+  <!-- 6 — WITH AI WORSE -->
+  <section class="slide" data-title="Con IA, peor">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Y con IA, se agudiza</div>
+      <h2 class="reveal h2" style="--i:1">El agente, literalmente,<br>no tiene <span class="ac">memoria</span> entre sesiones.</h2>
+      <p class="reveal lead wide" style="--i:2">Si no externalizas la decisión, la vuelve a tomar — y distinto.</p>
+    </div>
+  </section>
+
+  <!-- 7 — QUOTE -->
+  <section class="slide" data-title="La idea central">
+    <div class="inner center">
+      <span class="reveal arr" style="--i:0; font-size:2.4rem; color:var(--violet)">“</span>
+      <p class="reveal quote" style="--i:1">Un spec es un <span class="ac">contrato</span> con un agente que <span class="ac">no tiene memoria.</span></p>
+      <p class="reveal attr" style="--i:2">— mi forma de pensar un spec</p>
+    </div>
+  </section>
+
+  <!-- 8 — THE TURN -->
+  <section class="slide" data-title="El giro">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">El giro</div>
+      <h2 class="reveal h2" style="--i:1">Diseñar con IA no es lo que crees</h2>
+      <div class="reveal grid2" style="--i:2">
+        <div class="card no">
+          <span class="tag">✗ No es</span>
+          <h3>Que la IA escriba tu código</h3>
+          <p>El cliché. Autocompletado con esteroides.</p>
+        </div>
+        <div class="card yes">
+          <span class="tag">✓ Sí es</span>
+          <h3>Que la IA te haga pensar</h3>
+          <p>Articular la tensión, sacar tradeoffs y producir un contrato ejecutable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 — SECTION: CÓMO FUNCIONA /spec -->
+  <section class="slide divider" data-title="◆ Cómo funciona /spec">
+    <div class="inner center">
+      <div class="reveal divnum" style="--i:0"><span class="dot"></span>&nbsp;&nbsp;PARTE 01</div>
+      <h1 class="reveal h1" style="--i:1">Cómo funciona<br><span class="go">/spec</span></h1>
+    </div>
+  </section>
+
+  <!-- 10 — PHILOSOPHY -->
+  <section class="slide" data-title="La filosofía">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">La filosofía</div>
+      <h2 class="reveal h2" style="--i:1">Es una <span class="ac">conversación</span>,<br>no un documento.</h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step"><span class="n">→</span><span class="tx">Presenta opciones con tradeoffs — <span class="ac">tú decides</span></span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Corta sin piedad <small>“¿de verdad lo necesitamos?”</small></span></div>
+        <div class="step"><span class="n">→</span><span class="tx">No escribe código: <span class="ac">solo diseña</span></span></div>
+      </div>
+      <p class="reveal attr" style="--i:3">El ROADMAP es la única fuente de verdad.</p>
+    </div>
+  </section>
+
+  <!-- 11 — STEP 1: CONSTRAINTS -->
+  <section class="slide" data-title="Paso 1 · Restricciones primero">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Paso 1 · Restricciones</div>
+      <h2 class="reveal h2" style="--i:1">Antes de la visión,<br>lo que la <span class="ac">condiciona</span>.</h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step"><span class="n">→</span><span class="tx">Geografía, dinero, legal</span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Infra y servicios que <span class="ac">ya tienes</span></span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Quién opera y cómo se despliega</span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Prior art <small>qué funcionó · qué dolió</small></span></div>
+      </div>
+      <p class="reveal attr" style="--i:3">No avanza hasta tenerlas claras.</p>
+    </div>
+  </section>
+
+  <!-- 12 — STEP 2: VISION + PITCH -->
+  <section class="slide" data-title="Paso 2 · Visión + pitch de una frase">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Paso 2 · Visión</div>
+      <h2 class="reveal h2" style="--i:1">Empieza por la <span class="ac">fricción</span> —<br>y el pitch de una frase.</h2>
+      <div class="reveal card" style="--i:2; border-color:rgba(139,106,255,.4)">
+        <span class="tag ac">Para quién · cuál es el dolor</span>
+        <h3>Si no lo dices en una frase…</h3>
+        <p>…la visión todavía no está clara.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 — STEPS 3-4: OPTIONS WITH TRADEOFFS -->
+  <section class="slide" data-title="Pasos 3–4 · Opciones con tradeoffs">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Pasos 3–4 · Decidir</div>
+      <h2 class="reveal h2" style="--i:1">Opciones con tradeoffs.<br>Una recomendación. <span class="ac">Tú decides.</span></h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step"><span class="n">→</span><span class="tx">3–4 opciones con pros y contras</span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Corta lo que no se gana su lugar</span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Organiza en fases <small>MVP · alto valor · nice-to-have</small></span></div>
+        <div class="step"><span class="n">→</span><span class="tx">Gut check <small>¿sigue siendo lo que quieres construir?</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 — OUTPUT: ROADMAP (el qué) -->
+  <section class="slide" data-title="ROADMAP · el qué">
+    <div class="inner grid-side">
+      <div class="stack">
+        <div class="reveal kicker" style="--i:0">Documenta · el qué</div>
+        <h2 class="reveal h2" style="--i:1">El <span class="ac">ROADMAP</span><br>captura el qué.</h2>
+        <p class="reveal lead" style="--i:2">Visión, comportamiento y fases — y lo que <span class="pk">no</span> se hace, explícito.</p>
+      </div>
+      <div class="reveal win" style="--i:3">
+        <div class="win-bar"><span class="tl"><i></i><i></i><i></i></span><span class="win-name">ROADMAP.md</span></div>
+        <pre class="win-body"><code><span class="t-key"># Roadmap · Environment Editor</span>
+
+Gestión in-app de variables:
+máscaras de secretos, edición
+tabla/raw e import/export.
+
+<span class="t-key">## Non-goals</span>
+<span class="t-cmt">- Sync de entornos en equipo</span>
+<span class="t-cmt">- Almacenamiento cifrado</span>
+<span class="t-cmt">- Herencia de entornos</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 — OUTPUT: ARCHITECTURE (el cómo) -->
+  <section class="slide" data-title="ARCHITECTURE · el cómo">
+    <div class="inner grid-side">
+      <div class="stack">
+        <div class="reveal kicker" style="--i:0">Documenta · el cómo</div>
+        <h2 class="reveal h2" style="--i:1">Decidido el qué,<br>el cómo es <span class="ac">mecánico</span>.</h2>
+        <p class="reveal lead" style="--i:2">Tipos, data flow, edge cases. La IA lo ejecuta sin adivinar.</p>
+      </div>
+      <div class="reveal win" style="--i:3">
+        <div class="win-bar"><span class="tl"><i></i><i></i><i></i></span><span class="win-name">src-tauri/environment.rs</span></div>
+        <pre class="win-body"><code><span class="t-cmt">// environment.rs · auto-migración</span>
+<span class="t-kw">fn</span> <span class="t-fn">migrate_variable</span>(v: &amp;<span class="t-ty">Value</span>)
+  -&gt; <span class="t-ty">EnvVariable</span> {
+  <span class="t-kw">match</span> v {
+    <span class="t-ty">Value</span>::<span class="t-fn">String</span>(s) =&gt;
+      <span class="t-ty">EnvVariable</span> {
+        value: s.<span class="t-fn">clone</span>(),
+        secret: <span class="t-kw">false</span>,
+      },
+    <span class="t-ty">Value</span>::<span class="t-fn">Object</span>(_) =&gt;
+      <span class="t-fn">from_value</span>(v.<span class="t-fn">clone</span>())
+        .<span class="t-fn">unwrap_or_default</span>(),
+    _ =&gt; <span class="t-ty">EnvVariable</span>::<span class="t-fn">default</span>(),
+  }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 — OUTPUT: DECISIONS -->
+  <section class="slide" data-title="DECISIONS · Decidido · Por qué · Rechazado">
+    <div class="inner grid-side">
+      <div class="stack">
+        <div class="reveal kicker" style="--i:0">El artefacto más importante</div>
+        <h2 class="reveal h2" style="--i:1"><span class="gr">Decidido</span> ·<br><span class="ac">Por qué</span> ·<br><span class="pk">Rechazado</span></h2>
+        <p class="reveal lead" style="--i:2">El oro está en lo <span class="pk">Rechazado</span>: evita rediscutir lo ya decidido.</p>
+      </div>
+      <div class="reveal win" style="--i:3">
+        <div class="win-bar"><span class="tl"><i></i><i></i><i></i></span><span class="win-name">docs/DECISIONS.md</span></div>
+        <pre class="win-body"><code><span class="t-key">## 002 · Enmascarado de secretos</span>
+
+<span class="l-dec">Decidido:</span>
+  convención + flag explícito.
+
+<span class="l-why">Por qué:</span>
+  la convención cubre el 90%;
+  el flag maneja las excepciones.
+
+<span class="l-no">Rechazado:</span>
+  ✗ sin máscara (maneja API keys)
+  ✗ solo convención
+  ✗ solo explícito (se olvida)</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 — FINALIZING: SELF-AUDIT -->
+  <section class="slide" data-title="Self-audit antes de cerrar">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Antes de cerrar · Self-audit</div>
+      <h2 class="reveal h2" style="--i:1">El skill se <span class="ac">auto-audita</span>.</h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step"><span class="n">01</span><span class="tx">Redundancia <small>¿esta capa protege algo que otra ya cubre?</small></span></div>
+        <div class="step"><span class="n">02</span><span class="tx">Conflicto <small>¿alguna decisión contradice a otra?</small></span></div>
+        <div class="step"><span class="n">03</span><span class="tx">Migración <small>orden de despliegue · ventana rota</small></span></div>
+        <div class="step"><span class="n">04</span><span class="tx">Async / timing <small>¿race conditions o estado viejo?</small></span></div>
+        <div class="step"><span class="n">05</span><span class="tx">Datos existentes <small>¿rechaza datos ya guardados en prod?</small></span></div>
+      </div>
+      <p class="reveal attr" style="--i:3">Atrapa ~80% de los problemas <span class="ac">en diseño, no en código</span>.</p>
+    </div>
+  </section>
+
+  <!-- 18 — FINALIZING: QUALITY GATE -->
+  <section class="slide" data-title="La prueba de fuego">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Antes de cerrar · Quality check</div>
+      <h2 class="reveal h2" style="--i:1">¿Una sesión nueva implementa<br>el paso 1 <span class="ac">sin preguntar?</span></h2>
+      <div class="reveal cmp" style="--i:2">
+        <div class="row ok"><span class="mk">✓</span><span>Implementa el paso 1 <span class="go">sin preguntas</span></span></div>
+        <div class="row ok"><span class="mk">✓</span><span>Sin búsquedas web ni exploración de API</span></div>
+        <div class="row ok"><span class="mk">✓</span><span>Cada decisión tiene su <span class="go">rationale</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 — HANDOFF (artifacts + orchestration) -->
+  <section class="slide" data-title="El handoff · para humanos y modelos">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Documentar &amp; handoff</div>
+      <h2 class="reveal h2" style="--i:1">Docs para que otra sesión —<br>o un <span class="ac">agente</span> — ejecute sin ti.</h2>
+      <div class="reveal layers" style="--i:2">
+        <div class="layer"><div class="f">ROADMAP.md</div><div class="d">el plan + fases</div></div>
+        <div class="layer"><div class="f">CLAUDE.md</div><div class="d">reglas + arranque</div></div>
+        <div class="layer"><div class="f">PROGRESS.md</div><div class="d">dónde retomar</div></div>
+        <div class="layer"><div class="f">DECISIONS · ARCH</div><div class="d">porqués + diseño</div></div>
+      </div>
+      <p class="reveal lead wide" style="--i:3">El CLAUDE.md trae la regla para IA: el proceso principal <span class="ac">orquesta y delega en subagentes</span> — el contexto es el recurso escaso.</p>
+    </div>
+  </section>
+
+  <!-- 20 — SECTION: DEMO -->
+  <section class="slide divider" data-title="◆ Demo en vivo">
+    <div class="inner center">
+      <div class="reveal divnum" style="--i:0"><span class="dot"></span>&nbsp;&nbsp;PARTE 02 · EN VIVO</div>
+      <h1 class="reveal h1" style="--i:1">Speceamos<br>una feature nueva</h1>
+    </div>
+  </section>
+
+  <!-- 21 — THE FEATURE -->
+  <section class="slide" data-title="La feature: encadenar requests">
+    <div class="inner grid-side">
+      <div class="stack">
+        <div class="reveal kicker" style="--i:0"><span class="dot"></span> En vivo · /spec</div>
+        <h3 class="reveal h3" style="--i:1">Encadenar la respuesta<br>en el siguiente request.</h3>
+        <div class="reveal steps" style="--i:2">
+          <div class="step"><span class="n">→</span><span class="tx">Referencia <small>inline (@request) vs captura explícita</small></span></div>
+          <div class="step"><span class="n">→</span><span class="tx">Resolución <small>¿se cachea la respuesta o se re-ejecuta?</small></span></div>
+          <div class="step"><span class="n">→</span><span class="tx">Masking <small>reusar la convención isSecret (decisión 002)</small></span></div>
+          <div class="step"><span class="n">→</span><span class="tx">Persistencia <small>¿sobrevive al reinicio? → ¿Non-goal?</small></span></div>
+        </div>
+      </div>
+      <div class="reveal win" style="--i:3">
+        <div class="win-bar"><span class="tl"><i></i><i></i><i></i></span><span class="win-name">login.http</span></div>
+        <pre class="win-body"><code><span class="t-cmt">### Login</span>
+<span class="t-kw">POST</span> <span class="t-url">{{base_url}}/auth/login</span>
+<span class="t-hdr">Content-Type:</span> application/json
+
+{ <span class="t-key">"email"</span>: <span class="t-var">"{{email}}"</span> }
+
+<span class="t-cmt">### Perfil</span>
+<span class="t-kw">GET</span> <span class="t-url">{{base_url}}/me</span>
+<span class="t-cmt"># ← lo único nuevo</span>
+<span class="t-hdr">Authorization:</span> Bearer {{<span class="ac">@login</span><span class="t-var">.data.token</span>}}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 22 — STEAL THESE -->
+  <section class="slide" data-title="Técnicas que te puedes robar">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">Para llevar</div>
+      <h2 class="reveal h2" style="--i:1">Técnicas que te puedes<br>robar <span class="ac">hoy</span>.</h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step"><span class="n">01</span><span class="tx">Diseña antes de codear <small>una conversación, no un documento</small></span></div>
+        <div class="step"><span class="n">02</span><span class="tx">Opciones con tradeoffs <small>una recomendación, decides tú</small></span></div>
+        <div class="step"><span class="n">03</span><span class="tx">Auto-audítate <small>redundancia · conflicto · migración · timing</small></span></div>
+        <div class="step"><span class="n">04</span><span class="tx">Decisiones con <span class="pk">Rechazado</span> <small>evita rediscutir lo ya cerrado</small></span></div>
+        <div class="step"><span class="n">05</span><span class="tx">Codifica tu proceso en un <span class="go">skill</span> <small>tu taste, reutilizable</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 23 — FULL CYCLE -->
+  <section class="slide" data-title="El ciclo completo">
+    <div class="inner center">
+      <div class="reveal kicker" style="--i:0">El payoff</div>
+      <h2 class="reveal h2" style="--i:1">El ciclo completo</h2>
+      <div class="reveal flow" style="--i:2">
+        <span class="chip v">Conversación</span><span class="arr">→</span>
+        <span class="chip">ROADMAP</span><span class="arr">→</span>
+        <span class="chip">DECISIONS</span><span class="arr">→</span>
+        <span class="chip">ARCHITECTURE</span><span class="arr">→</span>
+        <span class="chip v">Código</span>
+      </div>
+      <p class="reveal lead" style="--i:3">Tú-del-futuro no rediscute. Un dev nuevo — o un agente — ejecuta sin alucinar.</p>
+    </div>
+  </section>
+
+  <!-- 24 — CTA -->
+  <section class="slide" data-title="El reto">
+    <div class="inner stack">
+      <div class="reveal kicker" style="--i:0">El reto</div>
+      <h2 class="reveal h2" style="--i:1">Tu próxima feature:<br>no abras el <span class="ac">editor</span>.</h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step"><span class="n">01</span><span class="tx">La fricción y el pitch, en una frase.</span></div>
+        <div class="step"><span class="n">02</span><span class="tx">Opciones con tradeoffs — y <span class="ac">elige</span>.</span></div>
+        <div class="step"><span class="n">03</span><span class="tx">Escribe qué <span class="pk">rechazaste</span>, y por qué.</span></div>
+        <div class="step"><span class="n">04</span><span class="tx">Pásale el self-audit (5 chequeos).</span></div>
+        <div class="step"><span class="n">05</span><span class="tx">¿Lo implementarían sin preguntarte? Recién ahí, codea.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 25 — CLOSING -->
+  <section class="slide" data-title="Cierre">
+    <div class="inner center">
+      <h1 class="reveal big" style="--i:0">La decisión que hoy<br>no escribes</h1>
+      <h1 class="reveal big" style="--i:1">es el <span class="pk">bug</span> que mañana<br>vas a depurar.</h1>
+      <div class="reveal metarow" style="--i:2">
+        <span class="dot"></span>
+        <span>Gracias</span><span class="sep">·</span>
+        <span>Cris Llanos</span><span class="sep">·</span>
+        <a class="link" href="https://cristianllanos.com" target="_blank" rel="noopener">cristianllanos.com</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- chrome -->
+<button id="prev" class="navbtn" aria-label="Anterior">‹</button>
+<button id="next" class="navbtn" aria-label="Siguiente">›</button>
+<div id="progress"><div id="bar"></div></div>
+<div id="counter">01 / 25</div>
+<div id="hint">← → navegar · Ctrl E buscar · F pantalla completa</div>
+
+<!-- Quick switcher -->
+<div id="switcher">
+  <div class="palette" role="dialog" aria-label="Saltar a una slide">
+    <div class="pal-search">
+      <span class="pal-prompt">→</span>
+      <input id="pal-input" type="text" placeholder="Saltar a una slide… (nombre o número)" autocomplete="off" autocapitalize="off" spellcheck="false" />
+    </div>
+    <div class="pal-list" id="pal-list"></div>
+    <div class="pal-hint">↑ ↓ moverse&nbsp;&nbsp;·&nbsp;&nbsp;⏎ ir&nbsp;&nbsp;·&nbsp;&nbsp;esc cerrar</div>
+  </div>
+</div>
+
+<script>
+  const deck = document.getElementById('deck');
+  const slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  const bar = document.getElementById('bar');
+  const counter = document.getElementById('counter');
+  const sw = document.getElementById('switcher');
+  const palInput = document.getElementById('pal-input');
+  const palList = document.getElementById('pal-list');
+  const pad = n => String(n).padStart(2,'0');
+  const clamp = n => Math.max(0, Math.min(slides.length-1, n));
+  let idx = 0;
+
+  function render(){
+    slides.forEach((s,k)=>s.classList.toggle('active', k===idx));
+    bar.style.transform = 'scaleX(' + ((idx+1)/slides.length) + ')';
+    counter.textContent = pad(idx+1) + ' / ' + pad(slides.length);
+    const h = '#' + (idx+1);
+    if(location.hash !== h) history.replaceState(null, '', h);
+  }
+  function go(n){ idx = clamp(n); render(); }
+  const next = ()=>go(idx+1);
+  const prev = ()=>go(idx-1);
+
+  // Quick switcher (anvil-style fuzzy jump)
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const palItems = slides.map((s,k)=>({ idx:k, num:pad(k+1), title:(s.dataset.title || ('Slide ' + (k+1))) }));
+  let palFiltered = palItems.slice();
+  let palSel = 0;
+
+  function fuzzy(q, hay){
+    if(!q) return true;
+    q = norm(q); hay = norm(hay);
+    if(hay.indexOf(q) !== -1) return true;
+    let i = 0;
+    for(const c of hay){ if(c === q[i]) i++; if(i === q.length) return true; }
+    return false;
+  }
+  function renderPal(){
+    const q = palInput.value.trim();
+    palFiltered = palItems.filter(it => fuzzy(q, it.num + ' ' + it.title));
+    if(palSel >= palFiltered.length) palSel = palFiltered.length - 1;
+    if(palSel < 0) palSel = 0;
+    if(!palFiltered.length){ palList.innerHTML = '<div class="pal-empty">Sin resultados</div>'; return; }
+    palList.innerHTML = palFiltered.map((it,i)=>
+      '<button class="pal-item' + (i===palSel?' sel':'') + '" data-idx="' + it.idx + '">' +
+      '<span class="pal-num">' + it.num + '</span><span>' + it.title + '</span></button>'
+    ).join('');
+    const el = palList.children[palSel];
+    if(el) el.scrollIntoView({ block:'nearest' });
+  }
+  function openSwitcher(){
+    sw.classList.add('open');
+    palInput.value = '';
+    renderPal();
+    const pos = palFiltered.findIndex(it => it.idx === idx);
+    palSel = pos >= 0 ? pos : 0;
+    renderPal();
+    setTimeout(()=>palInput.focus(), 0);
+  }
+  function closeSwitcher(){ sw.classList.remove('open'); }
+  function chooseSwitcher(){
+    const it = palFiltered[palSel];
+    if(it) go(it.idx);
+    closeSwitcher();
+  }
+  palInput.addEventListener('input', ()=>{ palSel = 0; renderPal(); });
+  palList.addEventListener('click', e=>{
+    const b = e.target.closest('.pal-item');
+    if(!b) return;
+    go(parseInt(b.dataset.idx, 10));
+    closeSwitcher();
+  });
+  sw.addEventListener('click', e=>{ if(e.target === sw) closeSwitcher(); });
+
+  function toggleFs(){
+    const el = document.documentElement;
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    let p;
+    try{
+      if(!fsEl){
+        p = el.requestFullscreen ? el.requestFullscreen()
+          : (el.webkitRequestFullscreen ? el.webkitRequestFullscreen() : null);
+      } else {
+        p = document.exitFullscreen ? document.exitFullscreen()
+          : (document.webkitExitFullscreen ? document.webkitExitFullscreen() : null);
+      }
+      if(p && typeof p.catch === 'function') p.catch(function(){});
+    }catch(e){}
+  }
+
+  document.addEventListener('keydown', e=>{
+    if(e.ctrlKey && (e.key === 'e' || e.key === 'E')){
+      e.preventDefault();
+      sw.classList.contains('open') ? closeSwitcher() : openSwitcher();
+      return;
+    }
+    if(sw.classList.contains('open')){
+      switch(e.key){
+        case 'Escape': closeSwitcher(); e.preventDefault(); break;
+        case 'ArrowDown': palSel = Math.min(palFiltered.length-1, palSel+1); renderPal(); e.preventDefault(); break;
+        case 'ArrowUp': palSel = Math.max(0, palSel-1); renderPal(); e.preventDefault(); break;
+        case 'Enter': chooseSwitcher(); e.preventDefault(); break;
+      }
+      return;
+    }
+    switch(e.key){
+      case 'ArrowRight': case 'PageDown': case ' ': case 'Spacebar': next(); e.preventDefault(); break;
+      case 'ArrowLeft': case 'PageUp': case 'Backspace': prev(); e.preventDefault(); break;
+      case 'Home': go(0); e.preventDefault(); break;
+      case 'End': go(slides.length-1); e.preventDefault(); break;
+      case 'f': case 'F': toggleFs(); break;
+      case 'o': case 'O': openSwitcher(); break;
+    }
+  });
+
+  window.addEventListener('hashchange', ()=>{
+    const n = parseInt(location.hash.slice(1), 10);
+    if(!isNaN(n)) go(n-1);
+  });
+
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('next').addEventListener('click', next);
+
+  const start = parseInt(location.hash.slice(1), 10);
+  if(!isNaN(start)) idx = clamp(start-1);
+  render();
+</script>
+</body>
+</html>

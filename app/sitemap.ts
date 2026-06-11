@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog/`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/credits/`, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/projects/`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/slides/`, changeFrequency: 'monthly', priority: 0.7 },
   ]
 
   const kotlinContainerPages: MetadataRoute.Sitemap = [
@@ -50,5 +51,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }))
 
-  return [...staticPages, ...kotlinContainerPages, ...kotlinEventsPages, ...blogPages, ...projectPages]
+  const slidesPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/slides/decisiones-conscientes/`, changeFrequency: 'yearly', priority: 0.6 },
+  ]
+
+  return [...staticPages, ...kotlinContainerPages, ...kotlinEventsPages, ...slidesPages, ...blogPages, ...projectPages]
 }

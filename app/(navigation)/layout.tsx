@@ -16,6 +16,7 @@ export default function NavigationLayout({ children }: { children: React.ReactNo
         <div className="nav__links">
           <Link href="/blog" className="nav__link">Blog</Link>
           <Link href="/projects" className="nav__link">Proyectos</Link>
+          <Link href="/slides" className="nav__link">Slides</Link>
           <Link href="/credits" className="nav__link">Créditos</Link>
           <ThemeToggle />
         </div>
