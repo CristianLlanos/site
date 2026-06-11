@@ -7,6 +7,13 @@
     <language>es-PE</language>
     <atom:link href="https://cristianllanos.com/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Diseñar con IA antes de escribir código: el método /spec</title>
+      <link>https://cristianllanos.com/blog/disenar-con-ia-antes-de-escribir-codigo/</link>
+      <guid>https://cristianllanos.com/blog/disenar-con-ia-antes-de-escribir-codigo/</guid>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 GMT</pubDate>
+      <description>El método /spec: usa IA para diseñar proyectos, features y refactors —y dejar las decisiones por escrito— antes de escribir código.</description>
+    </item>
+    <item>
       <title>Eventos en Kotlin con inyección de dependencias</title>
       <link>https://cristianllanos.com/blog/eventos-en-kotlin-con-inyeccion-de-dependencias/</link>
       <guid>https://cristianllanos.com/blog/eventos-en-kotlin-con-inyeccion-de-dependencias/</guid>
