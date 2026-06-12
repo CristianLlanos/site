@@ -39,6 +39,7 @@
   status = 301
 
 [[redirects]]
-  from = "/blog/2021-04-23-cómo-generar-modelos-de-laravel-desde-una-base-de-datos-existente/"
+  # `ó` must be percent-encoded so Netlify matches the incoming %C3%B3 request
+  from = "/blog/2021-04-23-c%C3%B3mo-generar-modelos-de-laravel-desde-una-base-de-datos-existente/"
   to = "/blog/como-generar-modelos-de-laravel-desde-una-base-de-datos-existente/"
   status = 301
