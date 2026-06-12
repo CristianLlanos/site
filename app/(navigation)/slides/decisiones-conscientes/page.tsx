@@ -153,7 +153,7 @@ export default function DecisionesConscientesPage() {
         </p>
       </section>
 
-      <section className="lib-section">
+      <section className="lib-section" style={{ paddingBottom: 'var(--space-3xl)' }}>
         <h2 className="lib-section__title">Recursos</h2>
         <div className="lib-hero__actions">
           <a
