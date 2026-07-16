@@ -1,6 +1,6 @@
 # Apps Script — Entradas · Cumple de Cris 2026
 
-Ticketing backend for `/eventos/social-bachata-cumple-cris-2026/`. Managed with
+Ticketing backend for `/events/social-bachata-cumple-cris-2026/`. Managed with
 [clasp](https://github.com/google/clasp). Contract and gotchas:
 `docs/knowledge/apps-script-ticketing.md`. Operator guide: `docs/user/eventos-runbook.md`.
 

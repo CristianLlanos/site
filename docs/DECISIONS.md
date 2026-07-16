@@ -3,14 +3,14 @@
 ## 2026-07-16 — Events section + Cumple de Cris landing (/spec session)
 
 ### 1. Events live in an unlisted `(events)` route group, not the nav
-Immersive poster-style pages without the site nav (like `(home)`). `/eventos` exists and
+Immersive poster-style pages without the site nav (like `(home)`). `/events` exists and
 is in the sitemap but gets no nav link — the audience arrives via WhatsApp/Instagram
 links. Nav promotion deferred until events are recurring.
 *Alternatives:* nav item now (rejected: one event doesn't justify it), markdown content
 type like blog (rejected: this landing is too bespoke; revisit at event #2).
 
 ### 2. Event name: "Social de Bachata · Cumple de Cris"
-Personal and searchable; slug `/eventos/social-bachata-cumple-cris-2026`.
+Personal and searchable; slug `/events/social-bachata-cumple-cris-2026`.
 *Alternatives:* "Cris B-Day Social", "Zouk & Bachata Night".
 
 ### 3. Ticketing = native form + Google Apps Script + Google Sheet
@@ -93,7 +93,7 @@ rim-glow/warm-grade treatment. Explicit requirement on the Cris cutout: flatteri
   after the cutoff via DeadlineGate.
 - **Accepted risks (documented, not bugs)**: no captcha/rate-limiting on the public
   endpoint (honeypot + manual Yape verification + MAX_ROWS bound it at party scale);
-  the unlisted /eventos index shows presale price until the post-event cleanup.
+  the unlisted /events index shows presale price until the post-event cleanup.
 
 ### 11c. Flyer alignment (2026-07-16, after the official flyer arrived)
 The flyer is the source of truth and superseded three facts: Zouk class at **9:00 pm**
@@ -127,10 +127,17 @@ desktop, and some email clients don't linkify app schemes. Cris's variant used
 `pickup[latitude]=my_location` — normalized to the documented `pickup=my_location`.
 
 ### 11f. Slug renamed to include the year (2026-07-16, pre-launch)
-`/eventos/social-bachata-cumple-cris` → `/eventos/social-bachata-cumple-cris-2026`
+`/eventos/social-bachata-cumple-cris` → `/events/social-bachata-cumple-cris-2026`
 (Cris's call — leaves room for future editions). Renamed before any deploy, so no
 redirect needed; sitemap/canonical/JSON-LD/breadcrumbs all derive from
 `lib/events.ts` and followed automatically.
+
+### 11g. Section path in English: /eventos → /events (2026-07-16, Cris's call)
+URL coherence with /blog, /projects, /credits. Renamed pre-launch (no redirect):
+route dir, `public/events/` (.ics), `public/img/events/` assets, sitemap, canonicals,
+breadcrumbs, OG footer label. Content stays Spanish; internal names that are not URLs
+(`.eventos-*` CSS classes, `docs/user/eventos-runbook.md`, `assets/eventos/`) keep
+their names, as does the `eventos-en-kotlin` blog slug.
 
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single

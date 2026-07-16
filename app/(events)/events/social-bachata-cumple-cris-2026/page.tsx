@@ -103,7 +103,7 @@ const jsonLd = {
 }
 
 const breadcrumbs = breadcrumbList([
-  { name: 'Eventos', url: '/eventos/' },
+  { name: 'Eventos', url: '/events/' },
   { name: event.name, url: `${event.path}/` },
 ])
 

@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: `${SITE_URL}/eventos/`,
+    canonical: `${SITE_URL}/events/`,
   },
   openGraph: {
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    url: `${SITE_URL}/eventos/`,
+    url: `${SITE_URL}/events/`,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: PAGE_TITLE }],
   },
   twitter: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
 const breadcrumbs = breadcrumbList([
   { name: 'Inicio', url: '/' },
-  { name: 'Eventos', url: '/eventos/' },
+  { name: 'Eventos', url: '/events/' },
 ])
 
 export default function EventosPage() {

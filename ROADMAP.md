@@ -19,7 +19,7 @@ into the shared card recipe.
 
 ## Vision
 
-A new **unlisted events section** (`/eventos`) hosting immersive, poster-style landing
+A new **unlisted events section** (`/events`) hosting immersive, poster-style landing
 pages for dance events, with **self-serve ticketing** (Yape payment + native registration
 form backed by Google Apps Script + Sheets). First event: Cristian's birthday bachata
 social on **Wednesday, August 5, 2026**.
@@ -32,7 +32,7 @@ The page must sell the night and make buying a ticket take under two minutes, mo
 | Fact | Value |
 |---|---|
 | Name | Social de Bachata · Cumple de Cris |
-| Slug / URL | `/eventos/social-bachata-cumple-cris-2026/` |
+| Slug / URL | `/events/social-bachata-cumple-cris-2026/` |
 | Date | Wednesday 2026-08-05 (Cris's birthday is Aug 6 — midnight birthday moment 🎂) |
 | Doors | 8:00 pm |
 | Zouk class | 9:00 pm, taught by Cris + Xio, **included with entry** (per official flyer) |
@@ -59,7 +59,7 @@ The page must sell the night and make buying a ticket take under two minutes, mo
 | DJ Nathan artwork | `/Users/cris/Downloads/dj.jpg` | Background removal (near-white studio bg, easy), same unified glow treatment |
 | Yape QR card | `/Users/cris/Downloads/IMG_9580.JPG` | Import as-is (already a designed card), just resize/optimize |
 
-Processed images go to `public/img/eventos/cumple-cris-2026/`. Keep originals in `assets/`.
+Processed images go to `public/img/events/cumple-cris-2026/`. Keep originals in `assets/`.
 
 ## Architecture
 
@@ -75,7 +75,7 @@ components/events/
   DeadlineGate.tsx                 ← 'use client' — flips UI at Aug 5 18:00 Lima time
   ScrollReveal.tsx                 ← 'use client' — tiny IntersectionObserver wrapper
 lib/events.ts                      ← typed event list (index page + shared facts)
-public/eventos/cumple-cris-2026.ics  ← calendar file (20:00 → 05:00+1)
+public/events/cumple-cris-2026.ics  ← calendar file (20:00 → 05:00+1)
 ```
 
 - Ticket backend: **Google Apps Script web app** (`doPost`) + Google Sheet. Full contract,
@@ -144,7 +144,7 @@ Respect `prefers-reduced-motion`.
   (S/ 15 `validThrough 2026-08-05T18:00-05:00`, S/ 20 door), performer DJ Nathan,
   organizer/instructor Cristian Llanos
 - OG image 1200×630 via `/og-image` skill → `public/img/og/`
-- Add `/eventos` + event URL to `app/sitemap.ts`
+- Add `/events` + event URL to `app/sitemap.ts`
 - Final `/seo-audit` pass before launch
 
 ## Phase 1 — implementation order
@@ -162,11 +162,11 @@ Session hygiene checklist (every session):
 ### Session A — Assets (steps 1–3)
 1. Copy the 3 source images into `assets/eventos/` (originals) — sources listed above.
 2. Background-remove `cris.jpg` and `dj.jpg` with `rembg` (`pipx run` or venv; `isnet-general-use` model works well for people). Flattering pass on Cris's cutout: slight warm grade, soft skin-friendly contrast — "make me look nice" is an explicit requirement.
-3. Export optimized WebP (plus PNG fallback for cutouts w/ alpha) to `public/img/eventos/cumple-cris-2026/`; optimize the Yape QR (keep it crisp — it must scan from screens).
+3. Export optimized WebP (plus PNG fallback for cutouts w/ alpha) to `public/img/events/cumple-cris-2026/`; optimize the Yape QR (keep it crisp — it must scan from screens).
 
 ### Session B — Section + landing UI (steps 4–8)
 4. `lib/events.ts` — typed event data + `APPS_SCRIPT_URL` placeholder constant.
-5. `app/(events)/eventos/layout.tsx` + index `page.tsx` (simple list, one card).
+5. `app/(events)/events/layout.tsx` + index `page.tsx` (simple list, one card).
 6. Landing `page.tsx`: hero, timeline, DJ card, lugar (Maps + Uber buttons), CTA final — static sections, BEM styles in `globals.css`, per-event accent palette.
 7. `ScrollReveal.tsx` + hero/gradient/glow/equalizer effects; `prefers-reduced-motion`.
 8. `.ics` file + "+ Calendario" button.

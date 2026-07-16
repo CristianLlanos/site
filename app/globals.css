@@ -2685,7 +2685,7 @@ code {
 }
 
 /* ============================================
-   EVENTOS — nav-less shell (/eventos)
+   EVENTOS — nav-less shell (/events)
    ============================================ */
 
 /* The (events) route group renders outside .site-container: full-bleed pages
@@ -2744,7 +2744,7 @@ code {
   color: rgba(246, 239, 252, 0.55);
 }
 
-/* --- Events index (/eventos) --- */
+/* --- Events index (/events) --- */
 
 .eventos-index {
   width: 100%;
@@ -2945,7 +2945,7 @@ code {
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(4, 6, 13, 0.35) 0%, transparent 40%, rgba(4, 6, 13, 0.55) 100%),
-    url('/img/eventos/cumple-cris-2026/bg-cosmic.webp') center top / cover no-repeat;
+    url('/img/events/cumple-cris-2026/bg-cosmic.webp') center top / cover no-repeat;
 }
 
 @keyframes evento-gradient {
@@ -3710,7 +3710,7 @@ code {
   /* Same flyer texture closes the page, anchored to its spark-lit bottom */
   background:
     linear-gradient(rgba(7, 10, 20, 0.45), rgba(7, 10, 20, 0.45)),
-    url('/img/eventos/cumple-cris-2026/bg-cosmic.webp') center bottom / cover no-repeat;
+    url('/img/events/cumple-cris-2026/bg-cosmic.webp') center bottom / cover no-repeat;
 }
 
 .evento__final-title {

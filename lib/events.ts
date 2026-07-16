@@ -1,5 +1,5 @@
 /**
- * Event data for the /eventos section.
+ * Event data for the /events section.
  * Single source of truth for event facts: ROADMAP.md § "Event facts".
  * All dates are ISO 8601 with the America/Lima offset (-05:00, no DST).
  */
@@ -66,22 +66,22 @@ export interface DanceEventData {
 
 /** Processed asset paths for the cumple-cris-2026 event. */
 export const CUMPLE_CRIS_ASSETS = {
-  crisCutoutWebp: '/img/eventos/cumple-cris-2026/cris2-cutout.webp',
-  crisCutoutPng: '/img/eventos/cumple-cris-2026/cris2-cutout.png',
-  xioCutoutWebp: '/img/eventos/cumple-cris-2026/xio-cutout.webp',
-  xioCutoutPng: '/img/eventos/cumple-cris-2026/xio-cutout.png',
-  djNathanCutoutWebp: '/img/eventos/cumple-cris-2026/dj-nathan-cutout.webp',
-  djNathanCutoutPng: '/img/eventos/cumple-cris-2026/dj-nathan-cutout.png',
-  yapeQr: '/img/eventos/cumple-cris-2026/yape-qr.png',
+  crisCutoutWebp: '/img/events/cumple-cris-2026/cris2-cutout.webp',
+  crisCutoutPng: '/img/events/cumple-cris-2026/cris2-cutout.png',
+  xioCutoutWebp: '/img/events/cumple-cris-2026/xio-cutout.webp',
+  xioCutoutPng: '/img/events/cumple-cris-2026/xio-cutout.png',
+  djNathanCutoutWebp: '/img/events/cumple-cris-2026/dj-nathan-cutout.webp',
+  djNathanCutoutPng: '/img/events/cumple-cris-2026/dj-nathan-cutout.png',
+  yapeQr: '/img/events/cumple-cris-2026/yape-qr.png',
   /** Google Maps crop of the venue block — links to mapsUrl on click. */
-  croquis: '/img/eventos/cumple-cris-2026/croquis.jpg',
+  croquis: '/img/events/cumple-cris-2026/croquis.jpg',
 } as const
 
 const CUMPLE_CRIS_SLUG = 'social-bachata-cumple-cris-2026'
 
 export const cumpleCris2026: DanceEventData = {
   slug: CUMPLE_CRIS_SLUG,
-  path: `/eventos/${CUMPLE_CRIS_SLUG}`,
+  path: `/events/${CUMPLE_CRIS_SLUG}`,
   name: 'Social de Bachata · Cumple de Cris',
   description:
     'Social de bachata por el cumpleaños de Cris. Clase de Zouk con Cris + Xio a las 9:00 pm incluida con tu entrada, DJ Nathan en cabina y pista hasta que el cuerpo aguante.',
@@ -111,11 +111,11 @@ export const cumpleCris2026: DanceEventData = {
     uberUrl:
       'uber://?action=setPickup&pickup=my_location&dropoff[latitude]=-12.0892749&dropoff[longitude]=-77.0151988&dropoff[nickname]=Av.%20Javier%20Prado%20Este%201179&dropoff[formatted_address]=Av.%20Javier%20Prado%20Este%201179%2C%20La%20Victoria',
   },
-  icsPath: '/eventos/cumple-cris-2026.ics',
+  icsPath: '/events/cumple-cris-2026.ics',
   ogImage: '/img/og/eventos-cumple-cris-2026.png',
 }
 
-/** Events shown on the /eventos index, newest first. */
+/** Events shown on the /events index, newest first. */
 export const events: DanceEventData[] = [cumpleCris2026]
 
 /** Group promo: one free ticket per 5 paid — 6 cost 5, 12 cost 10. */

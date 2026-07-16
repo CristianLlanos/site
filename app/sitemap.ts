@@ -57,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const eventosPages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/eventos/`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/events/`, changeFrequency: 'monthly', priority: 0.6 },
     ...events.map((event) => ({
       url: `${baseUrl}${event.path}/`,
       changeFrequency: 'weekly' as const,
