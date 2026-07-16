@@ -77,7 +77,7 @@ export const CUMPLE_CRIS_ASSETS = {
   croquis: '/img/eventos/cumple-cris-2026/croquis.jpg',
 } as const
 
-const CUMPLE_CRIS_SLUG = 'social-bachata-cumple-cris'
+const CUMPLE_CRIS_SLUG = 'social-bachata-cumple-cris-2026'
 
 export const cumpleCris2026: DanceEventData = {
   slug: CUMPLE_CRIS_SLUG,

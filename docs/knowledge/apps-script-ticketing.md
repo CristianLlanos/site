@@ -7,7 +7,7 @@
 > reusing the deploymentId keeps the URL. `doPost` self-heals the `Tickets` tab via
 > `getOrCreateSheet()`, so `setup()` is only an authorization convenience.
 
-The ticket form on `/eventos/social-bachata-cumple-cris/` POSTs to a Google Apps Script
+The ticket form on `/eventos/social-bachata-cumple-cris-2026/` POSTs to a Google Apps Script
 web app that validates, writes one row per ticket to a Google Sheet, and emails a
 confirmation. This doc contains everything needed to build it without research.
 

@@ -4,7 +4,7 @@ PRODID:-//cristianllanos.com//Eventos//ES
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:social-bachata-cumple-cris-2026@cristianllanos.com
+UID:social-bachata-cumple-cris-2026-2026@cristianllanos.com
 DTSTAMP:20260716T120000Z
 DTSTART:20260806T010000Z
 DTEND:20260806T100000Z
@@ -14,6 +14,6 @@ LOCATION:Centro de Convenciones Javier Prado\, Av. Javier Prado Este 117
 DESCRIPTION:Clase de Zouk con Cris + Xio 9:00 pm incluida. Preventa online S/ 15 hasta
   las 6:00 pm del 5/8\; en puerta S/ 20. Mapa: https://maps.google.com/?
  q=-12.0892749,-77.0151988
-URL:https://cristianllanos.com/eventos/social-bachata-cumple-cris/
+URL:https://cristianllanos.com/eventos/social-bachata-cumple-cris-2026/
 END:VEVENT
 END:VCALENDAR

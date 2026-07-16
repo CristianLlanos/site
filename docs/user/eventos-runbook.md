@@ -21,7 +21,7 @@ Still yours to do:
   share the same **Compra** id. Expected amount = (entradas − ⌊entradas/6⌋) × S/ 15 —
   the group promo gives 1 free per 5 paid (6 → S/ 75, 12 → S/ 150).
 - Mismatch or missing payment → WhatsApp the buyer (their number is in the row).
-- Share the page link everywhere: `https://cristianllanos.com/eventos/social-bachata-cumple-cris/`
+- Share the page link everywhere: `https://cristianllanos.com/eventos/social-bachata-cumple-cris-2026/`
 - You do NOT need to answer "how do I buy" messages — the page is the answer.
 
 ## 3. Aug 5, event day

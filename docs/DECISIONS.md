@@ -10,7 +10,7 @@ links. Nav promotion deferred until events are recurring.
 type like blog (rejected: this landing is too bespoke; revisit at event #2).
 
 ### 2. Event name: "Social de Bachata · Cumple de Cris"
-Personal and searchable; slug `/eventos/social-bachata-cumple-cris`.
+Personal and searchable; slug `/eventos/social-bachata-cumple-cris-2026`.
 *Alternatives:* "Cris B-Day Social", "Zouk & Bachata Night".
 
 ### 3. Ticketing = native form + Google Apps Script + Google Sheet
@@ -125,6 +125,12 @@ button AND the confirmation email (supersedes decision 8's universal-link choice
 Opens the app directly; trade-off accepted: does nothing without the Uber app / on
 desktop, and some email clients don't linkify app schemes. Cris's variant used
 `pickup[latitude]=my_location` — normalized to the documented `pickup=my_location`.
+
+### 11f. Slug renamed to include the year (2026-07-16, pre-launch)
+`/eventos/social-bachata-cumple-cris` → `/eventos/social-bachata-cumple-cris-2026`
+(Cris's call — leaves room for future editions). Renamed before any deploy, so no
+redirect needed; sitemap/canonical/JSON-LD/breadcrumbs all derive from
+`lib/events.ts` and followed automatically.
 
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single

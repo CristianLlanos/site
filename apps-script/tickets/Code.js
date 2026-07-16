@@ -1,7 +1,7 @@
 /**
  * Ticketing backend — Social de Bachata · Cumple de Cris (2026-08-05).
  *
- * The form on https://cristianllanos.com/eventos/social-bachata-cumple-cris/
+ * The form on https://cristianllanos.com/eventos/social-bachata-cumple-cris-2026/
  * POSTs JSON as text/plain (simple request, no CORS preflight). This script
  * validates, appends one row per ticket to the 'Tickets' sheet, and sends a
  * confirmation email.

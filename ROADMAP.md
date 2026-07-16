@@ -32,7 +32,7 @@ The page must sell the night and make buying a ticket take under two minutes, mo
 | Fact | Value |
 |---|---|
 | Name | Social de Bachata · Cumple de Cris |
-| Slug / URL | `/eventos/social-bachata-cumple-cris/` |
+| Slug / URL | `/eventos/social-bachata-cumple-cris-2026/` |
 | Date | Wednesday 2026-08-05 (Cris's birthday is Aug 6 — midnight birthday moment 🎂) |
 | Doors | 8:00 pm |
 | Zouk class | 9:00 pm, taught by Cris + Xio, **included with entry** (per official flyer) |
@@ -68,7 +68,7 @@ app/(events)/                      ← new route group, NO site nav (like (home)
   eventos/
     layout.tsx                     ← minimal layout, mini-footer linking home
     page.tsx                       ← events index (reads lib/events.ts)
-    social-bachata-cumple-cris/
+    social-bachata-cumple-cris-2026/
       page.tsx                     ← bespoke landing (Server Component shell)
 components/events/
   TicketForm.tsx                   ← 'use client' — stepper form, POSTs to Apps Script
