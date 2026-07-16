@@ -56,6 +56,9 @@ function doPost(e) {
           to: String(req.email).trim(),
           subject: '🎉 Estás en la lista — Social de Bachata · Cumple de Cris',
           htmlBody: buildEmail(tickets, result.codes),
+          attachments: [
+            Utilities.newBlob(buildIcs(), 'text/calendar', 'cumple-cris-2026.ics'),
+          ],
         });
         emailSent = true;
       } catch (mailErr) {
@@ -183,6 +186,7 @@ function buildEmail(tickets, codes) {
         'y di tu nombre — con eso entras. No necesitas imprimir nada.</p>' +
       '<p style="margin:0 0 12px;color:#1a1a2e;">Verificaremos tu pago con el número de operación de Yape. ' +
         'Solo te escribiremos por WhatsApp si algo no cuadra — si no recibes mensaje, todo está en orden.</p>' +
+      '<p style="margin:0 0 12px;color:#1a1a2e;">📎 Adjuntamos la invitación para tu calendario.</p>' +
       '<p style="margin:24px 0 0;color:#1a1a2e;">¡Nos vemos en la pista! 🕺<br>Cris</p>' +
     '</div>'
   );
@@ -211,6 +215,37 @@ function getOrCreateSheet() {
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+/**
+ * Calendar invite attached to the confirmation email. Mirrors
+ * public/events/cumple-cris-2026.ics — keep both in sync. CRLF line endings
+ * and ≤75-char folded lines per RFC 5545.
+ * @return {string}
+ */
+function buildIcs() {
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//cristianllanos.com//Eventos//ES',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:social-bachata-cumple-cris-2026@cristianllanos.com',
+    'DTSTAMP:20260716T120000Z',
+    'DTSTART:20260806T010000Z',
+    'DTEND:20260806T100000Z',
+    'SUMMARY:Social de Bachata · Cumple de Cris',
+    'LOCATION:Centro de Convenciones Javier Prado\\, Av. Javier Prado Este 117',
+    ' 9\\, Tercer piso\\, La Victoria\\, Lima',
+    'DESCRIPTION:Clase de Zouk con Cris + Xio 9:00 pm incluida. Preventa onlin',
+    ' e S/ 15 hasta las 6:00 pm del 5/8\\; en puerta S/ 20. Mapa: https://maps.',
+    ' google.com/?q=-12.0892749,-77.0151988',
+    'URL:https://cristianllanos.com/events/social-bachata-cumple-cris-2026/',
+    'END:VEVENT',
+    'END:VCALENDAR',
+    '',
+  ].join('\r\n');
 }
 
 /**

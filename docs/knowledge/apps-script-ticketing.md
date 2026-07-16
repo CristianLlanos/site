@@ -55,7 +55,8 @@ Server validation (mirrored in `components/events/ticketing.ts`): 1–12 tickets
 yapeOperation + purchaseId required, fullName ≤ 80 chars, documento 6–12 alphanumeric.
 Cell values are length-capped and formula-escaped (leading `=+@-` prefixed with `'`)
 before writing. A replayed `purchaseId` returns the original codes with
-`emailSent: true` and writes nothing. `MAX_ROWS` (600) bounds scripted abuse. Group promo (6 pay 5, 12 pay 10 — one free per 5 paid) is client-side display math; the script never computes amounts, Cris verifies totals against Yape.
+`emailSent: true` and writes nothing. The confirmation email attaches the calendar
+invite (`buildIcs()` — mirrors `public/events/cumple-cris-2026.ics`, keep in sync). `MAX_ROWS` (600) bounds scripted abuse. Group promo (6 pay 5, 12 pay 10 — one free per 5 paid) is client-side display math; the script never computes amounts, Cris verifies totals against Yape.
 
 ## Script skeleton
 
