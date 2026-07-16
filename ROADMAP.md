@@ -35,7 +35,7 @@ The page must sell the night and make buying a ticket take under two minutes, mo
 | Slug / URL | `/eventos/social-bachata-cumple-cris/` |
 | Date | Wednesday 2026-08-05 (Cris's birthday is Aug 6 — midnight birthday moment 🎂) |
 | Doors | 8:00 pm |
-| Zouk class | 9:30 pm, taught by Cristian Llanos, **included with entry** |
+| Zouk class | 9:00 pm, taught by Cris + Xio, **included with entry** (per official flyer) |
 | Social | after class, bachata (+ zouk), until ~5:00 am ("hasta que el cuerpo aguante") |
 | DJ | DJ Nathan |
 | Venue | Centro de Convenciones Javier Prado, Av. Javier Prado Este 1179, **Tercer piso**, La Victoria, Lima |
@@ -100,9 +100,9 @@ public/eventos/cumple-cris-2026.ics  ← calendar file (20:00 → 05:00+1)
 ├──────────────────────────────────────────────────┤
 │ LA NOCHE — vertical timeline, scroll-reveal      │
 │  8:00 pm  Puertas abiertas                       │
-│  9:30 pm  Clase de Zouk · Cristian Llanos        │
+│  9:00 pm  Clase de Zouk · Cris + Xio             │
 │ 10:15 pm  Social de bachata                      │
-│ 12:00 am  ¡Feliz cumple, Cris! 🎂                │
+│  1:00 am  ¡Cantamos el cumple! 🎂                │
 │  hasta que el cuerpo aguante (~5 am)             │
 ├──────────────────────────────────────────────────┤
 │ ENTRADAS — TicketForm stepper                    │

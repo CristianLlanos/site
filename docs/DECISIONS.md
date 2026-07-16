@@ -95,6 +95,16 @@ rim-glow/warm-grade treatment. Explicit requirement on the Cris cutout: flatteri
   endpoint (honeypot + manual Yape verification + MAX_ROWS bound it at party scale);
   the unlisted /eventos index shows presale price until the post-event cleanup.
 
+### 11c. Flyer alignment (2026-07-16, after the official flyer arrived)
+The flyer is the source of truth and superseded three facts: Zouk class at **9:00 pm**
+(was 9:30) now taught by **Cris + Xio**; "cantamos el cumple" at **1:00 am** (was
+midnight). Updated everywhere: landing, JSON-LD, metadata, `.ics`, confirmation email.
+Visual overhaul to the flyer palette (cosmic blue-black, champagne gold, ember, electric
+blue — replaces purple/magenta). New hero photo (`cris2.jpg`) with the shirt recolored
+brown→teal to match the flyer (Cris chose this over keeping the brown). Xio gets a
+"La clase" card mirroring the DJ card (hero stays solo Cris — Cris's call). Venue
+croquis (Maps screenshot) added to Lugar, clickable to Google Maps.
+
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single
 `master` merge to launch + 1 reserved fix deploy. End time for schema/.ics: 5:00 am

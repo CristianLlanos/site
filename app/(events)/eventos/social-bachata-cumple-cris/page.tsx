@@ -11,17 +11,21 @@ const PAGE_URL = `${SITE_URL}${event.path}/`
 const OG_IMAGE = `${SITE_URL}${event.ogImage}`
 const PAGE_TITLE = 'Social de Bachata · Cumple de Cris — Mié 5 de agosto'
 const PAGE_DESCRIPTION =
-  'Social de bachata por el cumple de Cris: miércoles 5 de agosto, 8:00 pm, Centro de Convenciones Javier Prado (tercer piso), La Victoria. Clase de Zouk 9:30 pm incluida. Preventa online S/ 15.'
+  'Social de bachata por el cumple de Cris: miércoles 5 de agosto, 8:00 pm, Centro de Convenciones Javier Prado (tercer piso), La Victoria. Clase de Zouk con Cris + Xio 9:00 pm incluida. Preventa online S/ 15.'
 
 const WHATSAPP_URL = `https://wa.me/${event.whatsappNumber}?text=${encodeURIComponent(
   'Hola Cris, tengo una duda sobre el Social de Bachata del 5 de agosto 🙂'
 )}`
 
+/* Intrinsic sizes of the processed images (CLS reservation). */
+const XIO_CUTOUT = { width: 390, height: 804 }
+const CROQUIS = { width: 900, height: 822 }
+
+/* Order and times mirror the official flyer. */
 const TIMELINE = [
-  { time: '8:00 pm', label: 'Puertas abiertas' },
-  { time: '9:30 pm', label: `Clase de Zouk · ${event.instructor}` },
-  { time: '10:15 pm', label: 'Social de bachata' },
-  { time: '12:00 am', label: '¡Feliz cumple, Cris! 🎂' },
+  { time: '8:00 pm', label: 'Puertas + social' },
+  { time: '9:00 pm', label: `Clase de Zouk · ${event.instructor}` },
+  { time: '1:00 am', label: '¡Cantamos el cumple! 🎂' },
 ]
 
 export const metadata: Metadata = {
@@ -91,10 +95,10 @@ const jsonLd = {
       url: PAGE_URL,
     },
   ],
-  performer: {
-    '@type': 'Person',
-    name: event.dj,
-  },
+  performer: [
+    { '@type': 'Person', name: event.dj },
+    { '@type': 'Person', name: 'Xio' },
+  ],
   organizer: AUTHOR,
 }
 
@@ -125,7 +129,7 @@ export default function CumpleCrisPage() {
               <span className="evento__hero-cake">🎂</span> Cumple de Cris
             </span>
           </h1>
-          <p className="evento__hero-subtitle">Clase de Zouk 9:30 PM incluida</p>
+          <p className="evento__hero-subtitle">Clase de Zouk 9:00 PM incluida</p>
           <div className="evento__hero-actions">
             <DeadlineGate
               deadline={event.presaleDeadline}
@@ -208,6 +212,31 @@ export default function CumpleCrisPage() {
         </p>
       </section>
 
+      {/* LA CLASE */}
+      <section className="evento__section">
+        <ScrollReveal>
+          <div className="evento__dj evento__dj--clase">
+            <div className="evento__dj-figure">
+              <picture>
+                <source srcSet={assets.xioCutoutWebp} type="image/webp" />
+                <img
+                  src={assets.xioCutoutPng}
+                  alt="Xio"
+                  width={XIO_CUTOUT.width}
+                  height={XIO_CUTOUT.height}
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            <div className="evento__dj-info">
+              <p className="evento__dj-eyebrow">La clase · 9:00 pm</p>
+              <p className="evento__dj-name">Zouk con {event.instructor}</p>
+              <p className="evento__dj-tags">incluida con tu entrada</p>
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* DJ */}
       <section className="evento__section">
         <ScrollReveal>
@@ -247,6 +276,21 @@ export default function CumpleCrisPage() {
           <p className="evento__venue-note">
             Estamos en el <strong>tercer piso</strong> — sube las escaleras al llegar.
           </p>
+          <a
+            href={event.venue.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="evento__croquis"
+            aria-label="Abrir la ubicación en Google Maps"
+          >
+            <img
+              src={assets.croquis}
+              alt="Croquis: Centro de Convenciones Javier Prado, en Av. Javier Prado Este a la altura del cruce con Av. José Gálvez Barrenechea"
+              width={CROQUIS.width}
+              height={CROQUIS.height}
+              loading="lazy"
+            />
+          </a>
           <div className="evento__venue-actions">
             <a
               href={event.venue.mapsUrl}

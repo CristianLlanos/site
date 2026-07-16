@@ -2729,15 +2729,15 @@ code {
 /* Under an event poster the footer keeps the poster's fixed dark palette —
    a theme-following (possibly white) strip would break the full-bleed page. */
 .eventos-shell:has(.evento) .eventos-footer {
-  background: #150a22;
+  background: #070a14;
 }
 
 .eventos-shell:has(.evento) .eventos-footer__link {
-  color: #fcd34d;
+  color: #e9c78a;
 }
 
 .eventos-shell:has(.evento) .eventos-footer__link:hover {
-  color: #fde68a;
+  color: #f2dcae;
 }
 
 .eventos-shell:has(.evento) .eventos-footer__copyright {
@@ -2839,26 +2839,27 @@ code {
    EVENTO — landing (poster-style, fixed dark)
    ============================================ */
 
-/* Per-event accent palette: cumple-cris-2026 (warm purple → magenta → amber) */
+/* Per-event accent palette: cumple-cris-2026 — matches the official flyer:
+   cosmic blue-black night, champagne-gold type, ember sparks, electric-blue smoke */
 .evento--cumple-cris {
-  --ev-bg: #150a22;
-  --ev-hero-1: #1c0b33;
-  --ev-hero-2: #4c1d95;
-  --ev-hero-3: #86185d;
-  --ev-hero-4: #92400e;
-  --ev-purple: #a855f7;
-  --ev-magenta: #ec4899;
-  --ev-amber: #f59e0b;
-  --ev-amber-light: #fcd34d;
-  --ev-text: #f6effc;
-  --ev-text-muted: rgba(246, 239, 252, 0.68);
+  --ev-bg: #070a14;
+  --ev-hero-1: #04060d;
+  --ev-hero-2: #0e1c40;
+  --ev-hero-3: #241023;
+  --ev-hero-4: #5a3110;
+  --ev-blue: #3f7bdb;
+  --ev-ember: #ff9b4a;
+  --ev-amber: #e3b567;
+  --ev-amber-light: #f2dcae;
+  --ev-text: #f8f4ea;
+  --ev-text-muted: rgba(248, 244, 234, 0.68);
   --ev-surface: rgba(255, 255, 255, 0.05);
   --ev-border: rgba(255, 255, 255, 0.14);
-  --ev-gradient-text: linear-gradient(100deg, #e9b1fd 0%, var(--ev-magenta) 48%, var(--ev-amber-light) 100%);
-  --ev-gradient-cta: linear-gradient(135deg, var(--ev-magenta), var(--ev-amber));
-  --ev-glow-magenta: rgba(236, 72, 153, 0.45);
-  --ev-glow-amber: rgba(245, 158, 11, 0.25);
-  --ev-glow-purple: rgba(168, 85, 247, 0.45);
+  --ev-gradient-text: linear-gradient(100deg, #f7e8c8 0%, var(--ev-amber) 52%, var(--ev-ember) 100%);
+  --ev-gradient-cta: linear-gradient(135deg, var(--ev-ember), var(--ev-amber));
+  --ev-glow-ember: rgba(255, 155, 74, 0.4);
+  --ev-glow-gold: rgba(227, 181, 103, 0.28);
+  --ev-glow-blue: rgba(63, 123, 219, 0.45);
   --ev-error: #fb7185;
   --ev-error-text: #fecdd3;
   --ev-error-bg: rgba(251, 113, 133, 0.12);
@@ -2938,7 +2939,7 @@ code {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(21, 10, 34, 0.35) 0%, transparent 40%, rgba(21, 10, 34, 0.55) 100%);
+  background: linear-gradient(180deg, rgba(4, 6, 13, 0.35) 0%, transparent 40%, rgba(4, 6, 13, 0.55) 100%);
 }
 
 @keyframes evento-gradient {
@@ -2967,7 +2968,7 @@ code {
 .evento__hero-figure picture {
   display: block;
   height: 100%;
-  filter: drop-shadow(0 0 18px var(--ev-glow-magenta)) drop-shadow(0 0 64px var(--ev-glow-amber));
+  filter: drop-shadow(0 0 18px var(--ev-glow-ember)) drop-shadow(0 0 64px var(--ev-glow-gold));
 }
 
 .evento__hero-figure img {
@@ -3084,13 +3085,13 @@ code {
 
 .evento__cta--primary {
   background: var(--ev-gradient-cta);
-  color: #1c0b33;
-  box-shadow: 0 8px 30px var(--ev-glow-magenta);
+  color: #1d1305;
+  box-shadow: 0 8px 30px var(--ev-glow-ember);
 }
 
 .evento__cta--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px var(--ev-glow-magenta);
+  box-shadow: 0 12px 40px var(--ev-glow-ember);
 }
 
 .evento__cta--ghost:hover {
@@ -3112,7 +3113,7 @@ code {
   bottom: 6px;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--ev-purple), var(--ev-magenta), var(--ev-amber));
+  background: linear-gradient(180deg, var(--ev-blue), var(--ev-ember), var(--ev-amber));
   opacity: 0.55;
 }
 
@@ -3131,8 +3132,8 @@ code {
   height: 14px;
   border-radius: 50%;
   background: var(--ev-bg);
-  border: 2px solid var(--ev-magenta);
-  box-shadow: 0 0 12px var(--ev-glow-magenta);
+  border: 2px solid var(--ev-ember);
+  box-shadow: 0 0 12px var(--ev-glow-ember);
 }
 
 .evento__timeline-item--open {
@@ -3141,7 +3142,7 @@ code {
 
 .evento__timeline-item--open::before {
   border-color: var(--ev-amber);
-  box-shadow: 0 0 12px var(--ev-glow-amber);
+  box-shadow: 0 0 12px var(--ev-glow-gold);
 }
 
 .evento__timeline-time {
@@ -3183,9 +3184,9 @@ code {
 }
 
 .evento__price-card--presale {
-  border-color: var(--ev-magenta);
-  background: linear-gradient(160deg, rgba(236, 72, 153, 0.14), rgba(245, 158, 11, 0.08));
-  box-shadow: 0 8px 40px rgba(236, 72, 153, 0.18);
+  border-color: var(--ev-ember);
+  background: linear-gradient(160deg, rgba(255, 155, 74, 0.14), rgba(227, 181, 103, 0.08));
+  box-shadow: 0 8px 40px rgba(255, 155, 74, 0.18);
 }
 
 .evento__price-tag {
@@ -3221,9 +3222,9 @@ code {
 .evento__deadline {
   margin-top: var(--space-xl);
   padding: var(--space-md) var(--space-lg);
-  border: 1px solid rgba(245, 158, 11, 0.35);
+  border: 1px solid rgba(227, 181, 103, 0.35);
   border-radius: var(--border-radius);
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(227, 181, 103, 0.1);
   font-size: var(--font-size-sm);
   color: var(--ev-amber-light);
   text-align: center;
@@ -3516,7 +3517,7 @@ code {
 
 .evento__form-panel--success {
   border-color: var(--ev-amber);
-  background: linear-gradient(160deg, rgba(245, 158, 11, 0.12), rgba(236, 72, 153, 0.08));
+  background: linear-gradient(160deg, rgba(227, 181, 103, 0.12), rgba(255, 155, 74, 0.08));
 }
 
 .evento__form-panel-title {
@@ -3557,7 +3558,7 @@ code {
   padding: var(--space-xl);
   border: 1px solid var(--ev-border);
   border-radius: var(--border-radius-lg);
-  background: linear-gradient(160deg, rgba(168, 85, 247, 0.12), rgba(236, 72, 153, 0.06));
+  background: linear-gradient(160deg, rgba(63, 123, 219, 0.12), rgba(255, 155, 74, 0.06));
 }
 
 .evento__dj-figure {
@@ -3568,7 +3569,7 @@ code {
 .evento__dj-figure img {
   width: 100%;
   height: auto; /* keep aspect from width/height attrs (CLS reservation) */
-  filter: drop-shadow(0 0 24px var(--ev-glow-purple));
+  filter: drop-shadow(0 0 24px var(--ev-glow-blue));
   transition: transform 0.4s ease;
 }
 
@@ -3578,6 +3579,22 @@ code {
 
 .evento__dj-info {
   text-align: center;
+}
+
+/* Venue sketch — links to Google Maps; sized down so the map text stays sharp */
+.evento__croquis {
+  display: block;
+  max-width: 480px;
+  margin-bottom: var(--space-xl);
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.evento__croquis img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .evento__eq {
@@ -3593,7 +3610,7 @@ code {
   width: 5px;
   height: 100%;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--ev-amber), var(--ev-magenta));
+  background: linear-gradient(180deg, var(--ev-amber), var(--ev-ember));
   transform-origin: bottom;
   animation: evento-eq 0.9s ease-in-out infinite alternate;
 }
@@ -3703,6 +3720,15 @@ code {
   .evento__dj {
     grid-template-columns: 1fr 1.2fr;
     padding: var(--space-2xl);
+  }
+
+  /* Class card mirrors the DJ card: photo on the right */
+  .evento__dj--clase .evento__dj-figure {
+    order: 2;
+  }
+
+  .evento__dj--clase .evento__dj-info {
+    text-align: right;
   }
 
   .evento__dj-info {

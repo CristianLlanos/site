@@ -168,7 +168,7 @@ function buildEmail(tickets, codes) {
       ticketRows +
       '<div style="margin:20px 0;padding:16px;background-color:#f9f7fc;border-radius:8px;color:#1a1a2e;">' +
         '<p style="margin:0 0 6px;"><strong>📅 Miércoles 5 de agosto, 8:00 pm</strong></p>' +
-        '<p style="margin:0 0 6px;">💃 Clase de Zouk a las 9:30 pm — <strong>incluida con tu entrada</strong>.</p>' +
+        '<p style="margin:0 0 6px;">💃 Clase de Zouk con Cris + Xio a las 9:00 pm — <strong>incluida con tu entrada</strong>.</p>' +
         '<p style="margin:0;">📍 Centro de Convenciones Javier Prado — Av. Javier Prado Este 1179, ' +
           'Tercer piso, La Victoria<br>' +
           '<a href="' + MAPS_URL + '" style="color:#6b3fa0;">Ver en Google Maps</a></p>' +

@@ -62,13 +62,17 @@ export interface DanceEventData {
   ogImage: string
 }
 
-/** Processed asset paths for the cumple-cris-2026 event (Session A output). */
+/** Processed asset paths for the cumple-cris-2026 event. */
 export const CUMPLE_CRIS_ASSETS = {
-  crisCutoutWebp: '/img/eventos/cumple-cris-2026/cris-cutout.webp',
-  crisCutoutPng: '/img/eventos/cumple-cris-2026/cris-cutout.png',
+  crisCutoutWebp: '/img/eventos/cumple-cris-2026/cris2-cutout.webp',
+  crisCutoutPng: '/img/eventos/cumple-cris-2026/cris2-cutout.png',
+  xioCutoutWebp: '/img/eventos/cumple-cris-2026/xio-cutout.webp',
+  xioCutoutPng: '/img/eventos/cumple-cris-2026/xio-cutout.png',
   djNathanCutoutWebp: '/img/eventos/cumple-cris-2026/dj-nathan-cutout.webp',
   djNathanCutoutPng: '/img/eventos/cumple-cris-2026/dj-nathan-cutout.png',
   yapeQr: '/img/eventos/cumple-cris-2026/yape-qr.png',
+  /** Google Maps crop of the venue block — links to mapsUrl on click. */
+  croquis: '/img/eventos/cumple-cris-2026/croquis.jpg',
 } as const
 
 const CUMPLE_CRIS_SLUG = 'social-bachata-cumple-cris'
@@ -78,7 +82,7 @@ export const cumpleCris2026: DanceEventData = {
   path: `/eventos/${CUMPLE_CRIS_SLUG}`,
   name: 'Social de Bachata · Cumple de Cris',
   description:
-    'Social de bachata por el cumpleaños de Cris. Clase de Zouk a las 9:30 pm incluida con tu entrada, DJ Nathan en cabina y pista hasta que el cuerpo aguante.',
+    'Social de bachata por el cumpleaños de Cris. Clase de Zouk con Cris + Xio a las 9:00 pm incluida con tu entrada, DJ Nathan en cabina y pista hasta que el cuerpo aguante.',
   startDate: '2026-08-05T20:00:00-05:00',
   endDate: '2026-08-06T05:00:00-05:00',
   doorsLabel: '8:00 pm',
@@ -91,7 +95,7 @@ export const cumpleCris2026: DanceEventData = {
   yapeHolder: 'Cristian Alberto Llanos Malca',
   whatsappNumber: '51986821895',
   dj: 'DJ Nathan',
-  instructor: 'Cristian Llanos',
+  instructor: 'Cris + Xio',
   venue: {
     name: 'Centro de Convenciones Javier Prado',
     streetAddress: 'Av. Javier Prado Este 1179, Tercer piso',
