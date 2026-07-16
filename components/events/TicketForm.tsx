@@ -4,6 +4,7 @@ import { useId, useRef, useState, type FormEvent } from 'react'
 import { APPS_SCRIPT_URL, type DanceEventData } from '@/lib/events'
 import {
   hasErrors,
+  makePurchaseId,
   submitTickets,
   validateBuyer,
   validateTicket,
@@ -30,10 +31,14 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
   const [errorCode, setErrorCode] = useState<TicketErrorCode | null>(null)
   // Snapshot of what was actually sent — the live `tickets` state can change
   // while the request is in flight, which would misalign codes and names.
-  const [confirmed, setConfirmed] = useState<{ codes: string[]; tickets: TicketInput[] } | null>(
-    null
-  )
+  const [confirmed, setConfirmed] = useState<{
+    codes: string[]
+    tickets: TicketInput[]
+    emailSent: boolean
+  } | null>(null)
   const [copied, setCopied] = useState(false)
+  // Stable across retries so the server can dedupe a replayed purchase.
+  const purchaseIdRef = useRef(makePurchaseId())
 
   const quantity = tickets.length
   const total = event.presalePrice * quantity
@@ -72,13 +77,24 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!formValid || submitting) return
+    // Don't send a request that will bounce: the server enforces this cutoff.
+    if (Date.now() > new Date(event.presaleDeadline).getTime()) {
+      setErrorCode('closed')
+      return
+    }
     const snapshot = tickets
     setSubmitting(true)
     setErrorCode(null)
-    const result = await submitTickets(APPS_SCRIPT_URL, snapshot, buyer, websiteRef.current?.value ?? '')
+    const result = await submitTickets(
+      APPS_SCRIPT_URL,
+      snapshot,
+      buyer,
+      websiteRef.current?.value ?? '',
+      purchaseIdRef.current
+    )
     setSubmitting(false)
     if (result.ok) {
-      setConfirmed({ codes: result.codes, tickets: snapshot })
+      setConfirmed({ codes: result.codes, tickets: snapshot, emailSent: result.emailSent })
     } else {
       setErrorCode(result.error)
     }
@@ -97,7 +113,9 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
           ))}
         </ul>
         <p className="evento__form-panel-note">
-          Revisa tu correo 📧 Tu nombre estará en la lista en puerta — trae tu DNI.
+          {confirmed.emailSent
+            ? 'Revisa tu correo 📧 Tu nombre estará en la lista en puerta — trae tu DNI.'
+            : 'Guarda una captura de estos códigos 📸 Tu nombre estará en la lista en puerta — trae tu DNI.'}
         </p>
       </div>
     )

@@ -74,8 +74,26 @@ rim-glow/warm-grade treatment. Explicit requirement on the Cris cutout: flatteri
   registrations never depend on someone having run `setup()`.
 - **Success panel renders a submit-time snapshot** of tickets+codes; live form state can
   change while the request is in flight and would misalign codes and names.
-- **Test registrations CRIS-001…005** exist in the Sheet from end-to-end verification —
+- **Test registrations CRIS-001…007** exist in the Sheet from end-to-end verification —
   delete before launch.
+
+### 11b. Codex review hardening (2026-07-16)
+- **Idempotent purchases**: the form sends a `purchaseId` stable across retries; the
+  script returns the already-assigned codes for a replay instead of duplicating rows.
+- **Sheet formula injection defused** (`asCell`: trim, length cap, `'`-prefix leading
+  `=+@-`) and server validation now mirrors the client fully (reject >5 tickets instead
+  of truncating, whatsapp 9–12 digits) plus a `MAX_ROWS` (600) abuse guard.
+- **Honest success copy**: server returns `emailSent`; if the email failed (quota), the
+  UI says "guarda una captura de estos códigos" instead of "revisa tu correo".
+- **Submit-time cutoff check + 30s fetch timeout** so the form can't hang in
+  "Registrando…" or fire a request that will bounce.
+- **Reveal effect is now progressive enhancement**: content visible by default; JS hides
+  only below-fold elements before animating them in (no-JS/no-IntersectionObserver
+  visitors get a plain page). Price-bearing CTAs (hero, final) swap to door-price copy
+  after the cutoff via DeadlineGate.
+- **Accepted risks (documented, not bugs)**: no captcha/rate-limiting on the public
+  endpoint (honeypot + manual Yape verification + MAX_ROWS bound it at party scale);
+  the unlisted /eventos index shows presale price until the post-event cleanup.
 
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single

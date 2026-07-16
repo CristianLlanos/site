@@ -12,11 +12,15 @@
 const SHEET_NAME = 'Tickets';
 const DEADLINE = new Date('2026-08-05T18:00:00-05:00'); // Lima, no DST
 const MAX_TICKETS = 5;
+// Abuse guard: bounds how far a scripted caller can fill the sheet / burn the
+// Gmail quota. Far above any realistic party turnout.
+const MAX_ROWS = 600;
 
 const HEADER = [
   'Código', 'Nombre completo', 'DNI', 'Email', 'WhatsApp',
-  'N° operación Yape', 'Verificado', 'Registrado',
+  'N° operación Yape', 'Verificado', 'Registrado', 'Compra',
 ];
+const PURCHASE_ID_COL = HEADER.indexOf('Compra');
 
 const MAPS_URL = 'https://www.google.com/maps/place/Centro+de+Convenciones+Javier+Prado/@-12.0892179,-77.0179075,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c87ebb8eb213:0xa908be93d1d0521!8m2!3d-12.0892232!4d-77.0153326!16s%2Fg%2F1ptxkll54';
 
@@ -33,24 +37,29 @@ function doPost(e) {
     if (req.website) return out({ ok: false, error: 'validation' });        // honeypot
     if (new Date() > DEADLINE) return out({ ok: false, error: 'closed' });  // authoritative cutoff
 
-    const tickets = (req.tickets || []).slice(0, MAX_TICKETS);
+    const tickets = req.tickets;
     const error = validate(req, tickets);
     if (error) return out({ ok: false, error: error });
 
-    const codes = appendTickets(tickets, req);
+    const result = appendTickets(tickets, req);
 
-    // Email failure must NOT fail the registration — rows are already written.
-    try {
-      MailApp.sendEmail({
-        to: req.email.trim(),
-        subject: '🎉 Estás en la lista — Social de Bachata · Cumple de Cris',
-        htmlBody: buildEmail(tickets, codes),
-      });
-    } catch (mailErr) {
-      console.error('sendEmail failed (registration kept): ' + mailErr);
+    // A replayed purchase (retry after a lost response) was already emailed.
+    let emailSent = result.duplicate;
+    if (!result.duplicate) {
+      // Email failure must NOT fail the registration — rows are already written.
+      try {
+        MailApp.sendEmail({
+          to: String(req.email).trim(),
+          subject: '🎉 Estás en la lista — Social de Bachata · Cumple de Cris',
+          htmlBody: buildEmail(tickets, result.codes),
+        });
+        emailSent = true;
+      } catch (mailErr) {
+        console.error('sendEmail failed (registration kept): ' + mailErr);
+      }
     }
 
-    return out({ ok: true, codes: codes });
+    return out({ ok: true, codes: result.codes, emailSent: emailSent });
   } catch (err) {
     console.error(err);
     return out({ ok: false, error: 'server' });
@@ -59,40 +68,75 @@ function doPost(e) {
 
 /**
  * Validates the parsed request. Returns an error code string or null if valid.
+ * Mirrors components/events/ticketing.ts — keep both sides in sync.
  * @param {Object} req parsed request body
- * @param {Array<{fullName: string, dni: string}>} tickets already capped at MAX_TICKETS
+ * @param {Array<{fullName: string, dni: string}>} tickets
  * @return {?string}
  */
 function validate(req, tickets) {
-  if (!tickets.length || !req.email || !req.yapeOperation) return 'validation';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(req.email).trim())) return 'validation';
+  // Reject (don't truncate) oversize batches: silent truncation would look
+  // like success for tickets that were never registered.
+  if (!Array.isArray(tickets) || tickets.length < 1 || tickets.length > MAX_TICKETS)
+    return 'validation';
+  if (!req.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(req.email).trim()))
+    return 'validation';
+  if (!/^\d{9,12}$/.test(String(req.whatsapp || '').trim())) return 'validation';
+  if (!req.yapeOperation || !String(req.yapeOperation).trim()) return 'validation';
+  if (!/^[A-Za-z0-9-]{8,64}$/.test(String(req.purchaseId || ''))) return 'validation';
   // 8-digit DNI, but also CE (9 digits) / passport — don't lock out foreigners
   if (tickets.some((t) => !t.fullName || !String(t.fullName).trim() ||
+      String(t.fullName).trim().length > 80 ||
       !/^[A-Za-z0-9]{6,12}$/.test(String(t.dni).trim()))) return 'validation';
   return null;
 }
 
 /**
+ * Trims, caps length, and defuses spreadsheet formula injection: a value
+ * starting with =, +, @ or - would otherwise be interpreted by Sheets as a
+ * formula when written via setValues.
+ * @param {*} value
+ * @param {number} maxLength
+ * @return {string}
+ */
+function asCell(value, maxLength) {
+  const s = String(value).trim().slice(0, maxLength);
+  return /^[=+@-]/.test(s) ? "'" + s : s;
+}
+
+/**
  * Appends one row per ticket under a script lock (serializes numbering).
  * Header row = 1, so the first ticket ever is CRIS-001.
+ * Idempotent per purchaseId: a replayed purchase (client retry after a lost
+ * response) returns the codes already assigned instead of new rows.
  * @param {Array<{fullName: string, dni: string}>} tickets
  * @param {Object} req
- * @return {string[]} assigned ticket codes
+ * @return {{codes: string[], duplicate: boolean}}
  */
 function appendTickets(tickets, req) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
     const sheet = getOrCreateSheet();
+    const purchaseId = String(req.purchaseId).trim();
     const start = sheet.getLastRow(); // header row = 1, so codes start at CRIS-001
+
+    if (start > 1) {
+      const rows = sheet.getRange(2, 1, start - 1, HEADER.length).getValues();
+      const existing = rows
+        .filter((row) => row[PURCHASE_ID_COL] === purchaseId)
+        .map((row) => row[0]);
+      if (existing.length) return { codes: existing, duplicate: true };
+      if (start - 1 + tickets.length > MAX_ROWS) throw new Error('MAX_ROWS guard hit');
+    }
+
     const now = new Date();
     const codes = tickets.map((t, i) => 'CRIS-' + String(start + i).padStart(3, '0'));
     sheet.getRange(start + 1, 1, tickets.length, HEADER.length).setValues(
-      tickets.map((t, i) => [codes[i], t.fullName.trim(), String(t.dni).trim(),
-        req.email.trim(), String(req.whatsapp || '').trim(),
-        String(req.yapeOperation).trim(), '', now])
+      tickets.map((t, i) => [codes[i], asCell(t.fullName, 80), asCell(t.dni, 20),
+        asCell(req.email, 120), asCell(req.whatsapp, 20),
+        asCell(req.yapeOperation, 40), '', now, purchaseId])
     );
-    return codes;
+    return { codes: codes, duplicate: false };
   } finally {
     lock.releaseLock();
   }
@@ -154,7 +198,9 @@ function getOrCreateSheet() {
       ? first.setName(SHEET_NAME)
       : ss.insertSheet(SHEET_NAME);
   }
-  if (sheet.getLastRow() === 0) {
+  // Covers both the empty sheet and a header written by an older version
+  // with fewer columns.
+  if (sheet.getLastRow() === 0 || sheet.getLastColumn() < HEADER.length) {
     sheet.getRange(1, 1, 1, HEADER.length).setValues([HEADER]).setFontWeight('bold');
     sheet.setFrozenRows(1);
   }
@@ -182,6 +228,7 @@ function testDoPost() {
     whatsapp: '999888777',
     yapeOperation: '12345678',
     website: '',
+    purchaseId: 'test-' + Utilities.getUuid(),
   };
   const result = doPost({ postData: { contents: JSON.stringify(payload) } });
   console.log(result.getContent()); // expect {"ok":true,"codes":["CRIS-00X"]}

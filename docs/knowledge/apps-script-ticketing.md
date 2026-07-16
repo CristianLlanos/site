@@ -41,12 +41,21 @@ Request (client → script):
   "email": "ana@example.com",
   "whatsapp": "999888777",
   "yapeOperation": "12345678",
-  "website": ""            // honeypot — reject non-empty
+  "website": "",           // honeypot — reject non-empty
+  "purchaseId": "uuid"     // stable across retries — server dedupes replays
 }
 ```
 
-Response: `{ "ok": true, "codes": ["CRIS-007"] }` or `{ "ok": false, "error": "closed" | "validation" | "server" }`.
+Response: `{ "ok": true, "codes": ["CRIS-007"], "emailSent": true }` or
+`{ "ok": false, "error": "closed" | "validation" | "server" }`.
 Error copy shown by the form: `closed` → "La venta online cerró. Entradas en puerta a S/ 20."
+
+Server validation (mirrored in `components/events/ticketing.ts`): 1–5 tickets
+(oversize batches are REJECTED, not truncated), email format, whatsapp 9–12 digits,
+yapeOperation + purchaseId required, fullName ≤ 80 chars, documento 6–12 alphanumeric.
+Cell values are length-capped and formula-escaped (leading `=+@-` prefixed with `'`)
+before writing. A replayed `purchaseId` returns the original codes with
+`emailSent: true` and writes nothing. `MAX_ROWS` (600) bounds scripted abuse.
 
 ## Script skeleton
 
@@ -101,7 +110,7 @@ function doPost(e) {
 }
 ```
 
-Sheet header (row 1): `Código | Nombre completo | DNI | Email | WhatsApp | N° operación Yape | Verificado | Registrado`.
+Sheet header (row 1): `Código | Nombre completo | DNI | Email | WhatsApp | N° operación Yape | Verificado | Registrado | Compra` (Compra = purchaseId, used for replay dedup).
 
 ## Setup & deployment (Cris does this — see runbook)
 

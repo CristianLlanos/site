@@ -2824,15 +2824,15 @@ code {
    EVENTO — shared scroll-reveal
    ============================================ */
 
+/* Visible by default — JS adds .reveal--pending only to below-fold elements,
+   so no-JS/no-IntersectionObserver visitors get a plain, fully visible page. */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.reveal--visible {
-  opacity: 1;
-  transform: none;
+.reveal--pending {
+  opacity: 0;
+  transform: translateY(24px);
 }
 
 /* ============================================
@@ -3323,8 +3323,11 @@ code {
   text-align: center;
 }
 
+/* height:auto — the img carries width/height attrs (CLS reservation); without
+   it the attribute height would be used verbatim and stretch the image. */
 .evento__form-qr {
   width: min(240px, 70vw);
+  height: auto;
   border-radius: var(--border-radius-lg);
 }
 
@@ -3564,6 +3567,7 @@ code {
 
 .evento__dj-figure img {
   width: 100%;
+  height: auto; /* keep aspect from width/height attrs (CLS reservation) */
   filter: drop-shadow(0 0 24px var(--ev-glow-purple));
   transition: transform 0.4s ease;
 }
@@ -3759,8 +3763,11 @@ code {
   }
 
   .reveal {
+    transition: none;
+  }
+
+  .reveal--pending {
     opacity: 1;
     transform: none;
-    transition: none;
   }
 }

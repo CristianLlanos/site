@@ -7,7 +7,7 @@ Implementation knowledge in `docs/knowledge/`. Operator runbook in `docs/user/ev
 
 Phase 1 (steps 1–16) is **done and verified end-to-end** on `main`: assets processed,
 landing + ticket form live locally, Apps Script deployed (URL in `lib/events.ts`),
-real purchases tested from a browser (codes CRIS-001…005 are test rows — **delete
+real purchases tested from a browser (codes CRIS-001…007 are test rows — **delete
 them from the Sheet before launch**), SEO audited, `/simplify` + correctness review
 applied. Remaining: **step 17 — launch merge `main` → `master` (~Jul 24–26)** and the
 post-deploy smoke test. Netlify budget check before merging per CLAUDE.md.

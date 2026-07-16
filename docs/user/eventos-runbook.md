@@ -10,7 +10,7 @@ Already completed via clasp under elcristianllanos@gmail.com:
 - Web app deployed; URL wired into `lib/events.ts`; end-to-end verified (rows + emails).
 
 Still yours to do:
-1. **Delete the test rows CRIS-001…005** from the Sheet before launch.
+1. **Delete the test rows CRIS-001…007** from the Sheet before launch.
 2. After the production deploy: buy one real ticket from your phone (Yape yourself
    S/ 15), check the whole loop, then delete that row too.
 

@@ -127,9 +127,18 @@ export default function CumpleCrisPage() {
           </h1>
           <p className="evento__hero-subtitle">Clase de Zouk 9:30 PM incluida</p>
           <div className="evento__hero-actions">
-            <a href="#entradas" className="evento__cta evento__cta--primary">
-              Compra tu entrada — S/ {event.presalePrice}
-            </a>
+            <DeadlineGate
+              deadline={event.presaleDeadline}
+              fallback={
+                <a href="#entradas" className="evento__cta evento__cta--primary">
+                  Entradas en puerta — S/ {event.doorPrice}
+                </a>
+              }
+            >
+              <a href="#entradas" className="evento__cta evento__cta--primary">
+                Compra tu entrada — S/ {event.presalePrice}
+              </a>
+            </DeadlineGate>
             <a href={event.icsPath} className="evento__cta evento__cta--ghost">
               + Calendario
             </a>
@@ -263,15 +272,24 @@ export default function CumpleCrisPage() {
       <section className="evento__section evento__final">
         <ScrollReveal>
           <h2 className="evento__final-title">Nos vemos en la pista</h2>
-          <a href="#entradas" className="evento__cta evento__cta--primary">
-            Compra tu entrada — S/ {event.presalePrice}
-          </a>
-          <p className="evento__whatsapp">
-            ¿Dudas?{' '}
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              Escríbeme por WhatsApp
+          <DeadlineGate
+            deadline={event.presaleDeadline}
+            fallback={
+              <p className="evento__whatsapp">
+                Entradas en puerta a S/ {event.doorPrice} — nos vemos ahí 🎉
+              </p>
+            }
+          >
+            <a href="#entradas" className="evento__cta evento__cta--primary">
+              Compra tu entrada — S/ {event.presalePrice}
             </a>
-          </p>
+            <p className="evento__whatsapp">
+              ¿Dudas?{' '}
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                Escríbeme por WhatsApp
+              </a>
+            </p>
+          </DeadlineGate>
         </ScrollReveal>
       </section>
     </main>
