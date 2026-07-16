@@ -119,6 +119,13 @@ croquis (Maps screenshot) added to Lugar, clickable to Google Maps.
   never computes amounts; Cris verifies totals against Yape per purchase (rows share the
   Compra id).
 
+### 11e. Uber app deep link replaces the universal link (2026-07-16, Cris's call)
+`uber://?action=setPickup&pickup=my_location&dropoff[...]` in the web "Pedir Uber"
+button AND the confirmation email (supersedes decision 8's universal-link choice).
+Opens the app directly; trade-off accepted: does nothing without the Uber app / on
+desktop, and some email clients don't linkify app schemes. Cris's variant used
+`pickup[latitude]=my_location` — normalized to the documented `pickup=my_location`.
+
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single
 `master` merge to launch + 1 reserved fix deploy. End time for schema/.ics: 5:00 am

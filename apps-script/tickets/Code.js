@@ -25,6 +25,8 @@ const HEADER = [
 const PURCHASE_ID_COL = HEADER.indexOf('Compra');
 
 const MAPS_URL = 'https://www.google.com/maps/place/Centro+de+Convenciones+Javier+Prado/@-12.0892179,-77.0179075,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c87ebb8eb213:0xa908be93d1d0521!8m2!3d-12.0892232!4d-77.0153326!16s%2Fg%2F1ptxkll54';
+// Uber app deep link (same dropoff as lib/events.ts — keep in sync).
+const UBER_URL = 'uber://?action=setPickup&pickup=my_location&dropoff[latitude]=-12.0892749&dropoff[longitude]=-77.0151988&dropoff[nickname]=Av.%20Javier%20Prado%20Este%201179&dropoff[formatted_address]=Av.%20Javier%20Prado%20Este%201179%2C%20La%20Victoria';
 
 /**
  * Web app entry point. Always returns JSON via ContentService:
@@ -173,7 +175,9 @@ function buildEmail(tickets, codes) {
         '<p style="margin:0 0 6px;">💃 Clase de Zouk con Cris + Xio a las 9:00 pm — <strong>incluida con tu entrada</strong>.</p>' +
         '<p style="margin:0;">📍 Centro de Convenciones Javier Prado — Av. Javier Prado Este 1179, ' +
           'Tercer piso, La Victoria<br>' +
-          '<a href="' + MAPS_URL + '" style="color:#6b3fa0;">Ver en Google Maps</a></p>' +
+          '<a href="' + MAPS_URL + '" style="color:#6b3fa0;">Ver en Google Maps</a>' +
+          ' &nbsp;·&nbsp; ' +
+          '<a href="' + UBER_URL + '" style="color:#6b3fa0;">Pedir Uber 🚗</a></p>' +
       '</div>' +
       '<p style="margin:0 0 12px;color:#1a1a2e;"><strong>El día del evento, muestra tu DNI en puerta</strong> ' +
         'y di tu nombre — con eso entras. No necesitas imprimir nada.</p>' +

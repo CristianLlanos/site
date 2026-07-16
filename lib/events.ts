@@ -23,7 +23,9 @@ export interface EventVenue {
   longitude: number
   /** Exact place URL — never link by venue name alone. */
   mapsUrl: string
-  /** Uber deep link pinned to coordinates + formatted address. */
+  /** Uber app deep link (uber:// scheme) pinned to coordinates + formatted
+   * address. Opens the app directly; does nothing if Uber isn't installed —
+   * accepted: the audience opens this from phones with Uber. */
   uberUrl: string
 }
 
@@ -107,7 +109,7 @@ export const cumpleCris2026: DanceEventData = {
     mapsUrl:
       'https://www.google.com/maps/place/Centro+de+Convenciones+Javier+Prado/@-12.0892179,-77.0179075,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c87ebb8eb213:0xa908be93d1d0521!8m2!3d-12.0892232!4d-77.0153326!16s%2Fg%2F1ptxkll54',
     uberUrl:
-      'https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=-12.0892749&dropoff[longitude]=-77.0151988&dropoff[nickname]=Centro%20de%20Convenciones%20Javier%20Prado&dropoff[formatted_address]=Av.%20Javier%20Prado%20Este%201179%2C%20La%20Victoria',
+      'uber://?action=setPickup&pickup=my_location&dropoff[latitude]=-12.0892749&dropoff[longitude]=-77.0151988&dropoff[nickname]=Av.%20Javier%20Prado%20Este%201179&dropoff[formatted_address]=Av.%20Javier%20Prado%20Este%201179%2C%20La%20Victoria',
   },
   icsPath: '/eventos/cumple-cris-2026.ics',
   ogImage: '/img/og/eventos-cumple-cris-2026.png',
