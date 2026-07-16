@@ -163,7 +163,7 @@ val hasLogger = container.has<Logger>()           // true if resolvable`} />
             <CodeBlock code={`val logger by container.lazy<Logger>()  // resolves on first use`} />
             <p>
               When used with a <code>Scope</code>, do not store the <code>Lazy</code> beyond
-              that scope's lifetime.
+              that scope&apos;s lifetime.
             </p>
           </section>
 

@@ -136,7 +136,7 @@ scope.close()                      // instance disposed`} />
             <h2 id="contextual-scopes">Contextual scopes</h2>
             <p>
               Use <Link href={`${BASE}/providers`}>service providers</Link> to set up different
-              scope contexts. The scope's purpose is defined by what you register on it:
+              scope contexts. The scope&apos;s purpose is defined by what you register on it:
             </p>
             <CodeBlock code={`// HTTP request scope
 fun handleRequest(container: Container, request: HttpRequest) {
@@ -158,7 +158,7 @@ fun processJob(container: Container, job: Job) {
           <section>
             <h2 id="android">Android</h2>
             <p>
-              In Android, the system controls Activity and Fragment lifecycles — you can't wrap
+              In Android, the system controls Activity and Fragment lifecycles — you can&apos;t wrap
               them in a <code>scope {"{"} {"}"}</code> block. Instead, tie scopes to lifecycle callbacks:
             </p>
             <CodeBlock code={`class MyActivity : AppCompatActivity() {

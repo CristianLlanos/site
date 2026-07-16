@@ -2683,3 +2683,1084 @@ code {
 ::view-transition-new(root) {
   animation: fade-in 200ms ease-out;
 }
+
+/* ============================================
+   EVENTOS — nav-less shell (/eventos)
+   ============================================ */
+
+/* The (events) route group renders outside .site-container: full-bleed pages
+   with their own mini footer instead of the global one. */
+.eventos-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.eventos-shell main {
+  flex: 1;
+}
+
+.eventos-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+}
+
+.eventos-footer__link {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+.eventos-footer__link:hover {
+  color: var(--accent-primary-hover);
+}
+
+.eventos-footer__copyright {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Under an event poster the footer keeps the poster's fixed dark palette —
+   a theme-following (possibly white) strip would break the full-bleed page. */
+.eventos-shell:has(.evento) .eventos-footer {
+  background: #150a22;
+}
+
+.eventos-shell:has(.evento) .eventos-footer__link {
+  color: #fcd34d;
+}
+
+.eventos-shell:has(.evento) .eventos-footer__link:hover {
+  color: #fde68a;
+}
+
+.eventos-shell:has(.evento) .eventos-footer__copyright {
+  color: rgba(246, 239, 252, 0.55);
+}
+
+/* --- Events index (/eventos) --- */
+
+.eventos-index {
+  width: 100%;
+  max-width: var(--max-width-article);
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.eventos-index__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--text-heading);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-bottom: var(--space-2xl);
+}
+
+.eventos-index__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.eventos-index__card {
+  display: block;
+  padding: var(--space-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  text-decoration: none;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.eventos-index__card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.eventos-index__card-date {
+  display: block;
+  font-family: var(--font-code);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.eventos-index__card-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-heading);
+  line-height: var(--line-height-heading);
+  margin-bottom: var(--space-sm);
+}
+
+.eventos-index__card-venue {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.eventos-index__card-price {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid var(--border-accent-light);
+  border-radius: 999px;
+  background: var(--accent-alpha-008);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+/* ============================================
+   EVENTO — shared scroll-reveal
+   ============================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================
+   EVENTO — landing (poster-style, fixed dark)
+   ============================================ */
+
+/* Per-event accent palette: cumple-cris-2026 (warm purple → magenta → amber) */
+.evento--cumple-cris {
+  --ev-bg: #150a22;
+  --ev-hero-1: #1c0b33;
+  --ev-hero-2: #4c1d95;
+  --ev-hero-3: #86185d;
+  --ev-hero-4: #92400e;
+  --ev-purple: #a855f7;
+  --ev-magenta: #ec4899;
+  --ev-amber: #f59e0b;
+  --ev-amber-light: #fcd34d;
+  --ev-text: #f6effc;
+  --ev-text-muted: rgba(246, 239, 252, 0.68);
+  --ev-surface: rgba(255, 255, 255, 0.05);
+  --ev-border: rgba(255, 255, 255, 0.14);
+  --ev-gradient-text: linear-gradient(100deg, #e9b1fd 0%, var(--ev-magenta) 48%, var(--ev-amber-light) 100%);
+  --ev-gradient-cta: linear-gradient(135deg, var(--ev-magenta), var(--ev-amber));
+  --ev-glow-magenta: rgba(236, 72, 153, 0.45);
+  --ev-glow-amber: rgba(245, 158, 11, 0.25);
+  --ev-glow-purple: rgba(168, 85, 247, 0.45);
+  --ev-error: #fb7185;
+  --ev-error-text: #fecdd3;
+  --ev-error-bg: rgba(251, 113, 133, 0.12);
+}
+
+/* The poster owns its own fixed dark palette (identical in dark and light
+   site themes). overflow-x guards the hero cutout's intentional right bleed. */
+.evento {
+  overflow-x: clip;
+  background: var(--ev-bg);
+  color: var(--ev-text);
+}
+
+/* Shared glass pill/button surface (hover in each rule's own block) */
+.evento__cta--ghost,
+.evento__form-qty-btn,
+.evento__form-copy {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ev-text);
+}
+
+.evento__cta--ghost:hover,
+.evento__form-qty-btn:hover:not(:disabled),
+.evento__form-copy:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.evento__section {
+  max-width: var(--max-width-article);
+  margin: 0 auto;
+  padding: var(--space-4xl) var(--space-lg);
+}
+
+.evento__section-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-heading);
+  color: #ffffff;
+  margin-bottom: var(--space-2xl);
+}
+
+/* --- Hero --- */
+
+.evento__hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-3xl) var(--space-lg) var(--space-4xl);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Oversized layer moved with transform (compositor-only) instead of animating
+   background-position, which would repaint the full-viewport gradient per frame. */
+.evento__hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 300%;
+  z-index: -2;
+  background: linear-gradient(135deg, var(--ev-hero-1) 0%, var(--ev-hero-2) 38%, var(--ev-hero-3) 70%, var(--ev-hero-4) 100%);
+  animation: evento-gradient 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Scrim so the title stays readable over the cutout on small screens */
+.evento__hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(21, 10, 34, 0.35) 0%, transparent 40%, rgba(21, 10, 34, 0.55) 100%);
+}
+
+@keyframes evento-gradient {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-66.67%, -66.67%); }
+}
+
+/* Sized by height, not width: the cutout is ~1:2.8 portrait, so a width-based
+   size overflows the hero vertically and crops the head out of view.
+   Layer split for correctness AND perf:
+   - float animation on the wrapper → the filtered subtree is a cached texture
+     the compositor merely translates (filter+transform on one element forces
+     per-frame re-rasterization in Safari/Firefox);
+   - glow filter on <picture>, NOT the img → the img's bottom-fade mask would
+     clip the drop-shadow to the img box and paint a visible rectangle. */
+.evento__hero-figure {
+  position: absolute;
+  right: -6%;
+  bottom: 0;
+  z-index: -1;
+  height: min(78svh, 720px);
+  opacity: 0.5;
+  animation: evento-float 7s ease-in-out infinite;
+}
+
+.evento__hero-figure picture {
+  display: block;
+  height: 100%;
+  filter: drop-shadow(0 0 18px var(--ev-glow-magenta)) drop-shadow(0 0 64px var(--ev-glow-amber));
+}
+
+.evento__hero-figure img {
+  height: 100%;
+  width: auto;
+  mask-image: linear-gradient(to top, transparent 0%, #000 14%);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 14%);
+}
+
+@keyframes evento-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.evento__hero-content {
+  position: relative;
+  max-width: var(--max-width-site);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.evento__hero-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  /* No backdrop-filter: it would re-sample the animated hero gradient every
+     frame; a slightly stronger tint reads the same at this size. */
+  background: rgba(255, 255, 255, 0.12);
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.evento__hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 11vw, 5.25rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: var(--letter-spacing-tight);
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: var(--space-lg) 0;
+}
+
+.evento__hero-title-line {
+  display: block;
+}
+
+/* Shared gradient-text recipe (typography stays per-element) */
+.evento__hero-title-line--gradient,
+.evento__dj-name,
+.evento__final-title {
+  background: var(--ev-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Keep the emoji rendering as an emoji inside the gradient-clipped line */
+.evento__hero-cake {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: initial;
+}
+
+.evento__hero-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--ev-amber-light);
+  font-weight: 500;
+  margin-bottom: var(--space-xl);
+}
+
+.evento__hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.evento__scroll-hint {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-code);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  animation: evento-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes evento-bob {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+
+/* --- CTA buttons --- */
+
+.evento__cta {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+
+.evento__cta--primary {
+  background: var(--ev-gradient-cta);
+  color: #1c0b33;
+  box-shadow: 0 8px 30px var(--ev-glow-magenta);
+}
+
+.evento__cta--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--ev-glow-magenta);
+}
+
+.evento__cta--ghost:hover {
+  transform: translateY(-2px);
+}
+
+/* --- Timeline (La noche) --- */
+
+.evento__timeline {
+  position: relative;
+  padding-left: var(--space-lg);
+}
+
+.evento__timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--ev-purple), var(--ev-magenta), var(--ev-amber));
+  opacity: 0.55;
+}
+
+.evento__timeline-item {
+  position: relative;
+  padding-left: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.evento__timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-lg));
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ev-bg);
+  border: 2px solid var(--ev-magenta);
+  box-shadow: 0 0 12px var(--ev-glow-magenta);
+}
+
+.evento__timeline-item--open {
+  padding-bottom: 0;
+}
+
+.evento__timeline-item--open::before {
+  border-color: var(--ev-amber);
+  box-shadow: 0 0 12px var(--ev-glow-amber);
+}
+
+.evento__timeline-time {
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ev-amber);
+}
+
+.evento__timeline-label {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+.evento__timeline-note {
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  color: var(--ev-text-muted);
+}
+
+/* --- Entradas --- */
+
+.evento__prices {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.evento__price-card {
+  padding: var(--space-xl);
+  text-align: center;
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius-lg);
+  background: var(--ev-surface);
+}
+
+.evento__price-card--presale {
+  border-color: var(--ev-magenta);
+  background: linear-gradient(160deg, rgba(236, 72, 153, 0.14), rgba(245, 158, 11, 0.08));
+  box-shadow: 0 8px 40px rgba(236, 72, 153, 0.18);
+}
+
+.evento__price-tag {
+  font-family: var(--font-code);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ev-text-muted);
+}
+
+.evento__price-card--presale .evento__price-tag {
+  color: var(--ev-amber-light);
+}
+
+.evento__price-amount {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  margin: var(--space-sm) 0;
+}
+
+.evento__price-note {
+  font-size: var(--font-size-sm);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-slot {
+  margin-top: var(--space-xl);
+}
+
+.evento__deadline {
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--border-radius);
+  background: rgba(245, 158, 11, 0.1);
+  font-size: var(--font-size-sm);
+  color: var(--ev-amber-light);
+  text-align: center;
+}
+
+/* --- Ticket form (Entradas stepper) --- */
+
+.evento__form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.evento__form-step {
+  padding: var(--space-xl) var(--space-lg);
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius-lg);
+  background: var(--ev-surface);
+}
+
+.evento__form-step-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: var(--space-lg);
+}
+
+.evento__form-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ev-gradient-cta);
+  color: #1c0b33;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+}
+
+/* Step 1 — quantity */
+
+.evento__form-qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+}
+
+.evento__form-qty-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition), opacity var(--transition);
+}
+
+.evento__form-qty-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.evento__form-qty-value {
+  min-width: 2ch;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.evento__form-total {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-total strong {
+  font-family: var(--font-heading);
+  color: var(--ev-amber-light);
+}
+
+/* Step 2 — Yape */
+
+.evento__form-yape {
+  display: grid;
+  gap: var(--space-lg);
+  justify-items: center;
+  text-align: center;
+}
+
+.evento__form-qr {
+  width: min(240px, 70vw);
+  border-radius: var(--border-radius-lg);
+}
+
+.evento__form-yape-holder {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.evento__form-yape-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin: var(--space-xs) 0 var(--space-sm);
+  font-family: var(--font-code);
+  font-size: var(--font-size-xl);
+  color: var(--ev-amber-light);
+}
+
+.evento__form-copy {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: var(--font-code);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.evento__form-yape-note {
+  font-size: var(--font-size-sm);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-yape-note strong {
+  color: var(--ev-amber-light);
+}
+
+/* Step 3 — registration fields */
+
+.evento__form-ticket {
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.evento__form-ticket-legend {
+  padding: 0 var(--space-xs);
+  font-family: var(--font-code);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ev-amber-light);
+}
+
+.evento__form-field {
+  margin-bottom: var(--space-md);
+}
+
+.evento__form-field:last-child {
+  margin-bottom: 0;
+}
+
+.evento__form-label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--ev-text);
+}
+
+.evento__form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ev-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition);
+}
+
+.evento__form-input:focus-visible {
+  outline: 2px solid var(--ev-amber);
+  outline-offset: 1px;
+  border-color: var(--ev-amber);
+}
+
+.evento__form-input--error {
+  border-color: var(--ev-error);
+}
+
+.evento__form-input--error:focus-visible {
+  outline-color: var(--ev-error);
+}
+
+.evento__form-help {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-error {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--ev-error-text);
+}
+
+/* Honeypot — visually hidden, still in the accessibility-excluded DOM */
+.evento__form-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Submit + feedback */
+
+.evento__form-banner {
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--ev-error);
+  border-radius: var(--border-radius);
+  background: var(--ev-error-bg);
+  font-size: var(--font-size-sm);
+  color: var(--ev-error-text);
+  text-align: center;
+}
+
+.evento__form-banner a {
+  color: var(--ev-amber-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.evento__form-submit {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-lg);
+  border: 0;
+  cursor: pointer;
+}
+
+.evento__form-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.evento__form-submit:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.evento__form-hint {
+  margin-top: var(--space-sm);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-qty-btn:focus-visible,
+.evento__form-copy:focus-visible,
+.evento__form-submit:focus-visible {
+  outline: 2px solid var(--ev-amber-light);
+  outline-offset: 2px;
+}
+
+/* Success / closed panels (also DeadlineGate fallback) */
+
+.evento__form-panel {
+  padding: var(--space-xl) var(--space-lg);
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius-lg);
+  background: var(--ev-surface);
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-panel--success {
+  border-color: var(--ev-amber);
+  background: linear-gradient(160deg, rgba(245, 158, 11, 0.12), rgba(236, 72, 153, 0.08));
+}
+
+.evento__form-panel-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: var(--space-md);
+}
+
+.evento__form-codes {
+  display: grid;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-base);
+  color: var(--ev-text);
+}
+
+.evento__form-code {
+  margin-right: var(--space-sm);
+  font-family: var(--font-code);
+  font-weight: 600;
+  color: var(--ev-amber-light);
+}
+
+.evento__form-panel-note {
+  font-size: var(--font-size-base);
+  color: var(--ev-text-muted);
+}
+
+/* --- DJ --- */
+
+.evento__dj {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-xl);
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius-lg);
+  background: linear-gradient(160deg, rgba(168, 85, 247, 0.12), rgba(236, 72, 153, 0.06));
+}
+
+.evento__dj-figure {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.evento__dj-figure img {
+  width: 100%;
+  filter: drop-shadow(0 0 24px var(--ev-glow-purple));
+  transition: transform 0.4s ease;
+}
+
+.evento__dj:hover .evento__dj-figure img {
+  transform: rotate(-2deg) scale(1.03);
+}
+
+.evento__dj-info {
+  text-align: center;
+}
+
+.evento__eq {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+  height: 26px;
+  margin-bottom: var(--space-md);
+}
+
+.evento__eq span {
+  width: 5px;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--ev-amber), var(--ev-magenta));
+  transform-origin: bottom;
+  animation: evento-eq 0.9s ease-in-out infinite alternate;
+}
+
+.evento__eq span:nth-child(1) { animation-delay: 0s; }
+.evento__eq span:nth-child(2) { animation-delay: 0.18s; }
+.evento__eq span:nth-child(3) { animation-delay: 0.36s; }
+.evento__eq span:nth-child(4) { animation-delay: 0.12s; }
+.evento__eq span:nth-child(5) { animation-delay: 0.27s; }
+
+@keyframes evento-eq {
+  from { transform: scaleY(0.25); }
+  to { transform: scaleY(1); }
+}
+
+.evento__dj-eyebrow {
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ev-text-muted);
+}
+
+.evento__dj-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin: var(--space-xs) 0;
+}
+
+.evento__dj-tags {
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+  color: var(--ev-amber-light);
+}
+
+/* --- Lugar --- */
+
+.evento__venue-name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.evento__venue-address {
+  font-size: var(--font-size-lg);
+  color: var(--ev-text-muted);
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.evento__venue-note {
+  font-size: var(--font-size-sm);
+  color: var(--ev-amber-light);
+  margin-bottom: var(--space-xl);
+}
+
+.evento__venue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* --- CTA final --- */
+
+.evento__final {
+  text-align: center;
+}
+
+.evento__final-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 9vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: var(--letter-spacing-tight);
+  margin-bottom: var(--space-xl);
+}
+
+.evento__whatsapp {
+  margin-top: var(--space-xl);
+  font-size: var(--font-size-base);
+  color: var(--ev-text-muted);
+}
+
+.evento__whatsapp a {
+  color: var(--ev-amber-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Larger screens --- */
+
+@media (min-width: 768px) {
+  .evento__hero-figure {
+    right: 6%;
+    height: min(84svh, 800px);
+    opacity: 1;
+  }
+
+  .evento__prices {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .evento__dj {
+    grid-template-columns: 1fr 1.2fr;
+    padding: var(--space-2xl);
+  }
+
+  .evento__dj-info {
+    text-align: left;
+  }
+
+  .evento__eq {
+    justify-content: flex-start;
+  }
+
+  .evento__form-step {
+    padding: var(--space-xl);
+  }
+
+  .evento__form-yape {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .evento__form-yape-number {
+    justify-content: flex-start;
+  }
+
+  .evento__form-submit {
+    width: auto;
+    margin-inline: auto;
+    padding-inline: var(--space-2xl);
+  }
+}
+
+/* --- Reduced motion --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .evento__hero::before,
+  .evento__hero-figure,
+  .evento__scroll-hint,
+  .evento__eq span {
+    animation: none;
+  }
+
+  .evento__cta,
+  .evento__dj-figure img,
+  .evento__form-qty-btn,
+  .evento__form-copy,
+  .evento__form-input {
+    transition: none;
+  }
+
+  .evento__cta--primary:hover,
+  .evento__cta--ghost:hover {
+    transform: none;
+  }
+
+  .evento__dj:hover .evento__dj-figure img {
+    transform: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

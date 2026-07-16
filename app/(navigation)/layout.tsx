@@ -1,9 +1,10 @@
 import Link from 'next/link'
+import Footer from '@/components/footer'
 import ThemeToggle from '@/components/theme-toggle'
 
 export default function NavigationLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="site-container">
       <nav className="nav">
         <Link href="/" className="nav__brand">
           <img
@@ -22,6 +23,7 @@ export default function NavigationLayout({ children }: { children: React.ReactNo
         </div>
       </nav>
       {children}
-    </>
+      <Footer />
+    </div>
   )
 }

@@ -127,7 +127,7 @@ container.singleton<Emitter> { resolve<EventBus>() }
 container.singleton<Subscriber> { resolve<EventBus>() }`} />
             <p>
               <code>this</code> refers to the container itself, so you can pass it directly to
-              classes that need it. <code>resolve&lt;T&gt;()</code> pulls from the container's
+              classes that need it. <code>resolve&lt;T&gt;()</code> pulls from the container&apos;s
               registry, letting you wire shared instances across multiple interface bindings.
             </p>
           </section>

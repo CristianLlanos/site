@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getBlogPosts, getProjectPosts } from '@/lib/content'
 import { SITE_URL } from '@/lib/constants'
+import { events } from '@/lib/events'
 import { guides as containerGuides, resources as containerResources } from './(navigation)/projects/kotlin-container/guide-data'
 import { BASE as CONTAINER_BASE } from './(navigation)/projects/kotlin-container/constants'
 import { guides as eventsGuides, resources as eventsResources } from './(navigation)/projects/kotlin-events/guide-data'
@@ -55,5 +56,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/slides/decisiones-conscientes/`, changeFrequency: 'yearly', priority: 0.6 },
   ]
 
-  return [...staticPages, ...kotlinContainerPages, ...kotlinEventsPages, ...slidesPages, ...blogPages, ...projectPages]
+  const eventosPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/eventos/`, changeFrequency: 'monthly', priority: 0.6 },
+    ...events.map((event) => ({
+      url: `${baseUrl}${event.path}/`,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    })),
+  ]
+
+  return [...staticPages, ...kotlinContainerPages, ...kotlinEventsPages, ...slidesPages, ...eventosPages, ...blogPages, ...projectPages]
 }

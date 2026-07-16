@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import { GoogleTagManager } from '@next/third-parties/google'
-import Footer from '@/components/footer'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-body' })
@@ -48,10 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body style={{ fontFamily: 'var(--font-body)' }}>
         <GoogleTagManager gtmId="GTM-TPCTDS7" />
-        <div className="site-container">
-          {children}
-          <Footer />
-        </div>
+        {/* Width container + footer live in each route group's layout:
+            (events) renders full-bleed pages with its own mini footer. */}
+        {children}
       </body>
     </html>
   )

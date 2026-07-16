@@ -16,7 +16,7 @@ Netlify gives 300 build credits per cycle (resets on the 14th of each month). Ea
 
 - `npm run dev` — local dev server
 - `npm run build` — full build: RSS generation → Next.js static export → Pagefind index
-- `npm run lint` — ESLint
+- `npm run lint` — ESLint (flat config in `eslint.config.mjs`; `no-img-element` is off by design — static export)
 - `npm run new-post` — interactive CLI to scaffold a new blog/project post
 
 ## Architecture
@@ -33,6 +33,8 @@ Netlify gives 300 build credits per cycle (resets on the 14th of each month). Ea
 ```
 app/
   (home)/           — Landing page (no nav bar)
+  (events)/         — Event landings (no nav bar, unlisted — not in top nav)
+    eventos/        — Events index + per-event pages
   (navigation)/     — Pages with top nav bar
     blog/[slug]/    — Blog posts
     projects/       — Project list
@@ -41,6 +43,18 @@ app/
         (guides)/                — Guide pages with sidebar layout
     credits/        — Credits page
 ```
+
+The width-constrained `.site-container` and the global `<Footer />` live in the
+`(home)` and `(navigation)` group layouts (and `not-found.tsx`), NOT the root layout —
+the `(events)` group renders full-bleed with its own mini footer.
+
+### Events section
+
+Designed 2026-07-16 — spec in `ROADMAP.md`, rationale in `docs/DECISIONS.md`. Ticketing
+backend (Google Apps Script + Sheets) guide: `docs/knowledge/apps-script-ticketing.md`.
+Operator runbook: `docs/user/eventos-runbook.md` — when implementation changes any
+operator-facing step (form fields, script contract, cutoff behavior), updating the
+runbook is part of the definition of done.
 
 ### Key directories
 
