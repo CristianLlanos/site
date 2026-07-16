@@ -264,7 +264,7 @@ export default function CumpleCrisPage() {
               </div>
               <p className="evento__dj-eyebrow">En cabina</p>
               <p className="evento__dj-name">{event.dj}</p>
-              <p className="evento__dj-tags">bachata · zouk</p>
+              <p className="evento__dj-tags">bachata</p>
             </div>
           </div>
         </ScrollReveal>
