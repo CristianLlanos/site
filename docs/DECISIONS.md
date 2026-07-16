@@ -119,12 +119,12 @@ croquis (Maps screenshot) added to Lugar, clickable to Google Maps.
   never computes amounts; Cris verifies totals against Yape per purchase (rows share the
   Compra id).
 
-### 11e. Uber links: uber:// scheme on the WEB, universal link in the EMAIL
-Web "Pedir Uber" button uses `uber://?action=setPickup&pickup=my_location&dropoff[...]`
-(Cris's call; supersedes decision 8 — does nothing without the app / on desktop,
-accepted). The confirmation EMAIL uses the `https://m.uber.com/ul/` universal link:
-Gmail refuses to linkify app schemes (confirmed broken in testing), and the https
-link still opens the app when installed, with Uber web as fallback. Cris's variant
+### 11e. Uber universal link everywhere (web + email) — final
+The uber:// scheme was tried first (Cris's call) but Gmail refuses to linkify app
+schemes (confirmed broken in testing), so the email moved to the
+`https://m.uber.com/ul/` universal link — and then the web followed for consistency
+(Cris's call). The universal link opens the app directly when installed and falls
+back to Uber web otherwise, matching decision 8's original choice. Cris's variant
 used `pickup[latitude]=my_location` — normalized to the documented `pickup=my_location`.
 
 ### 11f. Slug renamed to include the year (2026-07-16, pre-launch)
