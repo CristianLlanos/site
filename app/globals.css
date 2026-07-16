@@ -2934,12 +2934,18 @@ code {
 }
 
 /* Scrim so the title stays readable over the cutout on small screens */
-.evento__hero::after {
-  content: '';
+/* Flyer texture (blue smoke, golden arc, sparks — composed from the flyer's
+   text-free edges, alpha over black) + readability scrim. A real div, placed
+   BEFORE the hero figure in the DOM: same z-index, so the cutout paints on
+   top of the smoke while the animated gradient (::before) breathes through
+   the texture's transparent center. */
+.evento__hero-bg {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(4, 6, 13, 0.35) 0%, transparent 40%, rgba(4, 6, 13, 0.55) 100%);
+  background:
+    linear-gradient(180deg, rgba(4, 6, 13, 0.35) 0%, transparent 40%, rgba(4, 6, 13, 0.55) 100%),
+    url('/img/eventos/cumple-cris-2026/bg-cosmic.webp') center top / cover no-repeat;
 }
 
 @keyframes evento-gradient {
@@ -3175,6 +3181,13 @@ code {
   gap: var(--space-md);
 }
 
+.evento__prices-promo {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--ev-amber-light);
+}
+
 .evento__price-card {
   padding: var(--space-xl);
   text-align: center;
@@ -3308,6 +3321,17 @@ code {
   text-align: center;
   font-size: var(--font-size-lg);
   color: var(--ev-text-muted);
+}
+
+.evento__form-total strong {
+  color: var(--ev-amber-light);
+}
+
+.evento__form-promo {
+  margin-top: var(--space-xs);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--ev-amber-light);
 }
 
 .evento__form-total strong {
@@ -3678,8 +3702,15 @@ code {
 
 /* --- CTA final --- */
 
+/* Full-bleed closing band: the flyer texture edge-to-edge (overrides the
+   section's article max-width; its content is centered short text + CTA). */
 .evento__final {
   text-align: center;
+  max-width: none;
+  /* Same flyer texture closes the page, anchored to its spark-lit bottom */
+  background:
+    linear-gradient(rgba(7, 10, 20, 0.45), rgba(7, 10, 20, 0.45)),
+    url('/img/eventos/cumple-cris-2026/bg-cosmic.webp') center bottom / cover no-repeat;
 }
 
 .evento__final-title {

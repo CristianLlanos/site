@@ -90,7 +90,7 @@ export const cumpleCris2026: DanceEventData = {
   presaleDeadline: '2026-08-05T18:00:00-05:00',
   presaleDeadlineLabel: 'las 6:00 pm del 5/8',
   doorPrice: 20,
-  maxTicketsPerPurchase: 5,
+  maxTicketsPerPurchase: 12,
   yapeNumber: '986 821 895',
   yapeHolder: 'Cristian Alberto Llanos Malca',
   whatsappNumber: '51986821895',
@@ -115,3 +115,13 @@ export const cumpleCris2026: DanceEventData = {
 
 /** Events shown on the /eventos index, newest first. */
 export const events: DanceEventData[] = [cumpleCris2026]
+
+/** Group promo: one free ticket per 5 paid — 6 cost 5, 12 cost 10. */
+export function freeTicketsFor(quantity: number): number {
+  return Math.floor(quantity / 6)
+}
+
+/** Presale total in PEN applying the group promo. */
+export function presaleTotal(event: DanceEventData, quantity: number): number {
+  return (quantity - freeTicketsFor(quantity)) * event.presalePrice
+}

@@ -16,8 +16,10 @@ Still yours to do:
 
 ## 2. While sales are open (Jul 24 → Aug 5, 6:00 pm)
 
-- **Daily (2 min):** open the Sheet, compare each new row's "N° operación Yape" against
-  your Yape movement history; mark ✓ in the **Verificado** column when the money matches.
+- **Daily (2 min):** open the Sheet, compare each purchase's "N° operación Yape" against
+  your Yape history; mark ✓ in **Verificado** when the money matches. Rows of one purchase
+  share the same **Compra** id. Expected amount = (entradas − ⌊entradas/6⌋) × S/ 15 —
+  the group promo gives 1 free per 5 paid (6 → S/ 75, 12 → S/ 150).
 - Mismatch or missing payment → WhatsApp the buyer (their number is in the row).
 - Share the page link everywhere: `https://cristianllanos.com/eventos/social-bachata-cumple-cris/`
 - You do NOT need to answer "how do I buy" messages — the page is the answer.

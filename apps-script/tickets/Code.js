@@ -11,7 +11,9 @@
 
 const SHEET_NAME = 'Tickets';
 const DEADLINE = new Date('2026-08-05T18:00:00-05:00'); // Lima, no DST
-const MAX_TICKETS = 5;
+// Group promo (client-side display; amount verified manually against Yape):
+// one free ticket per 5 paid — 6 cost 5, 12 cost 10.
+const MAX_TICKETS = 12;
 // Abuse guard: bounds how far a scripted caller can fill the sheet / burn the
 // Gmail quota. Far above any realistic party turnout.
 const MAX_ROWS = 600;

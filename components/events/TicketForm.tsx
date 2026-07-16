@@ -1,7 +1,7 @@
 'use client'
 
 import { useId, useRef, useState, type FormEvent } from 'react'
-import { APPS_SCRIPT_URL, type DanceEventData } from '@/lib/events'
+import { APPS_SCRIPT_URL, freeTicketsFor, presaleTotal, type DanceEventData } from '@/lib/events'
 import {
   hasErrors,
   makePurchaseId,
@@ -41,7 +41,8 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
   const purchaseIdRef = useRef(makePurchaseId())
 
   const quantity = tickets.length
-  const total = event.presalePrice * quantity
+  const total = presaleTotal(event, quantity)
+  const freeTickets = freeTicketsFor(quantity)
   const ticketErrors = tickets.map(validateTicket)
   const buyerErrors = validateBuyer(buyer)
   const formValid = !hasErrors(buyerErrors) && ticketErrors.every((errors) => !hasErrors(errors))
@@ -164,6 +165,11 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
         </div>
         <p className="evento__form-total">
           Total: <strong>S/ {total}</strong>
+        </p>
+        <p className="evento__form-promo">
+          {freeTickets > 0
+            ? `🎁 Incluye ${freeTickets === 1 ? '1 entrada gratis' : `${freeTickets} entradas gratis`} por la promo de grupo.`
+            : '🎁 Promo grupal: 6 entradas pagan 5 y 12 pagan 10.'}
         </p>
       </section>
 

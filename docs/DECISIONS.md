@@ -105,6 +105,20 @@ brown→teal to match the flyer (Cris chose this over keeping the brown). Xio ge
 "La clase" card mirroring the DJ card (hero stays solo Cris — Cris's call). Venue
 croquis (Maps screenshot) added to Lugar, clickable to Google Maps.
 
+### 11d. Flyer background texture + group promo (2026-07-16)
+- **Flyer texture in the web**: `bg-cosmic.webp` composed in PIL from the flyer's
+  text/people-free edge crops (blue smoke, golden arc, sparks) with feathered masks and
+  a luminance→alpha channel, so the hero's animated gradient breathes through it. Layered
+  as a real `.evento__hero-bg` div placed before the figure in the DOM (a `::after` at the
+  same z-index paints over child divs — it draped smoke across Cris's face). The same
+  texture closes the page as a full-bleed `.evento__final` band. Rejected: blurred whole
+  flyer as background (title/people stayed legible, looked like a watermark).
+- **Group promo**: max 12 tickets per purchase; 1 free per 5 paid → total =
+  (qty − ⌊qty/6⌋) × S/ 15 (6 pay 75, 12 pay 150). Promo math lives in `lib/events.ts`
+  (`presaleTotal`/`freeTicketsFor`) and is display-only — the script (v6, MAX_TICKETS 12)
+  never computes amounts; Cris verifies totals against Yape per purchase (rows share the
+  Compra id).
+
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single
 `master` merge to launch + 1 reserved fix deploy. End time for schema/.ics: 5:00 am

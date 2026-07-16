@@ -50,12 +50,12 @@ Response: `{ "ok": true, "codes": ["CRIS-007"], "emailSent": true }` or
 `{ "ok": false, "error": "closed" | "validation" | "server" }`.
 Error copy shown by the form: `closed` → "La venta online cerró. Entradas en puerta a S/ 20."
 
-Server validation (mirrored in `components/events/ticketing.ts`): 1–5 tickets
+Server validation (mirrored in `components/events/ticketing.ts`): 1–12 tickets
 (oversize batches are REJECTED, not truncated), email format, whatsapp 9–12 digits,
 yapeOperation + purchaseId required, fullName ≤ 80 chars, documento 6–12 alphanumeric.
 Cell values are length-capped and formula-escaped (leading `=+@-` prefixed with `'`)
 before writing. A replayed `purchaseId` returns the original codes with
-`emailSent: true` and writes nothing. `MAX_ROWS` (600) bounds scripted abuse.
+`emailSent: true` and writes nothing. `MAX_ROWS` (600) bounds scripted abuse. Group promo (6 pay 5, 12 pay 10 — one free per 5 paid) is client-side display math; the script never computes amounts, Cris verifies totals against Yape.
 
 ## Script skeleton
 

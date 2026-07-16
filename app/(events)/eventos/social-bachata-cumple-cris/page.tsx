@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/constants'
 import { AUTHOR, breadcrumbList } from '@/lib/structured-data'
-import { cumpleCris2026 as event, CUMPLE_CRIS_ASSETS as assets } from '@/lib/events'
+import { cumpleCris2026 as event, presaleTotal, CUMPLE_CRIS_ASSETS as assets } from '@/lib/events'
 import JsonLd from '@/components/json-ld'
 import ScrollReveal from '@/components/events/ScrollReveal'
 import DeadlineGate from '@/components/events/DeadlineGate'
@@ -115,6 +115,7 @@ export default function CumpleCrisPage() {
 
       {/* HERO */}
       <section className="evento__hero">
+        <div className="evento__hero-bg" aria-hidden="true" />
         <div className="evento__hero-figure" aria-hidden="true">
           <picture>
             <source srcSet={assets.crisCutoutWebp} type="image/webp" />
@@ -192,6 +193,10 @@ export default function CumpleCrisPage() {
               <p className="evento__price-note">después de {event.presaleDeadlineLabel}, solo en puerta</p>
             </div>
           </div>
+          <p className="evento__prices-promo">
+            🎁 Trae al grupo: por cada 5 entradas, una gratis — 6 pagan S/{' '}
+            {presaleTotal(event, 6)} y 12 pagan S/ {presaleTotal(event, 12)}.
+          </p>
         </ScrollReveal>
         <div className="evento__form-slot">
           <DeadlineGate
