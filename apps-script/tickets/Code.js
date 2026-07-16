@@ -25,8 +25,10 @@ const HEADER = [
 const PURCHASE_ID_COL = HEADER.indexOf('Compra');
 
 const MAPS_URL = 'https://www.google.com/maps/place/Centro+de+Convenciones+Javier+Prado/@-12.0892179,-77.0179075,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c87ebb8eb213:0xa908be93d1d0521!8m2!3d-12.0892232!4d-77.0153326!16s%2Fg%2F1ptxkll54';
-// Uber app deep link (same dropoff as lib/events.ts — keep in sync).
-const UBER_URL = 'uber://?action=setPickup&pickup=my_location&dropoff[latitude]=-12.0892749&dropoff[longitude]=-77.0151988&dropoff[nickname]=Av.%20Javier%20Prado%20Este%201179&dropoff[formatted_address]=Av.%20Javier%20Prado%20Este%201179%2C%20La%20Victoria';
+// Uber UNIVERSAL link (https), not the uber:// scheme: Gmail only linkifies
+// http(s). With the app installed it still opens the app directly; without
+// it, it falls back to Uber web. Same dropoff as lib/events.ts.
+const UBER_URL = 'https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=-12.0892749&dropoff[longitude]=-77.0151988&dropoff[nickname]=Av.%20Javier%20Prado%20Este%201179&dropoff[formatted_address]=Av.%20Javier%20Prado%20Este%201179%2C%20La%20Victoria';
 
 /**
  * Web app entry point. Always returns JSON via ContentService:
