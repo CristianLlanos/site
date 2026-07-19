@@ -1,7 +1,8 @@
 'use client'
 
-import { useId, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { detectPromoter, promoterFirstName } from '@/lib/promoters'
+import { getCaptchaToken, loadRecaptcha, RECAPTCHA_SITE_KEY } from '@/lib/recaptcha'
 import { APPS_SCRIPT_URL, freeTicketsFor, presaleTotal, type DanceEventData } from '@/lib/events'
 import {
   hasErrors,
@@ -40,6 +41,11 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
   const [copied, setCopied] = useState(false)
   // Stable across retries so the server can dedupe a replayed purchase.
   const purchaseIdRef = useRef(makePurchaseId())
+
+  // Load reCAPTCHA early so v3 has behavioral signal before submit.
+  useEffect(() => {
+    loadRecaptcha()
+  }, [])
 
   const quantity = tickets.length
   const total = presaleTotal(event, quantity)
@@ -93,7 +99,8 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
       buyer,
       websiteRef.current?.value ?? '',
       purchaseIdRef.current,
-      detectPromoter()?.slug ?? ''
+      detectPromoter()?.slug ?? '',
+      await getCaptchaToken('comprar_entradas')
     )
     setSubmitting(false)
     if (result.ok) {
@@ -295,6 +302,16 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
           />
         </div>
 
+        {errorCode === 'captcha' && (
+          <p className="evento__form-banner" role="alert">
+            No pudimos verificar tu navegador. Recarga la página e inténtalo de nuevo, o
+            escríbenos por{' '}
+            <a href={buildSupportUrl(event, tickets, buyer)} target="_blank" rel="noopener noreferrer">
+              WhatsApp
+            </a>
+            .
+          </p>
+        )}
         {errorCode === 'validation' && (
           <p className="evento__form-banner" role="alert">
             Hay datos que no pasaron la validación. Revisa los campos e inténtalo de nuevo.
@@ -319,6 +336,19 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
         </button>
         {!formValid && (
           <p className="evento__form-hint">Completa los campos para registrar tus entradas.</p>
+        )}
+        {RECAPTCHA_SITE_KEY && (
+          <p className="evento__form-recaptcha">
+            Protegido por reCAPTCHA — aplican la{' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+              Privacidad
+            </a>{' '}
+            y{' '}
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
+              Términos
+            </a>{' '}
+            de Google.
+          </p>
         )}
       </section>
     </form>

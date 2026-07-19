@@ -3805,6 +3805,25 @@ code {
   text-underline-offset: 3px;
 }
 
+/* reCAPTCHA: the floating badge is replaced by the inline attribution text
+   in the form (permitted by Google's branding guidelines). */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.evento__form-recaptcha {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--ev-text-muted);
+}
+
+.evento__form-recaptcha a {
+  color: var(--ev-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* --- Promoter trust card (activated by URL fragment, e.g. #duffoo) --- */
 
 .evento__promoter-figure img {

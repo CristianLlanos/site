@@ -15,7 +15,7 @@ export interface BuyerInput {
   yapeOperation: string
 }
 
-export type TicketErrorCode = 'closed' | 'validation' | 'server'
+export type TicketErrorCode = 'closed' | 'validation' | 'captcha' | 'server'
 
 export type SubmitResult =
   | { ok: true; codes: string[]; emailSent: boolean }
@@ -94,7 +94,8 @@ export async function submitTickets(
   buyer: BuyerInput,
   website: string,
   purchaseId: string,
-  promoter: string
+  promoter: string,
+  captcha: string
 ): Promise<SubmitResult> {
   const payload = {
     tickets: tickets.map((ticket) => ({
@@ -107,6 +108,7 @@ export async function submitTickets(
     website,
     purchaseId,
     promoter,
+    captcha,
   }
 
   try {
@@ -131,7 +133,10 @@ function parseSubmitResult(data: unknown): SubmitResult {
     }
     if (
       result.ok === false &&
-      (result.error === 'closed' || result.error === 'validation' || result.error === 'server')
+      (result.error === 'closed' ||
+        result.error === 'validation' ||
+        result.error === 'captcha' ||
+        result.error === 'server')
     ) {
       return { ok: false, error: result.error }
     }

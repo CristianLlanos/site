@@ -14,6 +14,14 @@ Still yours to do:
 2. After the production deploy: buy one real ticket from your phone (Yape yourself
    S/ 15), check the whole loop, then delete that row too.
 
+## 1b. reCAPTCHA v3 (pending activation)
+
+1. Create v3 keys at https://www.google.com/recaptcha/admin/create (domains:
+   cristianllanos.com + localhost). 2. Give Claude the **Site Key** (public) for
+   `lib/recaptcha.ts`. 3. Paste the **Secret Key** yourself in the Apps Script editor →
+   ⚙️ Project Settings → Script Properties → `RECAPTCHA_SECRET` (never share it or
+   commit it). Until both are set, the form works exactly as before.
+
 ## 2. While sales are open (Jul 24 → Aug 5, 6:00 pm)
 
 - **Daily (2 min):** open the Sheet, compare each purchase's "N° operación Yape" against

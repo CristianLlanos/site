@@ -42,6 +42,7 @@ function doPost(e) {
     const req = JSON.parse(e.postData.contents);
     if (req.website) return out({ ok: false, error: 'validation' });        // honeypot
     if (new Date() > DEADLINE) return out({ ok: false, error: 'closed' });  // authoritative cutoff
+    if (!verifyCaptcha(req.captcha)) return out({ ok: false, error: 'captcha' });
 
     const tickets = req.tickets;
     const error = validate(req, tickets);
@@ -97,6 +98,36 @@ function validate(req, tickets) {
       String(t.fullName).trim().length > 80 ||
       !/^[A-Za-z0-9]{6,12}$/.test(String(t.dni).trim()))) return 'validation';
   return null;
+}
+
+// Below this score reCAPTCHA v3 considers the traffic bot-like.
+const RECAPTCHA_MIN_SCORE = 0.3;
+
+/**
+ * Verifies the reCAPTCHA v3 token. Disabled until the RECAPTCHA_SECRET
+ * script property is set (Project Settings → Script Properties), so the
+ * client can ship first. Network failures fail OPEN — a Google outage must
+ * never block a sale (the honeypot and manual Yape verification remain).
+ * @param {*} token
+ * @return {boolean}
+ */
+function verifyCaptcha(token) {
+  const secret = PropertiesService.getScriptProperties().getProperty('RECAPTCHA_SECRET');
+  if (!secret) return true; // captcha not configured yet
+  if (!token || !String(token).trim()) return false;
+  try {
+    const response = UrlFetchApp.fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'post',
+      payload: { secret: secret, response: String(token) },
+      muteHttpExceptions: true,
+    });
+    const data = JSON.parse(response.getContentText());
+    if (data.success !== true) return false;
+    return typeof data.score !== 'number' || data.score >= RECAPTCHA_MIN_SCORE;
+  } catch (err) {
+    console.error('siteverify failed (fail-open): ' + err);
+    return true;
+  }
 }
 
 /**

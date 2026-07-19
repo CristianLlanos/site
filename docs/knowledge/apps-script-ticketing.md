@@ -43,12 +43,13 @@ Request (client → script):
   "yapeOperation": "12345678",
   "website": "",           // honeypot — reject non-empty
   "purchaseId": "uuid",    // stable across retries — server dedupes replays
-  "promoter": "duffoo"     // optional attribution slug from the URL fragment
+  "promoter": "duffoo",    // optional attribution slug from the URL fragment
+  "captcha": "token"       // reCAPTCHA v3 token ('' until the feature is enabled)
 }
 ```
 
 Response: `{ "ok": true, "codes": ["CRIS-007"], "emailSent": true }` or
-`{ "ok": false, "error": "closed" | "validation" | "server" }`.
+`{ "ok": false, "error": "closed" | "validation" | "captcha" | "server" }`.
 Error copy shown by the form: `closed` → "La venta online cerró. Entradas en puerta a S/ 20."
 
 Server validation (mirrored in `components/events/ticketing.ts`): 1–12 tickets
@@ -57,7 +58,11 @@ yapeOperation + purchaseId required, fullName ≤ 80 chars, documento 6–12 alp
 Cell values are length-capped and formula-escaped (leading `=+@-` prefixed with `'`)
 before writing. A replayed `purchaseId` returns the original codes with
 `emailSent: true` and writes nothing. The confirmation email attaches the calendar
-invite (`buildIcs()` — mirrors `public/events/cumple-cris-2026.ics`, keep in sync). `MAX_ROWS` (600) bounds scripted abuse. Group promo (6 pay 5, 12 pay 10 — one free per 5 paid) is client-side display math; the script never computes amounts, Cris verifies totals against Yape.
+invite (`buildIcs()` — mirrors `public/events/cumple-cris-2026.ics`, keep in sync). `MAX_ROWS` (600) bounds scripted abuse. reCAPTCHA v3: dormant until BOTH switches
+are on — `RECAPTCHA_SITE_KEY` in `lib/recaptcha.ts` (public) and the
+`RECAPTCHA_SECRET` script property (editor → Project Settings → Script Properties;
+NEVER in this repo — it is public). Score < 0.3 or missing token → `captcha` error;
+siteverify network failures fail OPEN so a Google outage can't block sales. Group promo (6 pay 5, 12 pay 10 — one free per 5 paid) is client-side display math; the script never computes amounts, Cris verifies totals against Yape.
 
 ## Script skeleton
 
