@@ -168,7 +168,7 @@ function buildEmail(tickets, codes) {
     '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">' +
       esc(codes.join(', ')) +
       ' · Mié 5 de agosto, 8:30 pm · Av. Javier Prado Este 1179, Tercer piso' +
-      '&zwnj;&nbsp;'.repeat(40) +
+      '&zwnj;&nbsp;'.repeat(160) +
     '</div>';
 
   const ticketRows = tickets.map((t, i) =>
@@ -182,10 +182,10 @@ function buildEmail(tickets, codes) {
     preheader +
     '<div style="background-color:#ffffff;color:#1c1712;font-family:Arial,Helvetica,sans-serif;' +
         'font-size:16px;line-height:1.6;max-width:560px;margin:0 auto;padding:24px;">' +
-      '<h1 style="color:#b87333;font-size:22px;margin:0 0 8px;">🎉 ¡Estás en la lista!</h1>' +
-      '<p style="margin:0 0 16px;color:#1c1712;">Gracias por tu compra. Aquí ' +
-        (tickets.length === 1 ? 'está tu entrada' : 'están tus entradas') +
-        ' para la <strong>Social de Bachata · Cumple de Cris</strong>:</p>' +
+      '<h1 style="color:#b87333;font-size:22px;margin:0 0 8px;">¡Nos vemos en la pista! 💃🕺</h1>' +
+      '<p style="margin:0 0 16px;color:#1c1712;">Tu compra está confirmada — ' +
+        (tickets.length === 1 ? 'aquí está tu entrada' : 'aquí están tus entradas') +
+        ':</p>' +
       ticketRows +
       '<div style="margin:20px 0;padding:16px;background-color:#f5f1ea;border-radius:8px;color:#1c1712;">' +
         '<p style="margin:0 0 6px;"><strong>📅 Miércoles 5 de agosto, 8:30 pm</strong></p>' +
@@ -201,7 +201,7 @@ function buildEmail(tickets, codes) {
       '<p style="margin:0 0 12px;color:#1c1712;">Verificaremos tu pago con el número de operación de Yape. ' +
         'Solo te escribiremos por WhatsApp si algo no cuadra — si no recibes mensaje, todo está en orden.</p>' +
       '<p style="margin:0 0 12px;color:#1c1712;">📎 Adjuntamos la invitación para tu calendario.</p>' +
-      '<p style="margin:24px 0 0;color:#1c1712;">¡Nos vemos en la pista! 🕺<br>Cris</p>' +
+      '<p style="margin:24px 0 0;color:#1c1712;">Gracias por celebrar conmigo 🎂<br>Cris</p>' +
     '</div>'
   );
 }
