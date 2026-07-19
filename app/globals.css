@@ -3858,15 +3858,26 @@ code {
 }
 
 @media (min-width: 1280px) {
+  /* Enters from the side only after the hero (the poster) scrolls away —
+     it must never compete with the hero art. */
   .evento__promoter--side {
     display: block;
     position: fixed;
     right: var(--space-xl);
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(40px, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s ease, opacity 0.4s ease;
     z-index: 40;
     width: 170px;
     text-align: center;
+  }
+
+  .evento__promoter--side-visible {
+    transform: translate(0, -50%);
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .evento__promoter--side .evento__promoter-name {
@@ -4005,7 +4016,8 @@ code {
     transition: none;
   }
 
-  .evento__floating-cta {
+  .evento__floating-cta,
+  .evento__promoter--side {
     transition: none;
   }
 
