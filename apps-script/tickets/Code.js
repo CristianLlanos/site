@@ -160,6 +160,17 @@ function appendTickets(tickets, req) {
  */
 function buildEmail(tickets, codes) {
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Hidden preheader: notification/inbox previews show this instead of
+  // re-reading the body (which would repeat the subject). Glanceable facts
+  // only; the trailing &zwnj;&nbsp; padding keeps body text out of the preview.
+  const preheader =
+    '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">' +
+      esc(codes.join(', ')) +
+      ' · Mié 5 de agosto, 8:30 pm · Av. Javier Prado Este 1179, Tercer piso' +
+      '&zwnj;&nbsp;'.repeat(40) +
+    '</div>';
+
   const ticketRows = tickets.map((t, i) =>
     '<div style="padding:10px 14px;margin:6px 0;background-color:#f7efe4;border-radius:8px;color:#1c1712;">' +
       '<span style="font-family:monospace;font-weight:bold;color:#b87333;">' + esc(codes[i]) + '</span>' +
@@ -168,6 +179,7 @@ function buildEmail(tickets, codes) {
   ).join('');
 
   return (
+    preheader +
     '<div style="background-color:#ffffff;color:#1c1712;font-family:Arial,Helvetica,sans-serif;' +
         'font-size:16px;line-height:1.6;max-width:560px;margin:0 auto;padding:24px;">' +
       '<h1 style="color:#b87333;font-size:22px;margin:0 0 8px;">🎉 ¡Estás en la lista!</h1>' +
