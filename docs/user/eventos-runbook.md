@@ -22,6 +22,11 @@ Still yours to do:
   the group promo gives 1 free per 5 paid (6 → S/ 75, 12 → S/ 150).
 - Mismatch or missing payment → WhatsApp the buyer (their number is in the row).
 - Share the page link everywhere: `https://cristianllanos.com/events/social-bachata-cumple-cris-2026/`
+- **Promoter links**: give each promoter their fragment URL — Miguel Duffoó sells with
+  `https://cristianllanos.com/events/social-bachata-cumple-cris-2026/#duffoo`. Sales made
+  through it fill the **Promotor** column in the Sheet (filter/pivot by it for commissions).
+  To add a promoter: cut out their photo like the others, add an entry in `lib/promoters.ts`
+  (slug + name + photo paths), redeploy the site, and send them their `#slug` link.
 - You do NOT need to answer "how do I buy" messages — the page is the answer.
 
 ## 3. Aug 5, event day

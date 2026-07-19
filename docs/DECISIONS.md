@@ -152,6 +152,16 @@ band. Facts from the flyer: **doors 8:30 pm** (was 8:00 — cascaded to startDat
 timeline, .ics, email, OG) and **Bachata Club Lima-Perú** credited in Lugar and as
 co-organizer in the JSON-LD.
 
+### 11i. Promoter attribution via URL fragments (2026-07-19)
+Registry in `lib/promoters.ts` (slug + name + cutout photo). `#slug` on the landing
+activates a trust card — fixed side card on ≥1280px that accompanies the scroll,
+compact inline card above the ticket form on smaller screens — and stores the slug in
+sessionStorage so in-page anchors keep attribution. The purchase payload carries
+`promoter`; the script (v13) writes it to a new "Promotor" column (header self-heals),
+validating the slug shape but degrading to empty instead of rejecting — attribution
+must never block a sale. Fragment chosen over a query param at Cris's request; it also
+keeps the static export single-page. First promoter: Miguel Duffoó (#duffoo).
+
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single
 `master` merge to launch + 1 reserved fix deploy. End time for schema/.ics: 5:00 am

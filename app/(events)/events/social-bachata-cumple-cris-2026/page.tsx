@@ -6,6 +6,7 @@ import JsonLd from '@/components/json-ld'
 import ScrollReveal from '@/components/events/ScrollReveal'
 import DeadlineGate from '@/components/events/DeadlineGate'
 import FloatingCta from '@/components/events/FloatingCta'
+import PromoterPanel from '@/components/events/PromoterPanel'
 import TicketForm from '@/components/events/TicketForm'
 
 const PAGE_URL = `${SITE_URL}${event.path}/`
@@ -185,6 +186,7 @@ export default function CumpleCrisPage() {
         <ScrollReveal>
           <h2 className="evento__section-title">Entradas</h2>
         </ScrollReveal>
+        <PromoterPanel />
         <ScrollReveal>
           <div className="evento__prices">
             <div className="evento__price-card evento__price-card--presale">

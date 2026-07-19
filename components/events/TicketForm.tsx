@@ -1,6 +1,7 @@
 'use client'
 
 import { useId, useRef, useState, type FormEvent } from 'react'
+import { PROMOTER_STORAGE_KEY } from '@/lib/promoters'
 import { APPS_SCRIPT_URL, freeTicketsFor, presaleTotal, type DanceEventData } from '@/lib/events'
 import {
   hasErrors,
@@ -91,7 +92,8 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
       snapshot,
       buyer,
       websiteRef.current?.value ?? '',
-      purchaseIdRef.current
+      purchaseIdRef.current,
+      readPromoter()
     )
     setSubmitting(false)
     if (result.ok) {
@@ -381,6 +383,15 @@ function TextField({
       )}
     </div>
   )
+}
+
+/** Promoter attribution captured by PromoterPanel from the URL fragment. */
+function readPromoter(): string {
+  try {
+    return sessionStorage.getItem(PROMOTER_STORAGE_KEY) ?? ''
+  } catch {
+    return ''
+  }
 }
 
 /** WhatsApp fallback for failed registrations, built only when that error shows. */

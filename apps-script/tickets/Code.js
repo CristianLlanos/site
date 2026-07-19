@@ -20,7 +20,7 @@ const MAX_ROWS = 600;
 
 const HEADER = [
   'Código', 'Nombre completo', 'DNI', 'Email', 'WhatsApp',
-  'N° operación Yape', 'Verificado', 'Registrado', 'Compra',
+  'N° operación Yape', 'Verificado', 'Registrado', 'Compra', 'Promotor',
 ];
 const PURCHASE_ID_COL = HEADER.indexOf('Compra');
 
@@ -138,12 +138,16 @@ function appendTickets(tickets, req) {
       if (start - 1 + tickets.length > MAX_ROWS) throw new Error('MAX_ROWS guard hit');
     }
 
+    // Attribution: only well-formed slugs land in the sheet; a malformed value
+    // must never block a sale, so it degrades to empty instead of rejecting.
+    const promoter = /^[a-z0-9-]{1,32}$/.test(String(req.promoter || '')) ?
+      String(req.promoter) : '';
     const now = new Date();
     const codes = tickets.map((t, i) => 'CRIS-' + String(start + i).padStart(3, '0'));
     sheet.getRange(start + 1, 1, tickets.length, HEADER.length).setValues(
       tickets.map((t, i) => [codes[i], asCell(t.fullName, 80), asCell(t.dni, 20),
         asCell(req.email, 120), asCell(req.whatsapp, 20),
-        asCell(req.yapeOperation, 40), '', now, purchaseId])
+        asCell(req.yapeOperation, 40), '', now, purchaseId, promoter])
     );
     return { codes: codes, duplicate: false };
   } finally {

@@ -42,7 +42,8 @@ Request (client → script):
   "whatsapp": "999888777",
   "yapeOperation": "12345678",
   "website": "",           // honeypot — reject non-empty
-  "purchaseId": "uuid"     // stable across retries — server dedupes replays
+  "purchaseId": "uuid",    // stable across retries — server dedupes replays
+  "promoter": "duffoo"     // optional attribution slug from the URL fragment
 }
 ```
 
@@ -111,7 +112,7 @@ function doPost(e) {
 }
 ```
 
-Sheet header (row 1): `Código | Nombre completo | DNI | Email | WhatsApp | N° operación Yape | Verificado | Registrado | Compra` (Compra = purchaseId, used for replay dedup).
+Sheet header (row 1): `Código | Nombre completo | DNI | Email | WhatsApp | N° operación Yape | Verificado | Registrado | Compra | Promotor` (Compra = purchaseId for replay dedup; Promotor = attribution slug, malformed values degrade to empty rather than blocking a sale).
 
 ## Setup & deployment (Cris does this — see runbook)
 

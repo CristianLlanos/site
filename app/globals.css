@@ -3805,6 +3805,79 @@ code {
   text-underline-offset: 3px;
 }
 
+/* --- Promoter trust card (activated by URL fragment, e.g. #duffoo) --- */
+
+.evento__promoter-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 16px var(--ev-glow-blue));
+}
+
+.evento__promoter-eyebrow {
+  font-family: var(--font-code);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ev-text-muted);
+}
+
+.evento__promoter-name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.evento__promoter-role {
+  font-size: var(--font-size-sm);
+  color: var(--ev-amber-light);
+}
+
+/* Inline card (mobile/tablet): sits right above the ticket form */
+.evento__promoter--inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid rgba(215, 163, 106, 0.35);
+  border-radius: var(--border-radius-lg);
+  background: var(--ev-surface);
+}
+
+.evento__promoter--inline .evento__promoter-figure {
+  width: 64px;
+  flex-shrink: 0;
+}
+
+/* Side card (wide screens): fixed, accompanies the scroll */
+.evento__promoter--side {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .evento__promoter--side {
+    display: block;
+    position: fixed;
+    right: var(--space-xl);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    width: 170px;
+    text-align: center;
+  }
+
+  .evento__promoter--side .evento__promoter-name {
+    margin-top: 2px;
+  }
+
+  .evento__promoter--inline {
+    display: none;
+  }
+}
+
 /* --- Floating buy pill --- */
 
 .evento__floating-cta {

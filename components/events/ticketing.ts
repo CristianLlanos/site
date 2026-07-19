@@ -93,7 +93,8 @@ export async function submitTickets(
   tickets: TicketInput[],
   buyer: BuyerInput,
   website: string,
-  purchaseId: string
+  purchaseId: string,
+  promoter: string
 ): Promise<SubmitResult> {
   const payload = {
     tickets: tickets.map((ticket) => ({
@@ -105,6 +106,7 @@ export async function submitTickets(
     yapeOperation: buyer.yapeOperation.trim(),
     website,
     purchaseId,
+    promoter,
   }
 
   try {
