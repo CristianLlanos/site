@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #08080f;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+  }
+  .noise {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(31, 127, 163, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 127, 163, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .glow-1 { top: -120px; right: -80px; width: 500px; height: 500px; background: #1f7fa3; opacity: 0.22; }
+  .glow-2 { bottom: -140px; left: -100px; width: 400px; height: 400px; background: #b87333; opacity: 0.15; }
+  .glow-3 { top: 220px; left: 480px; width: 300px; height: 300px; background: #d7a36a; opacity: 0.10; }
+  .motif { position: absolute; inset: 0; opacity: 0.5; }
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; justify-content: center;
+    height: 100%; padding: 72px 80px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(215, 163, 106, 0.12);
+    border: 1px solid rgba(215, 163, 106, 0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #ebd3b0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 58px; font-weight: 800;
+    line-height: 1.08; letter-spacing: -0.03em;
+    max-width: 760px;
+    background: linear-gradient(135deg, #f2e4cd 0%, #e4c093 45%, #c98a47 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 28px;
+  }
+  .tagline {
+    font-size: 24px; font-weight: 500;
+    color: rgba(226, 226, 240, 0.62);
+    max-width: 640px;
+  }
+  .bottom {
+    position: absolute; bottom: 40px; left: 80px; right: 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 10;
+  }
+  .domain {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: rgba(226, 226, 240, 0.35);
+  }
+  .pills { display: flex; gap: 10px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: rgba(226, 226, 240, 0.3);
+    border: 1px solid rgba(226, 226, 240, 0.1);
+    border-radius: 100px; padding: 5px 14px;
+  }
+  .border-line {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #1f7fa3, #b87333, #d7a36a, #1f7fa3);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <svg class="motif" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="eq" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#1f7fa3"/>
+        <stop offset="55%" stop-color="#b87333"/>
+        <stop offset="100%" stop-color="#d7a36a"/>
+      </linearGradient>
+      <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#b87333"/>
+        <stop offset="100%" stop-color="#d7a36a"/>
+      </linearGradient>
+    </defs>
+    <!-- equalizer bars rising like a skyline -->
+    <g opacity="0.55">
+      <rect x="880"  y="420" width="26" height="130" rx="6" fill="url(#eq)" opacity="0.5"/>
+      <rect x="920"  y="330" width="26" height="220" rx="6" fill="url(#eq)" opacity="0.75"/>
+      <rect x="960"  y="380" width="26" height="170" rx="6" fill="url(#eq)" opacity="0.6"/>
+      <rect x="1000" y="250" width="26" height="300" rx="6" fill="url(#eq)" opacity="0.9"/>
+      <rect x="1040" y="350" width="26" height="200" rx="6" fill="url(#eq)" opacity="0.65"/>
+      <rect x="1080" y="300" width="26" height="250" rx="6" fill="url(#eq)" opacity="0.8"/>
+      <rect x="1120" y="410" width="26" height="140" rx="6" fill="url(#eq)" opacity="0.5"/>
+    </g>
+    <!-- disco ball: circle with ring halos + facet lines -->
+    <g>
+      <circle cx="1005" cy="140" r="52" stroke="url(#arc)" stroke-width="1.5" opacity="0.7"/>
+      <circle cx="1005" cy="140" r="80" stroke="#1f7fa3" stroke-width="1" opacity="0.35"/>
+      <circle cx="1005" cy="140" r="110" stroke="#b87333" stroke-width="0.8" opacity="0.2"/>
+      <line x1="1005" y1="88" x2="1005" y2="192" stroke="#b87333" stroke-width="0.8" opacity="0.5"/>
+      <line x1="953" y1="140" x2="1057" y2="140" stroke="#b87333" stroke-width="0.8" opacity="0.5"/>
+      <path d="M 968 105 Q 1005 122 1042 105" stroke="#ebd3b0" stroke-width="0.8" opacity="0.45"/>
+      <path d="M 968 175 Q 1005 158 1042 175" stroke="#ebd3b0" stroke-width="0.8" opacity="0.45"/>
+      <line x1="1005" y1="0" x2="1005" y2="88" stroke="#bfdce8" stroke-width="1" opacity="0.4"/>
+    </g>
+    <!-- musical pulse wave crossing -->
+    <path d="M 820 480 Q 870 430 920 480 T 1020 480 T 1120 480 T 1220 480"
+          stroke="url(#arc)" stroke-width="1.5" opacity="0.35"/>
+    <!-- radiating sparkle dots -->
+    <g fill="#dfa96e">
+      <circle cx="905" cy="212" r="3" opacity="0.7"/>
+      <circle cx="1108" cy="188" r="2.5" opacity="0.5"/>
+      <circle cx="948" cy="70" r="2" opacity="0.5"/>
+      <circle cx="1082" cy="95" r="2.5" opacity="0.6"/>
+      <circle cx="862" cy="130" r="2" opacity="0.4"/>
+    </g>
+    <!-- 8-count beat marks, a nod to dance counts -->
+    <g font-family="JetBrains Mono, monospace" font-size="14" fill="#bfdce8" opacity="0.4">
+      <text x="884" y="600">1</text>
+      <text x="924" y="600">2</text>
+      <text x="964" y="600">3</text>
+      <text x="1004" y="600">4</text>
+      <text x="1044" y="600">5</text>
+      <text x="1084" y="600">6</text>
+      <text x="1124" y="600">7</text>
+      <text x="1164" y="600">8</text>
+    </g>
+  </svg>
+
+  <div class="content">
+    <div class="badge">🎂 Evento · 05 Ago 2026</div>
+    <h1>Social de Bachata · Cumple de Cris</h1>
+    <p class="tagline">Miércoles 5 de agosto · 8:30 PM · Clase de Zouk incluida</p>
+  </div>
+
+  <div class="bottom">
+    <span class="domain">cristianllanos.com/events</span>
+    <div class="pills">
+      <span class="pill">S/ 15 preventa</span>
+      <span class="pill">DJ Nathan</span>
+      <span class="pill">La Victoria, Lima</span>
+    </div>
+  </div>
+  <div class="border-line"></div>
+</body>
+</html>

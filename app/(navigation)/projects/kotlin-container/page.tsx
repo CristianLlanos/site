@@ -335,7 +335,7 @@ container.register(AuthServiceProvider(), EventServiceProvider())`} />
       <section className="lib-cta">
         <h2 className="lib-cta__title">Get started in seconds</h2>
         <p className="lib-cta__desc">
-          Add the dependency, create a container, and resolve. That's it.
+          Add the dependency, create a container, and resolve. That&apos;s it.
         </p>
         <div className="lib-hero__actions">
           <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="lib-hero__cta lib-hero__cta--primary">

@@ -1,3 +1,10 @@
+import Footer from '@/components/footer'
+
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <div className="site-container">
+      {children}
+      <Footer />
+    </div>
+  )
 }
