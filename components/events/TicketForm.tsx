@@ -41,11 +41,20 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
   const [copied, setCopied] = useState(false)
   // Stable across retries so the server can dedupe a replayed purchase.
   const purchaseIdRef = useRef(makePurchaseId())
+  const successRef = useRef<HTMLDivElement>(null)
 
   // Load reCAPTCHA early so v3 has behavioral signal before submit.
   useEffect(() => {
     loadRecaptcha()
   }, [])
+
+  // Replacing the tall form with the short success panel shrinks the page and
+  // strands the scroll position — bring the confirmation into view.
+  useEffect(() => {
+    if (!confirmed) return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    successRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' })
+  }, [confirmed])
 
   const quantity = tickets.length
   const total = presaleTotal(event, quantity)
@@ -112,7 +121,7 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
 
   if (confirmed) {
     return (
-      <div className="evento__form-panel evento__form-panel--success" role="status">
+      <div className="evento__form-panel evento__form-panel--success" role="status" ref={successRef}>
         <p className="evento__form-panel-title">🎉 ¡Estás en la lista!</p>
         <ul className="evento__form-codes">
           {confirmed.codes.map((code, i) => (

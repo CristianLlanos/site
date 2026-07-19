@@ -3546,6 +3546,8 @@ code {
 }
 
 .evento__form-panel--success {
+  animation: evento-success-pop 0.5s ease;
+
   border-color: var(--ev-amber);
   background: linear-gradient(160deg, rgba(215, 163, 106, 0.12), rgba(184, 115, 51, 0.08));
 }
@@ -3805,6 +3807,12 @@ code {
   text-underline-offset: 3px;
 }
 
+@keyframes evento-success-pop {
+  0% { transform: scale(0.96); opacity: 0; box-shadow: 0 0 0 rgba(215, 163, 106, 0); }
+  60% { transform: scale(1.01); opacity: 1; }
+  100% { transform: scale(1); box-shadow: 0 12px 44px rgba(215, 163, 106, 0.18); }
+}
+
 /* reCAPTCHA: the floating badge is replaced by the inline attribution text
    in the form (permitted by Google's branding guidelines). */
 .grecaptcha-badge {
@@ -4038,6 +4046,10 @@ code {
   .evento__floating-cta,
   .evento__promoter--side {
     transition: none;
+  }
+
+  .evento__form-panel--success {
+    animation: none;
   }
 
   .reveal--pending {
