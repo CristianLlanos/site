@@ -3625,6 +3625,15 @@ code {
   height: auto;
 }
 
+.evento__boxmap-hint {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-code);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ev-text-muted);
+}
+
 .evento__boxmap-prices {
   display: flex;
   flex-wrap: wrap;
@@ -3796,7 +3805,46 @@ code {
   text-underline-offset: 3px;
 }
 
+/* --- Floating buy pill --- */
+
+.evento__floating-cta {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--space-lg) + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 150%);
+  z-index: 50;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: var(--ev-gradient-cta);
+  color: #1a1006;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 34px rgba(184, 115, 51, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.evento__floating-cta--visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* --- Larger screens --- */
+
+@media (min-width: 1024px) {
+  /* On wide screens the 720px article column floats in too much darkness —
+     give event sections more presence while keeping the form comfortable. */
+  .evento__section {
+    max-width: 880px;
+  }
+
+  .evento__form {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+}
 
 @media (min-width: 768px) {
   .evento__hero-figure {
@@ -3881,6 +3929,10 @@ code {
   }
 
   .reveal {
+    transition: none;
+  }
+
+  .evento__floating-cta {
     transition: none;
   }
 

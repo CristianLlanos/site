@@ -5,6 +5,7 @@ import { cumpleCris2026 as event, presaleTotal, CUMPLE_CRIS_ASSETS as assets } f
 import JsonLd from '@/components/json-ld'
 import ScrollReveal from '@/components/events/ScrollReveal'
 import DeadlineGate from '@/components/events/DeadlineGate'
+import FloatingCta from '@/components/events/FloatingCta'
 import TicketForm from '@/components/events/TicketForm'
 
 const PAGE_URL = `${SITE_URL}${event.path}/`
@@ -293,6 +294,7 @@ export default function CumpleCrisPage() {
               loading="lazy"
             />
           </a>
+          <p className="evento__boxmap-hint">Toca el plano para ampliarlo 🔍</p>
           <div className="evento__boxmap-prices">
             <span className="evento__boxmap-price">
               Box · <strong>S/ {event.boxPrice}</strong>
@@ -358,6 +360,10 @@ export default function CumpleCrisPage() {
           </div>
         </ScrollReveal>
       </section>
+
+      <DeadlineGate deadline={event.presaleDeadline} fallback={null}>
+        <FloatingCta href="#entradas" label={`Entradas — S/ ${event.presalePrice}`} />
+      </DeadlineGate>
 
       {/* CTA FINAL */}
       <section className="evento__section evento__final">
