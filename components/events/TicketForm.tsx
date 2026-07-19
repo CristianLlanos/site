@@ -200,14 +200,19 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
           Paga con Yape
         </h3>
         <div className="evento__form-yape">
-          <img
-            src={qrSrc}
-            alt={`Código QR de Yape de ${event.yapeHolder}`}
-            className="evento__form-qr"
-            width={900}
-            height={1325}
-            loading="lazy"
-          />
+          <div className="evento__form-qr-wrap">
+            <img
+              src={qrSrc}
+              alt={`Código QR de Yape de ${event.yapeHolder}`}
+              className="evento__form-qr"
+              width={900}
+              height={1325}
+              loading="lazy"
+            />
+            <a href={qrSrc} download="yape-cristian-llanos.png" className="evento__form-copy">
+              ⬇ descargar QR
+            </a>
+          </div>
           <div className="evento__form-yape-info">
             <p className="evento__form-yape-holder">{event.yapeHolder}</p>
             <p className="evento__form-yape-number">

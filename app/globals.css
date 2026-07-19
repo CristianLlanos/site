@@ -3354,6 +3354,13 @@ code {
   text-align: center;
 }
 
+.evento__form-qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 /* height:auto — the img carries width/height attrs (CLS reservation); without
    it the attribute height would be used verbatim and stretch the image. */
 .evento__form-qr {
@@ -3380,6 +3387,8 @@ code {
 }
 
 .evento__form-copy {
+  display: inline-block;
+  text-decoration: none;
   padding: 4px 12px;
   border-radius: 999px;
   font-family: var(--font-code);
