@@ -140,6 +140,18 @@ breadcrumbs, OG footer label. Content stays Spanish; internal names that are not
 (`.eventos-*` CSS classes, `docs/user/eventos-runbook.md`, `assets/eventos/`) keep
 their names, as does the `eventos-en-kotlin` blog slug.
 
+### 11h. Final flyer rebrand (2026-07-19)
+The near-final flyer set an explicit palette — negro azulado #050A12, azul petróleo
+#073B4C, azul marino #071B33, dorado cobrizo #D7A36A, ámbar tenue #B87333 — applied
+across the landing, form, footer, OG image, and the confirmation email (Apps Script
+v10, warm cream boxes + copper accents). The new clean background art (Fondo.jpg,
+no text/people) replaced the composed texture: opaque webp (47KB vs 400KB+ with
+alpha), used as the hero scene with a compositor-only "breathe" scale animation
+(the old animated gradient stayed only as a load-time safety net) and as the final
+band. Facts from the flyer: **doors 8:30 pm** (was 8:00 — cascaded to startDate,
+timeline, .ics, email, OG) and **Bachata Club Lima-Perú** credited in Lugar and as
+co-organizer in the JSON-LD.
+
 ### 12. Launch ~July 24–26 on one deploy
 Netlify cycle reset July 14 (fresh 20 deploys). Build everything on `main`; single
 `master` merge to launch + 1 reserved fix deploy. End time for schema/.ics: 5:00 am

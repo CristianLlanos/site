@@ -20,14 +20,14 @@
   .grid-bg {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(63, 123, 219, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(63, 123, 219, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(31, 127, 163, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 127, 163, 0.05) 1px, transparent 1px);
     background-size: 60px 60px;
   }
   .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
-  .glow-1 { top: -120px; right: -80px; width: 500px; height: 500px; background: #3f7bdb; opacity: 0.22; }
-  .glow-2 { bottom: -140px; left: -100px; width: 400px; height: 400px; background: #ff9b4a; opacity: 0.15; }
-  .glow-3 { top: 220px; left: 480px; width: 300px; height: 300px; background: #e3b567; opacity: 0.10; }
+  .glow-1 { top: -120px; right: -80px; width: 500px; height: 500px; background: #1f7fa3; opacity: 0.22; }
+  .glow-2 { bottom: -140px; left: -100px; width: 400px; height: 400px; background: #b87333; opacity: 0.15; }
+  .glow-3 { top: 220px; left: 480px; width: 300px; height: 300px; background: #d7a36a; opacity: 0.10; }
   .motif { position: absolute; inset: 0; opacity: 0.5; }
   .content {
     position: relative; z-index: 10;
@@ -36,13 +36,13 @@
   }
   .badge {
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(227, 181, 103, 0.12);
-    border: 1px solid rgba(227, 181, 103, 0.25);
+    background: rgba(215, 163, 106, 0.12);
+    border: 1px solid rgba(215, 163, 106, 0.25);
     border-radius: 100px;
     padding: 8px 18px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px; font-weight: 700;
-    color: #f2dcae;
+    color: #ebd3b0;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     width: fit-content;
@@ -53,7 +53,7 @@
     font-size: 58px; font-weight: 800;
     line-height: 1.08; letter-spacing: -0.03em;
     max-width: 760px;
-    background: linear-gradient(135deg, #f7f4ec 0%, #f2dcae 45%, #e8b169 100%);
+    background: linear-gradient(135deg, #f2e4cd 0%, #e4c093 45%, #c98a47 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 28px;
@@ -81,7 +81,7 @@
   }
   .border-line {
     position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, #3f7bdb, #ff9b4a, #e3b567, #3f7bdb);
+    background: linear-gradient(90deg, #1f7fa3, #b87333, #d7a36a, #1f7fa3);
     opacity: 0.5;
   }
 </style>
@@ -96,13 +96,13 @@
   <svg class="motif" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="eq" x1="0" y1="1" x2="0" y2="0">
-        <stop offset="0%" stop-color="#3f7bdb"/>
-        <stop offset="55%" stop-color="#ff9b4a"/>
-        <stop offset="100%" stop-color="#e3b567"/>
+        <stop offset="0%" stop-color="#1f7fa3"/>
+        <stop offset="55%" stop-color="#b87333"/>
+        <stop offset="100%" stop-color="#d7a36a"/>
       </linearGradient>
       <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#ff9b4a"/>
-        <stop offset="100%" stop-color="#e3b567"/>
+        <stop offset="0%" stop-color="#b87333"/>
+        <stop offset="100%" stop-color="#d7a36a"/>
       </linearGradient>
     </defs>
     <!-- equalizer bars rising like a skyline -->
@@ -118,19 +118,19 @@
     <!-- disco ball: circle with ring halos + facet lines -->
     <g>
       <circle cx="1005" cy="140" r="52" stroke="url(#arc)" stroke-width="1.5" opacity="0.7"/>
-      <circle cx="1005" cy="140" r="80" stroke="#3f7bdb" stroke-width="1" opacity="0.35"/>
-      <circle cx="1005" cy="140" r="110" stroke="#ff9b4a" stroke-width="0.8" opacity="0.2"/>
-      <line x1="1005" y1="88" x2="1005" y2="192" stroke="#ff9b4a" stroke-width="0.8" opacity="0.5"/>
-      <line x1="953" y1="140" x2="1057" y2="140" stroke="#ff9b4a" stroke-width="0.8" opacity="0.5"/>
-      <path d="M 968 105 Q 1005 122 1042 105" stroke="#f2dcae" stroke-width="0.8" opacity="0.45"/>
-      <path d="M 968 175 Q 1005 158 1042 175" stroke="#f2dcae" stroke-width="0.8" opacity="0.45"/>
-      <line x1="1005" y1="0" x2="1005" y2="88" stroke="#cfe0f7" stroke-width="1" opacity="0.4"/>
+      <circle cx="1005" cy="140" r="80" stroke="#1f7fa3" stroke-width="1" opacity="0.35"/>
+      <circle cx="1005" cy="140" r="110" stroke="#b87333" stroke-width="0.8" opacity="0.2"/>
+      <line x1="1005" y1="88" x2="1005" y2="192" stroke="#b87333" stroke-width="0.8" opacity="0.5"/>
+      <line x1="953" y1="140" x2="1057" y2="140" stroke="#b87333" stroke-width="0.8" opacity="0.5"/>
+      <path d="M 968 105 Q 1005 122 1042 105" stroke="#ebd3b0" stroke-width="0.8" opacity="0.45"/>
+      <path d="M 968 175 Q 1005 158 1042 175" stroke="#ebd3b0" stroke-width="0.8" opacity="0.45"/>
+      <line x1="1005" y1="0" x2="1005" y2="88" stroke="#bfdce8" stroke-width="1" opacity="0.4"/>
     </g>
     <!-- musical pulse wave crossing -->
     <path d="M 820 480 Q 870 430 920 480 T 1020 480 T 1120 480 T 1220 480"
           stroke="url(#arc)" stroke-width="1.5" opacity="0.35"/>
     <!-- radiating sparkle dots -->
-    <g fill="#ffb066">
+    <g fill="#dfa96e">
       <circle cx="905" cy="212" r="3" opacity="0.7"/>
       <circle cx="1108" cy="188" r="2.5" opacity="0.5"/>
       <circle cx="948" cy="70" r="2" opacity="0.5"/>
@@ -138,7 +138,7 @@
       <circle cx="862" cy="130" r="2" opacity="0.4"/>
     </g>
     <!-- 8-count beat marks, a nod to dance counts -->
-    <g font-family="JetBrains Mono, monospace" font-size="14" fill="#cfe0f7" opacity="0.4">
+    <g font-family="JetBrains Mono, monospace" font-size="14" fill="#bfdce8" opacity="0.4">
       <text x="884" y="600">1</text>
       <text x="924" y="600">2</text>
       <text x="964" y="600">3</text>
@@ -153,7 +153,7 @@
   <div class="content">
     <div class="badge">🎂 Evento · 05 Ago 2026</div>
     <h1>Social de Bachata · Cumple de Cris</h1>
-    <p class="tagline">Miércoles 5 de agosto · 8:00 PM · Clase de Zouk incluida</p>
+    <p class="tagline">Miércoles 5 de agosto · 8:30 PM · Clase de Zouk incluida</p>
   </div>
 
   <div class="bottom">

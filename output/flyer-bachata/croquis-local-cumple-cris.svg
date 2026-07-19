@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="78%">
+      <stop offset="0" stop-color="#0b1b29"/>
+      <stop offset="0.52" stop-color="#050b12"/>
+      <stop offset="1" stop-color="#020407"/>
+    </radialGradient>
+    <radialGradient id="floor" cx="50%" cy="44%" r="70%">
+      <stop offset="0" stop-color="#0b3d4a" stop-opacity="0.44"/>
+      <stop offset="0.72" stop-color="#08131d" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#02070b" stop-opacity="0.9"/>
+    </radialGradient>
+    <linearGradient id="stage" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff4df"/>
+      <stop offset="1" stop-color="#d9c6aa"/>
+    </linearGradient>
+    <linearGradient id="petrol" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#075463"/>
+      <stop offset="1" stop-color="#022c37"/>
+    </linearGradient>
+    <linearGradient id="boxFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#103647"/>
+      <stop offset="1" stop-color="#071924"/>
+    </linearGradient>
+    <linearGradient id="restroom" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a6170"/>
+      <stop offset="1" stop-color="#122a40"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#d7a36a" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+    <filter id="blueGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="goldGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.75"/>
+    </filter>
+    <filter id="smokeBlur" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <style>
+      .title { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: 8px; fill: #f3dfc2; }
+      .subtitle { font-family: Arial, Helvetica, sans-serif; font-weight: 600; letter-spacing: 4px; fill: #d7a36a; }
+      .label { font-family: 'Arial Narrow', Arial, sans-serif; font-weight: 700; letter-spacing: 1px; fill: #fff4df; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-weight: 600; letter-spacing: .7px; fill: #f7ead8; }
+      .box { fill: url(#boxFill); stroke: #d7a36a; stroke-width: 2; }
+      .boxText { font-family: 'Arial Narrow', Arial, sans-serif; font-weight: 700; font-size: 19px; fill: #fff4df; text-anchor: middle; dominant-baseline: middle; }
+      .table { fill: #f6ead8; stroke: #d7a36a; stroke-width: 3; }
+      .tableText { font-family: Georgia, serif; font-weight: 700; font-size: 22px; fill: #07131d; text-anchor: middle; dominant-baseline: middle; }
+      .unavailable { stroke: #e55242; stroke-width: 7; stroke-linecap: round; filter: url(#goldGlow); }
+    </style>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+
+  <!-- Blue smoke and gold particles inspired by the event flyer -->
+  <g opacity="0.5" filter="url(#smokeBlur)" fill="none" stroke-linecap="round">
+    <path d="M-30 85 C95 130 15 260 115 325 S35 520 110 615 S12 815 95 975" stroke="#0d83d5" stroke-width="38"/>
+    <path d="M1110 100 C965 150 1065 275 975 350 S1050 535 975 625 S1060 820 990 990" stroke="#0872c0" stroke-width="34"/>
+  </g>
+  <g fill="#e0a45f" opacity="0.7">
+    <circle cx="83" cy="128" r="2"/><circle cx="122" cy="94" r="1.5"/><circle cx="176" cy="141" r="2.2"/>
+    <circle cx="903" cy="101" r="2"/><circle cx="958" cy="137" r="1.6"/><circle cx="1011" cy="91" r="2.3"/>
+    <circle cx="64" cy="735" r="1.8"/><circle cx="1019" cy="705" r="2"/><circle cx="101" cy="892" r="1.5"/>
+    <circle cx="973" cy="889" r="1.7"/><circle cx="536" cy="107" r="2.2"/><circle cx="587" cy="92" r="1.4"/>
+  </g>
+  <ellipse cx="540" cy="520" rx="455" ry="390" fill="none" stroke="#b97a3d" stroke-opacity="0.42" stroke-width="2" filter="url(#goldGlow)"/>
+
+  <!-- Header: no logos -->
+  <text x="540" y="60" class="title" font-size="34" text-anchor="middle">DISTRIBUCIÓN DEL LOCAL</text>
+  <text x="540" y="94" class="subtitle" font-size="15" text-anchor="middle">SOCIAL DE BACHATA · CUMPLE DE CRIS</text>
+  <line x1="280" y1="116" x2="800" y2="116" stroke="#d7a36a" stroke-width="1.5" opacity="0.75"/>
+
+  <!-- Venue boundary -->
+  <rect x="45" y="145" width="990" height="760" rx="28" fill="#03070c" fill-opacity="0.7" stroke="#d7a36a" stroke-width="3" filter="url(#softShadow)"/>
+  <rect x="58" y="158" width="964" height="734" rx="20" fill="url(#floor)" stroke="#0b5b76" stroke-opacity="0.55"/>
+
+  <!-- Restrooms -->
+  <g filter="url(#softShadow)">
+    <rect x="72" y="172" width="154" height="58" rx="10" fill="url(#restroom)" stroke="#d7a36a" stroke-width="2"/>
+    <line x1="149" y1="172" x2="149" y2="230" stroke="#d7a36a" stroke-width="1.5" opacity="0.8"/>
+    <text x="110" y="194" class="small" font-size="12" text-anchor="middle">SS.HH.</text>
+    <text x="110" y="212" class="small" font-size="12" text-anchor="middle">MUJERES</text>
+    <text x="187" y="194" class="small" font-size="12" text-anchor="middle">SS.HH.</text>
+    <text x="187" y="212" class="small" font-size="12" text-anchor="middle">HOMBRES</text>
+  </g>
+
+  <!-- Top left boxes -->
+  <g filter="url(#softShadow)">
+    <rect class="box" x="252" y="176" width="94" height="44" rx="8"/><text class="boxText" x="299" y="198">BOX 1</text>
+    <rect class="box" x="252" y="230" width="94" height="44" rx="8"/><text class="boxText" x="299" y="252">BOX 2</text>
+  </g>
+
+  <!-- Stage and DJ -->
+  <g filter="url(#softShadow)">
+    <path d="M376 172 H702 V252 Q702 300 654 300 H424 Q376 300 376 252 Z" fill="url(#stage)" stroke="#d7a36a" stroke-width="3"/>
+    <text x="539" y="242" class="label" font-size="34" text-anchor="middle" fill="#07131d" style="fill:#07131d">ESCENARIO</text>
+    <rect x="732" y="182" width="94" height="82" rx="12" fill="url(#petrol)" stroke="#d7a36a" stroke-width="3"/>
+    <text x="779" y="232" class="label" font-size="32" text-anchor="middle">DJ</text>
+  </g>
+
+  <!-- Top right boxes -->
+  <g filter="url(#softShadow)">
+    <rect class="box" x="868" y="174" width="108" height="42" rx="8"/><text class="boxText" x="922" y="195">BOX 3</text>
+    <rect class="box" x="868" y="226" width="108" height="42" rx="8"/><text class="boxText" x="922" y="247">BOX 4</text>
+    <rect class="box" x="868" y="278" width="108" height="42" rx="8"/><text class="boxText" x="922" y="299">BOX 5</text>
+  </g>
+
+  <!-- Entrance -->
+  <g filter="url(#goldGlow)">
+    <path d="M46 285 H92" stroke="#d7a36a" stroke-width="4"/>
+    <path d="M92 285 l-14 -10 M92 285 l-14 10" stroke="#d7a36a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <text x="76" y="322" class="label" font-size="17" text-anchor="middle">INGRESO</text>
+  </g>
+
+  <!-- Dance floor -->
+  <rect x="326" y="348" width="428" height="390" rx="74" fill="#07111a" fill-opacity="0.72" stroke="#0b6680" stroke-width="2" stroke-dasharray="7 7"/>
+  <ellipse cx="540" cy="540" rx="176" ry="154" fill="#073b4c" opacity="0.2" filter="url(#blueGlow)"/>
+  <text x="540" y="525" class="title" font-size="27" text-anchor="middle" letter-spacing="5">PISTA DE</text>
+  <text x="540" y="565" class="title" font-size="39" text-anchor="middle" letter-spacing="6">BAILE</text>
+  <text x="540" y="594" class="subtitle" font-size="11" text-anchor="middle">ÁREA CENTRAL</text>
+
+  <!-- Left high tables -->
+  <text x="150" y="375" class="label" font-size="18" text-anchor="middle">MESAS ALTAS</text>
+  <g filter="url(#softShadow)">
+    <circle class="table" cx="112" cy="424" r="28"/><text class="tableText" x="112" y="425">1</text>
+    <circle class="table" cx="190" cy="424" r="28"/><text class="tableText" x="190" y="425">2</text>
+    <circle class="table" cx="112" cy="516" r="28"/><text class="tableText" x="112" y="517">3</text>
+    <circle class="table" cx="190" cy="516" r="28"/><text class="tableText" x="190" y="517">4</text>
+    <circle class="table" cx="112" cy="608" r="28"/><text class="tableText" x="112" y="609">5</text>
+    <circle class="table" cx="190" cy="608" r="28"/><text class="tableText" x="190" y="609">6</text>
+  </g>
+
+  <!-- Right high tables -->
+  <text x="878" y="375" class="label" font-size="18" text-anchor="middle">MESAS ALTAS</text>
+  <g filter="url(#softShadow)">
+    <circle class="table" cx="848" cy="424" r="28"/><text class="tableText" x="848" y="425">7</text>
+    <circle class="table" cx="908" cy="424" r="28"/><text class="tableText" x="908" y="425">8</text>
+    <circle class="table" cx="848" cy="516" r="28"/><text class="tableText" x="848" y="517">9</text>
+    <circle class="table" cx="908" cy="516" r="28"/><text class="tableText" x="908" y="517">10</text>
+    <circle class="table" cx="848" cy="608" r="28"/><text class="tableText" x="848" y="609">11</text>
+    <circle class="table" cx="908" cy="608" r="28"/><text class="tableText" x="908" y="609">12</text>
+  </g>
+
+  <!-- Boxes around dance floor -->
+  <g filter="url(#softShadow)">
+    <rect class="box" x="245" y="358" width="88" height="42" rx="8"/><text class="boxText" x="289" y="379">BOX 6</text>
+    <rect class="box" x="245" y="412" width="88" height="42" rx="8"/><text class="boxText" x="289" y="433">BOX 7</text>
+    <g transform="translate(245 472)"><rect class="box" width="58" height="100" rx="8"/><text class="boxText" x="29" y="50" transform="rotate(-90 29 50)">BOX 8</text></g>
+    <g transform="translate(245 590)"><rect class="box" width="58" height="100" rx="8"/><text class="boxText" x="29" y="50" transform="rotate(-90 29 50)">BOX 9</text></g>
+    <g transform="translate(758 472)"><rect class="box" width="58" height="100" rx="8"/><text class="boxText" x="29" y="50" transform="rotate(90 29 50)">BOX 10</text></g>
+    <g transform="translate(758 590)"><rect class="box" width="58" height="100" rx="8"/><text class="boxText" x="29" y="50" transform="rotate(90 29 50)">BOX 11</text></g>
+  </g>
+
+  <!-- Unavailable marks -->
+  <g>
+    <line class="unavailable" x1="257" y1="421" x2="321" y2="445"/><line class="unavailable" x1="321" y1="421" x2="257" y2="445"/>
+    <line class="unavailable" x1="766" y1="484" x2="808" y2="560"/><line class="unavailable" x1="808" y1="484" x2="766" y2="560"/>
+  </g>
+
+  <!-- Bottom boxes 12–19 -->
+  <g filter="url(#softShadow)">
+    <rect class="box" x="72" y="792" width="101" height="50" rx="8"/><text class="boxText" x="122.5" y="817">BOX 12</text>
+    <rect class="box" x="181" y="792" width="101" height="50" rx="8"/><text class="boxText" x="231.5" y="817">BOX 13</text>
+    <rect class="box" x="290" y="792" width="101" height="50" rx="8"/><text class="boxText" x="340.5" y="817">BOX 14</text>
+    <rect class="box" x="399" y="792" width="101" height="50" rx="8"/><text class="boxText" x="449.5" y="817">BOX 15</text>
+    <rect class="box" x="508" y="792" width="101" height="50" rx="8"/><text class="boxText" x="558.5" y="817">BOX 16</text>
+    <rect class="box" x="617" y="792" width="101" height="50" rx="8"/><text class="boxText" x="667.5" y="817">BOX 17</text>
+    <rect class="box" x="726" y="792" width="101" height="50" rx="8"/><text class="boxText" x="776.5" y="817">BOX 18</text>
+    <rect class="box" x="835" y="792" width="101" height="50" rx="8"/><text class="boxText" x="885.5" y="817">BOX 19</text>
+  </g>
+  <g>
+    <line class="unavailable" x1="630" y1="801" x2="705" y2="833"/><line class="unavailable" x1="705" y1="801" x2="630" y2="833"/>
+  </g>
+
+  <!-- Bar -->
+  <g filter="url(#softShadow)">
+    <rect x="950" y="384" width="54" height="344" rx="18" fill="url(#petrol)" stroke="#d7a36a" stroke-width="3"/>
+    <text x="977" y="556" class="label" font-size="22" text-anchor="middle" transform="rotate(90 977 556)">BARRA · BAR</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(760 865)">
+    <line x1="0" y1="-9" x2="24" y2="9" class="unavailable" stroke-width="5"/>
+    <line x1="24" y1="-9" x2="0" y2="9" class="unavailable" stroke-width="5"/>
+    <text x="38" y="5" class="small" font-size="12">NO DISPONIBLE</text>
+  </g>
+
+  <!-- Street and address -->
+  <g>
+    <rect x="45" y="936" width="990" height="94" rx="20" fill="#06131d" stroke="#0b5b76" stroke-width="2"/>
+    <line x1="76" y1="981" x2="1004" y2="981" stroke="#d7a36a" stroke-width="2" stroke-dasharray="18 13" opacity="0.55"/>
+    <g transform="translate(104 950)" filter="url(#goldGlow)">
+      <path d="M0 0 C-15 0 -25 11 -25 25 C-25 44 0 65 0 65 C0 65 25 44 25 25 C25 11 15 0 0 0 Z" fill="none" stroke="#d7a36a" stroke-width="4"/>
+      <circle cx="0" cy="24" r="8" fill="#d7a36a"/>
+    </g>
+    <text x="570" y="968" class="title" font-size="24" text-anchor="middle" letter-spacing="4">AV. JAVIER PRADO ESTE 1179</text>
+    <text x="570" y="1012" class="subtitle" font-size="13" text-anchor="middle">CENTRO DE CONVENCIONES JAVIER PRADO · TERCER PISO</text>
+    <path d="M104 936 V884 H76" fill="none" stroke="#d7a36a" stroke-width="3" stroke-dasharray="7 6"/>
+    <path d="M76 884 l-10 16 M76 884 l10 16" fill="none" stroke="#d7a36a" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

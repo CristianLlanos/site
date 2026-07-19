@@ -85,9 +85,9 @@ export const cumpleCris2026: DanceEventData = {
   name: 'Social de Bachata · Cumple de Cris',
   description:
     'Social de bachata por el cumpleaños de Cris. Clase de Zouk con Cris + Xio a las 9:00 pm incluida con tu entrada, DJ Nathan en cabina y pista hasta que el cuerpo aguante.',
-  startDate: '2026-08-05T20:00:00-05:00',
+  startDate: '2026-08-05T20:30:00-05:00',
   endDate: '2026-08-06T05:00:00-05:00',
-  doorsLabel: '8:00 pm',
+  doorsLabel: '8:30 pm',
   presalePrice: 15,
   presaleDeadline: '2026-08-05T18:00:00-05:00',
   presaleDeadlineLabel: 'las 6:00 pm del 5/8',

@@ -2729,15 +2729,15 @@ code {
 /* Under an event poster the footer keeps the poster's fixed dark palette —
    a theme-following (possibly white) strip would break the full-bleed page. */
 .eventos-shell:has(.evento) .eventos-footer {
-  background: #070a14;
+  background: #050a12;
 }
 
 .eventos-shell:has(.evento) .eventos-footer__link {
-  color: #e9c78a;
+  color: #d7a36a;
 }
 
 .eventos-shell:has(.evento) .eventos-footer__link:hover {
-  color: #f2dcae;
+  color: #ebd3b0;
 }
 
 .eventos-shell:has(.evento) .eventos-footer__copyright {
@@ -2839,27 +2839,28 @@ code {
    EVENTO — landing (poster-style, fixed dark)
    ============================================ */
 
-/* Per-event accent palette: cumple-cris-2026 — matches the official flyer:
-   cosmic blue-black night, champagne-gold type, ember sparks, electric-blue smoke */
+/* Per-event accent palette: cumple-cris-2026 — the flyer's final palette:
+   negro azulado #050A12, azul petróleo #073B4C, azul marino #071B33,
+   dorado cobrizo #D7A36A, ámbar tenue #B87333 (accents are tints of these) */
 .evento--cumple-cris {
-  --ev-bg: #070a14;
-  --ev-hero-1: #04060d;
-  --ev-hero-2: #0e1c40;
-  --ev-hero-3: #241023;
-  --ev-hero-4: #5a3110;
-  --ev-blue: #3f7bdb;
-  --ev-ember: #ff9b4a;
-  --ev-amber: #e3b567;
-  --ev-amber-light: #f2dcae;
+  --ev-bg: #050a12;
+  --ev-hero-1: #03060b;
+  --ev-hero-2: #071b33;
+  --ev-hero-3: #073b4c;
+  --ev-hero-4: #7a4a1e;
+  --ev-blue: #1f7fa3;
+  --ev-ember: #b87333;
+  --ev-amber: #d7a36a;
+  --ev-amber-light: #ebd3b0;
   --ev-text: #f8f4ea;
   --ev-text-muted: rgba(248, 244, 234, 0.68);
   --ev-surface: rgba(255, 255, 255, 0.05);
   --ev-border: rgba(255, 255, 255, 0.14);
-  --ev-gradient-text: linear-gradient(100deg, #f7e8c8 0%, var(--ev-amber) 52%, var(--ev-ember) 100%);
+  --ev-gradient-text: linear-gradient(100deg, #f2e4cd 0%, var(--ev-amber) 52%, var(--ev-ember) 100%);
   --ev-gradient-cta: linear-gradient(135deg, var(--ev-ember), var(--ev-amber));
-  --ev-glow-ember: rgba(255, 155, 74, 0.4);
-  --ev-glow-gold: rgba(227, 181, 103, 0.28);
-  --ev-glow-blue: rgba(63, 123, 219, 0.45);
+  --ev-glow-ember: rgba(184, 115, 51, 0.45);
+  --ev-glow-gold: rgba(215, 163, 106, 0.3);
+  --ev-glow-blue: rgba(31, 127, 163, 0.5);
   --ev-error: #fb7185;
   --ev-error-text: #fecdd3;
   --ev-error-bg: rgba(251, 113, 133, 0.12);
@@ -2934,18 +2935,23 @@ code {
 }
 
 /* Scrim so the title stays readable over the cutout on small screens */
-/* Flyer texture (blue smoke, golden arc, sparks — composed from the flyer's
-   text-free edges, alpha over black) + readability scrim. A real div, placed
-   BEFORE the hero figure in the DOM: same z-index, so the cutout paints on
-   top of the smoke while the animated gradient (::before) breathes through
-   the texture's transparent center. */
+/* The flyer's cosmic scene (copper ring, petrol smoke, sparks) + readability
+   scrim. A real div placed BEFORE the hero figure in the DOM: same z-index,
+   so the cutout paints on top. The slow breathe is a compositor-only scale. */
 .evento__hero-bg {
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(4, 6, 13, 0.35) 0%, transparent 40%, rgba(4, 6, 13, 0.55) 100%),
-    url('/img/events/cumple-cris-2026/bg-cosmic.webp') center top / cover no-repeat;
+    linear-gradient(180deg, rgba(5, 10, 18, 0.35) 0%, transparent 40%, rgba(5, 10, 18, 0.55) 100%),
+    url('/img/events/cumple-cris-2026/bg-cosmic.webp') center / cover no-repeat;
+  animation: evento-breathe 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes evento-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 
 @keyframes evento-gradient {
@@ -3091,7 +3097,7 @@ code {
 
 .evento__cta--primary {
   background: var(--ev-gradient-cta);
-  color: #1d1305;
+  color: #1a1006;
   box-shadow: 0 8px 30px var(--ev-glow-ember);
 }
 
@@ -3198,8 +3204,8 @@ code {
 
 .evento__price-card--presale {
   border-color: var(--ev-ember);
-  background: linear-gradient(160deg, rgba(255, 155, 74, 0.14), rgba(227, 181, 103, 0.08));
-  box-shadow: 0 8px 40px rgba(255, 155, 74, 0.18);
+  background: linear-gradient(160deg, rgba(184, 115, 51, 0.14), rgba(215, 163, 106, 0.08));
+  box-shadow: 0 8px 40px rgba(184, 115, 51, 0.18);
 }
 
 .evento__price-tag {
@@ -3235,9 +3241,9 @@ code {
 .evento__deadline {
   margin-top: var(--space-xl);
   padding: var(--space-md) var(--space-lg);
-  border: 1px solid rgba(227, 181, 103, 0.35);
+  border: 1px solid rgba(215, 163, 106, 0.35);
   border-radius: var(--border-radius);
-  background: rgba(227, 181, 103, 0.1);
+  background: rgba(215, 163, 106, 0.1);
   font-size: var(--font-size-sm);
   color: var(--ev-amber-light);
   text-align: center;
@@ -3541,7 +3547,7 @@ code {
 
 .evento__form-panel--success {
   border-color: var(--ev-amber);
-  background: linear-gradient(160deg, rgba(227, 181, 103, 0.12), rgba(255, 155, 74, 0.08));
+  background: linear-gradient(160deg, rgba(215, 163, 106, 0.12), rgba(184, 115, 51, 0.08));
 }
 
 .evento__form-panel-title {
@@ -3582,7 +3588,7 @@ code {
   padding: var(--space-xl);
   border: 1px solid var(--ev-border);
   border-radius: var(--border-radius-lg);
-  background: linear-gradient(160deg, rgba(63, 123, 219, 0.12), rgba(255, 155, 74, 0.06));
+  background: linear-gradient(160deg, rgba(31, 127, 163, 0.12), rgba(184, 115, 51, 0.06));
 }
 
 .evento__dj-figure {
@@ -3682,6 +3688,15 @@ code {
   color: #ffffff;
 }
 
+.evento__venue-brand {
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ev-amber);
+  margin-top: var(--space-2xs, 4px);
+}
+
 .evento__venue-address {
   font-size: var(--font-size-lg);
   color: var(--ev-text-muted);
@@ -3709,7 +3724,7 @@ code {
   max-width: none;
   /* Same flyer texture closes the page, anchored to its spark-lit bottom */
   background:
-    linear-gradient(rgba(7, 10, 20, 0.45), rgba(7, 10, 20, 0.45)),
+    linear-gradient(rgba(5, 10, 18, 0.45), rgba(5, 10, 18, 0.45)),
     url('/img/events/cumple-cris-2026/bg-cosmic.webp') center bottom / cover no-repeat;
 }
 
@@ -3795,7 +3810,7 @@ code {
 /* --- Reduced motion --- */
 
 @media (prefers-reduced-motion: reduce) {
-  .evento__hero::before,
+  .evento__hero-bg,
   .evento__hero-figure,
   .evento__scroll-hint,
   .evento__eq span {

@@ -161,35 +161,35 @@ function appendTickets(tickets, req) {
 function buildEmail(tickets, codes) {
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const ticketRows = tickets.map((t, i) =>
-    '<div style="padding:10px 14px;margin:6px 0;background-color:#f4f0fa;border-radius:8px;color:#1a1a2e;">' +
-      '<span style="font-family:monospace;font-weight:bold;color:#6b3fa0;">' + esc(codes[i]) + '</span>' +
+    '<div style="padding:10px 14px;margin:6px 0;background-color:#f7efe4;border-radius:8px;color:#1c1712;">' +
+      '<span style="font-family:monospace;font-weight:bold;color:#b87333;">' + esc(codes[i]) + '</span>' +
       ' &nbsp;·&nbsp; ' + esc(t.fullName.trim()) +
     '</div>'
   ).join('');
 
   return (
-    '<div style="background-color:#ffffff;color:#1a1a2e;font-family:Arial,Helvetica,sans-serif;' +
+    '<div style="background-color:#ffffff;color:#1c1712;font-family:Arial,Helvetica,sans-serif;' +
         'font-size:16px;line-height:1.6;max-width:560px;margin:0 auto;padding:24px;">' +
-      '<h1 style="color:#6b3fa0;font-size:22px;margin:0 0 8px;">🎉 ¡Estás en la lista!</h1>' +
-      '<p style="margin:0 0 16px;color:#1a1a2e;">Gracias por tu compra. Aquí ' +
+      '<h1 style="color:#b87333;font-size:22px;margin:0 0 8px;">🎉 ¡Estás en la lista!</h1>' +
+      '<p style="margin:0 0 16px;color:#1c1712;">Gracias por tu compra. Aquí ' +
         (tickets.length === 1 ? 'está tu entrada' : 'están tus entradas') +
         ' para la <strong>Social de Bachata · Cumple de Cris</strong>:</p>' +
       ticketRows +
-      '<div style="margin:20px 0;padding:16px;background-color:#f9f7fc;border-radius:8px;color:#1a1a2e;">' +
-        '<p style="margin:0 0 6px;"><strong>📅 Miércoles 5 de agosto, 8:00 pm</strong></p>' +
+      '<div style="margin:20px 0;padding:16px;background-color:#f5f1ea;border-radius:8px;color:#1c1712;">' +
+        '<p style="margin:0 0 6px;"><strong>📅 Miércoles 5 de agosto, 8:30 pm</strong></p>' +
         '<p style="margin:0 0 6px;">💃 Clase de Zouk con Cris + Xio a las 9:00 pm — <strong>incluida con tu entrada</strong>.</p>' +
         '<p style="margin:0;">📍 Centro de Convenciones Javier Prado — Av. Javier Prado Este 1179, ' +
           'Tercer piso, La Victoria<br>' +
-          '<a href="' + MAPS_URL + '" style="color:#6b3fa0;">Ver en Google Maps</a>' +
+          '<a href="' + MAPS_URL + '" style="color:#b87333;">Ver en Google Maps</a>' +
           ' &nbsp;·&nbsp; ' +
-          '<a href="' + UBER_URL + '" style="color:#6b3fa0;">Pedir Uber 🚗</a></p>' +
+          '<a href="' + UBER_URL + '" style="color:#b87333;">Pedir Uber 🚗</a></p>' +
       '</div>' +
-      '<p style="margin:0 0 12px;color:#1a1a2e;"><strong>El día del evento, muestra tu DNI en puerta</strong> ' +
+      '<p style="margin:0 0 12px;color:#1c1712;"><strong>El día del evento, muestra tu DNI en puerta</strong> ' +
         'y di tu nombre — con eso entras. No necesitas imprimir nada.</p>' +
-      '<p style="margin:0 0 12px;color:#1a1a2e;">Verificaremos tu pago con el número de operación de Yape. ' +
+      '<p style="margin:0 0 12px;color:#1c1712;">Verificaremos tu pago con el número de operación de Yape. ' +
         'Solo te escribiremos por WhatsApp si algo no cuadra — si no recibes mensaje, todo está en orden.</p>' +
-      '<p style="margin:0 0 12px;color:#1a1a2e;">📎 Adjuntamos la invitación para tu calendario.</p>' +
-      '<p style="margin:24px 0 0;color:#1a1a2e;">¡Nos vemos en la pista! 🕺<br>Cris</p>' +
+      '<p style="margin:0 0 12px;color:#1c1712;">📎 Adjuntamos la invitación para tu calendario.</p>' +
+      '<p style="margin:24px 0 0;color:#1c1712;">¡Nos vemos en la pista! 🕺<br>Cris</p>' +
     '</div>'
   );
 }
@@ -235,7 +235,7 @@ function buildIcs() {
     'BEGIN:VEVENT',
     'UID:social-bachata-cumple-cris-2026@cristianllanos.com',
     'DTSTAMP:20260716T120000Z',
-    'DTSTART:20260806T010000Z',
+    'DTSTART:20260806T013000Z',
     'DTEND:20260806T100000Z',
     'SUMMARY:Social de Bachata · Cumple de Cris',
     'LOCATION:Centro de Convenciones Javier Prado\\, Av. Javier Prado Este 117',

@@ -34,11 +34,11 @@ The page must sell the night and make buying a ticket take under two minutes, mo
 | Name | Social de Bachata · Cumple de Cris |
 | Slug / URL | `/events/social-bachata-cumple-cris-2026/` |
 | Date | Wednesday 2026-08-05 (Cris's birthday is Aug 6 — midnight birthday moment 🎂) |
-| Doors | 8:00 pm |
+| Doors | 8:30 pm (flyer final) |
 | Zouk class | 9:00 pm, taught by Cris + Xio, **included with entry** (per official flyer) |
 | Social | after class, bachata (+ zouk), until ~5:00 am ("hasta que el cuerpo aguante") |
 | DJ | DJ Nathan |
-| Venue | Centro de Convenciones Javier Prado, Av. Javier Prado Este 1179, **Tercer piso**, La Victoria, Lima |
+| Venue | Bachata Club · Centro de Convenciones Javier Prado, Av. Javier Prado Este 1179, **Tercer piso**, La Victoria, Lima |
 | Venue caveat | Uber/maps by *name* mislocates it — always link by address/coordinates |
 | Coordinates | -12.0892749, -77.0151988 |
 | Google Maps | https://www.google.com/maps/place/Centro+de+Convenciones+Javier+Prado/@-12.0892179,-77.0179075,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c87ebb8eb213:0xa908be93d1d0521!8m2!3d-12.0892232!4d-77.0153326!16s%2Fg%2F1ptxkll54 |

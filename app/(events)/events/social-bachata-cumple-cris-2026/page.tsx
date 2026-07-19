@@ -11,7 +11,7 @@ const PAGE_URL = `${SITE_URL}${event.path}/`
 const OG_IMAGE = `${SITE_URL}${event.ogImage}`
 const PAGE_TITLE = 'Social de Bachata · Cumple de Cris — Mié 5 de agosto'
 const PAGE_DESCRIPTION =
-  'Social de bachata por el cumple de Cris: miércoles 5 de agosto, 8:00 pm, Centro de Convenciones Javier Prado (tercer piso), La Victoria. Clase de Zouk con Cris + Xio 9:00 pm incluida. Preventa online S/ 15.'
+  'Social de bachata por el cumple de Cris: miércoles 5 de agosto, 8:30 pm, Centro de Convenciones Javier Prado (tercer piso), La Victoria. Clase de Zouk con Cris + Xio 9:00 pm incluida. Preventa online S/ 15.'
 
 const WHATSAPP_URL = `https://wa.me/${event.whatsappNumber}?text=${encodeURIComponent(
   'Hola Cris, tengo una duda sobre el Social de Bachata del 5 de agosto 🙂'
@@ -23,7 +23,7 @@ const CROQUIS = { width: 900, height: 822 }
 
 /* Order and times mirror the official flyer. */
 const TIMELINE = [
-  { time: '8:00 pm', label: 'Puertas + social' },
+  { time: '8:30 pm', label: 'Puertas + social' },
   { time: '9:00 pm', label: `Clase de Zouk · ${event.instructor}` },
   { time: '1:00 am', label: '¡Cantamos el cumple! 🎂' },
 ]
@@ -99,7 +99,7 @@ const jsonLd = {
     { '@type': 'Person', name: event.dj },
     { '@type': 'Person', name: 'Xio' },
   ],
-  organizer: AUTHOR,
+  organizer: [AUTHOR, { '@type': 'Organization', name: 'Bachata Club Lima-Perú' }],
 }
 
 const breadcrumbs = breadcrumbList([
@@ -123,7 +123,7 @@ export default function CumpleCrisPage() {
           </picture>
         </div>
         <div className="evento__hero-content">
-          <p className="evento__hero-badge">MIÉ 05 AGO · 8:00 PM</p>
+          <p className="evento__hero-badge">MIÉ 05 AGO · 8:30 PM</p>
           <h1 className="evento__hero-title">
             <span className="evento__hero-title-line">Social de Bachata</span>
             <span className="evento__hero-title-line evento__hero-title-line--gradient">
@@ -275,6 +275,7 @@ export default function CumpleCrisPage() {
         <ScrollReveal>
           <h2 className="evento__section-title">Lugar</h2>
           <p className="evento__venue-name">{event.venue.name}</p>
+          <p className="evento__venue-brand">Bachata Club · Lima-Perú</p>
           <p className="evento__venue-address">
             {event.venue.streetAddress}, {event.venue.locality}
           </p>
