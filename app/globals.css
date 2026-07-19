@@ -3625,6 +3625,26 @@ code {
   height: auto;
 }
 
+.evento__boxmap-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.evento__boxmap-price {
+  padding: 6px 16px;
+  border: 1px solid rgba(215, 163, 106, 0.35);
+  border-radius: 999px;
+  background: rgba(215, 163, 106, 0.1);
+  font-size: var(--font-size-base);
+  color: var(--ev-text);
+}
+
+.evento__boxmap-price strong {
+  color: var(--ev-amber-light);
+}
+
 .evento__boxmap-note {
   margin-top: var(--space-md);
   font-size: var(--font-size-base);

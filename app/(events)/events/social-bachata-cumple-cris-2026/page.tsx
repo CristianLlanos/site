@@ -17,6 +17,10 @@ const WHATSAPP_URL = `https://wa.me/${event.whatsappNumber}?text=${encodeURIComp
   'Hola Cris, tengo una duda sobre el Social de Bachata del 5 de agosto 🙂'
 )}`
 
+const RESERVA_URL = `https://wa.me/${event.whatsappNumber}?text=${encodeURIComponent(
+  'Hola Cris, quiero reservar un box o una mesa para el Social de Bachata del 5 de agosto 🙌'
+)}`
+
 /* Intrinsic sizes of the processed images (CLS reservation). */
 const XIO_CUTOUT = { width: 390, height: 804 }
 const CROQUIS = { width: 900, height: 822 }
@@ -289,10 +293,18 @@ export default function CumpleCrisPage() {
               loading="lazy"
             />
           </a>
+          <div className="evento__boxmap-prices">
+            <span className="evento__boxmap-price">
+              Box · <strong>S/ {event.boxPrice}</strong>
+            </span>
+            <span className="evento__boxmap-price">
+              Mesa alta · <strong>S/ {event.tablePrice}</strong>
+            </span>
+          </div>
           <p className="evento__boxmap-note">
-            ¿Quieres asegurar un box o una mesa para tu grupo?{' '}
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              Escríbeme por WhatsApp
+            Asegura el tuyo para tu grupo:{' '}
+            <a href={RESERVA_URL} target="_blank" rel="noopener noreferrer">
+              reserva por WhatsApp
             </a>
             .
           </p>

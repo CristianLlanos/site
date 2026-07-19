@@ -48,6 +48,10 @@ export interface DanceEventData {
   presaleDeadlineLabel: string
   /** Door price in PEN. */
   doorPrice: number
+  /** Box reservation price in PEN. */
+  boxPrice: number
+  /** High-table reservation price in PEN. */
+  tablePrice: number
   /** Form sanity cap per purchase. */
   maxTicketsPerPurchase: number
   /** Yape destination number as displayed to buyers. */
@@ -94,6 +98,8 @@ export const cumpleCris2026: DanceEventData = {
   presaleDeadline: '2026-08-05T18:00:00-05:00',
   presaleDeadlineLabel: 'las 6:00 pm del 5/8',
   doorPrice: 20,
+  boxPrice: 50,
+  tablePrice: 30,
   maxTicketsPerPurchase: 12,
   yapeNumber: '986 821 895',
   yapeHolder: 'Cristian Alberto Llanos Malca',
