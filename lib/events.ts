@@ -75,6 +75,8 @@ export const CUMPLE_CRIS_ASSETS = {
   yapeQr: '/img/events/cumple-cris-2026/yape-qr.png',
   /** Google Maps crop of the venue block — links to mapsUrl on click. */
   croquis: '/img/events/cumple-cris-2026/croquis.jpg',
+  /** Floor map: box and table locations inside the venue. */
+  boxMap: '/img/events/cumple-cris-2026/box-mesas.webp',
 } as const
 
 const CUMPLE_CRIS_SLUG = 'social-bachata-cumple-cris-2026'

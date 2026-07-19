@@ -3611,6 +3611,32 @@ code {
   text-align: center;
 }
 
+/* Floor map (box y mesas) — opens full size for pinch-zoom on the labels */
+.evento__boxmap {
+  display: block;
+  border: 1px solid var(--ev-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.evento__boxmap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.evento__boxmap-note {
+  margin-top: var(--space-md);
+  font-size: var(--font-size-base);
+  color: var(--ev-text-muted);
+}
+
+.evento__boxmap-note a {
+  color: var(--ev-amber-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Venue sketch — links to Google Maps; sized down so the map text stays sharp */
 .evento__croquis {
   display: block;

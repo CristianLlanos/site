@@ -270,6 +270,35 @@ export default function CumpleCrisPage() {
         </ScrollReveal>
       </section>
 
+      {/* BOX Y MESAS */}
+      <section className="evento__section">
+        <ScrollReveal>
+          <h2 className="evento__section-title">Box y mesas</h2>
+          <a
+            href={assets.boxMap}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="evento__boxmap"
+            aria-label="Ver el plano de box y mesas a tamaño completo"
+          >
+            <img
+              src={assets.boxMap}
+              alt="Plano del local: escenario y DJ al frente, pista de baile al centro, 19 box alrededor, 12 mesas altas a los lados, barra a la derecha, ingreso y baños a la izquierda"
+              width={1254}
+              height={1254}
+              loading="lazy"
+            />
+          </a>
+          <p className="evento__boxmap-note">
+            ¿Quieres asegurar un box o una mesa para tu grupo?{' '}
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              Escríbeme por WhatsApp
+            </a>
+            .
+          </p>
+        </ScrollReveal>
+      </section>
+
       {/* LUGAR */}
       <section className="evento__section">
         <ScrollReveal>
