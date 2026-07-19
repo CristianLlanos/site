@@ -97,3 +97,8 @@ yarn.lock
 
 # Apps Script deployment metadata (script + sheet IDs)
 apps-script/tickets/.clasp.json
+
+# Local design scratch dirs (flyer work sessions) — keep out of the repo
+artifacts/
+output/
+tmp/
