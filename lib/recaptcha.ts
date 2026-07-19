@@ -8,7 +8,7 @@
  * ONLY in the Apps Script's script properties, never in this repo.
  */
 
-export const RECAPTCHA_SITE_KEY = ''
+export const RECAPTCHA_SITE_KEY = '6Le8TVstAAAAAD86c99-DnDXhpgNpYmrOjZqCwkQ'
 
 declare global {
   interface Window {
