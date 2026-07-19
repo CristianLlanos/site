@@ -25,8 +25,11 @@ Still yours to do:
 - **Promoter links**: give each promoter their fragment URL — Miguel Duffoó sells with
   `https://cristianllanos.com/events/social-bachata-cumple-cris-2026/#duffoo`. Sales made
   through it fill the **Promotor** column in the Sheet (filter/pivot by it for commissions).
-  To add a promoter: cut out their photo like the others, add an entry in `lib/promoters.ts`
-  (slug + name + photo paths), redeploy the site, and send them their `#slug` link.
+  In the promoter's view, ALL WhatsApp links (dudas, box/mesa reservations, form
+  fallback) switch to the promoter's number with a personalized greeting. To add a
+  promoter: cut out their photo like the others, add an entry in `lib/promoters.ts`
+  (slug + name + whatsappNumber + photo paths), redeploy the site, and send them
+  their `#slug` link.
 - You do NOT need to answer "how do I buy" messages — the page is the answer.
 
 ## 3. Aug 5, event day

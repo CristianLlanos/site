@@ -7,6 +7,7 @@ import ScrollReveal from '@/components/events/ScrollReveal'
 import DeadlineGate from '@/components/events/DeadlineGate'
 import FloatingCta from '@/components/events/FloatingCta'
 import PromoterPanel from '@/components/events/PromoterPanel'
+import WaLink from '@/components/events/WaLink'
 import TicketForm from '@/components/events/TicketForm'
 
 const PAGE_URL = `${SITE_URL}${event.path}/`
@@ -15,13 +16,10 @@ const PAGE_TITLE = 'Social de Bachata · Cumple de Cris — Mié 5 de agosto'
 const PAGE_DESCRIPTION =
   'Social de bachata por el cumple de Cris: miércoles 5 de agosto, 8:30 pm, Centro de Convenciones Javier Prado (tercer piso), La Victoria. Clase de Zouk con Cris + Xio 9:00 pm incluida. Preventa online S/ 15.'
 
-const WHATSAPP_URL = `https://wa.me/${event.whatsappNumber}?text=${encodeURIComponent(
-  'Hola Cris, tengo una duda sobre el Social de Bachata del 5 de agosto 🙂'
-)}`
-
-const RESERVA_URL = `https://wa.me/${event.whatsappNumber}?text=${encodeURIComponent(
-  'Hola Cris, quiero reservar un box o una mesa para el Social de Bachata del 5 de agosto 🙌'
-)}`
+/* WhatsApp copy — {nombre} becomes the active promoter's first name (WaLink). */
+const DUDAS_TEMPLATE = 'Hola {nombre}, tengo una duda sobre el Social de Bachata del 5 de agosto 🙂'
+const RESERVA_TEMPLATE =
+  'Hola {nombre}, quiero reservar un box o una mesa para el Social de Bachata del 5 de agosto 🙌'
 
 /* Intrinsic sizes of the processed images (CLS reservation). */
 const XIO_CUTOUT = { width: 390, height: 804 }
@@ -307,9 +305,13 @@ export default function CumpleCrisPage() {
           </div>
           <p className="evento__boxmap-note">
             Asegura el tuyo para tu grupo:{' '}
-            <a href={RESERVA_URL} target="_blank" rel="noopener noreferrer">
+            <WaLink
+              fallbackNumber={event.whatsappNumber}
+              fallbackName="Cris"
+              messageTemplate={RESERVA_TEMPLATE}
+            >
               reserva por WhatsApp
-            </a>
+            </WaLink>
             .
           </p>
         </ScrollReveal>
@@ -384,9 +386,13 @@ export default function CumpleCrisPage() {
             </a>
             <p className="evento__whatsapp">
               ¿Dudas?{' '}
-              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <WaLink
+                fallbackNumber={event.whatsappNumber}
+                fallbackName="Cris"
+                messageTemplate={DUDAS_TEMPLATE}
+              >
                 Escríbeme por WhatsApp
-              </a>
+              </WaLink>
             </p>
           </DeadlineGate>
         </ScrollReveal>

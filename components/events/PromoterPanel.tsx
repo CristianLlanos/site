@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { findPromoter, PROMOTER_STORAGE_KEY, type Promoter } from '@/lib/promoters'
+import { detectPromoter, type Promoter } from '@/lib/promoters'
 
 /**
  * Shows the official promoter when the visitor arrives via their fragment
@@ -17,22 +17,7 @@ export default function PromoterPanel() {
   const [pastHero, setPastHero] = useState(false)
 
   useEffect(() => {
-    const fromHash = findPromoter(window.location.hash.replace('#', '').toLowerCase())
-    if (fromHash) {
-      try {
-        sessionStorage.setItem(PROMOTER_STORAGE_KEY, fromHash.slug)
-      } catch {
-        // storage unavailable (private mode) — the card still shows this visit
-      }
-      setPromoter(fromHash)
-      return
-    }
-    try {
-      const stored = sessionStorage.getItem(PROMOTER_STORAGE_KEY)
-      if (stored) setPromoter(findPromoter(stored) ?? null)
-    } catch {
-      // ignore
-    }
+    setPromoter(detectPromoter({ persist: true }))
   }, [])
 
   useEffect(() => {

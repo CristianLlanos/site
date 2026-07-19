@@ -1,7 +1,7 @@
 'use client'
 
 import { useId, useRef, useState, type FormEvent } from 'react'
-import { PROMOTER_STORAGE_KEY } from '@/lib/promoters'
+import { detectPromoter, promoterFirstName } from '@/lib/promoters'
 import { APPS_SCRIPT_URL, freeTicketsFor, presaleTotal, type DanceEventData } from '@/lib/events'
 import {
   hasErrors,
@@ -93,7 +93,7 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
       buyer,
       websiteRef.current?.value ?? '',
       purchaseIdRef.current,
-      readPromoter()
+      detectPromoter()?.slug ?? ''
     )
     setSubmitting(false)
     if (result.ok) {
@@ -303,7 +303,7 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
         {errorCode === 'server' && (
           <p className="evento__form-banner" role="alert">
             Algo falló. Escríbenos por{' '}
-            <a href={buildSupportUrl(event.whatsappNumber, tickets, buyer)} target="_blank" rel="noopener noreferrer">
+            <a href={buildSupportUrl(event, tickets, buyer)} target="_blank" rel="noopener noreferrer">
               WhatsApp
             </a>{' '}
             y te registramos manualmente, o inténtalo de nuevo.
@@ -385,20 +385,15 @@ function TextField({
   )
 }
 
-/** Promoter attribution captured by PromoterPanel from the URL fragment. */
-function readPromoter(): string {
-  try {
-    return sessionStorage.getItem(PROMOTER_STORAGE_KEY) ?? ''
-  } catch {
-    return ''
-  }
-}
-
-/** WhatsApp fallback for failed registrations, built only when that error shows. */
-function buildSupportUrl(whatsappNumber: string, tickets: TicketInput[], buyer: BuyerInput): string {
+/** WhatsApp fallback for failed registrations, built only when that error
+ * shows — addressed to the active promoter when there is one. */
+function buildSupportUrl(event: DanceEventData, tickets: TicketInput[], buyer: BuyerInput): string {
+  const promoter = detectPromoter()
+  const number = promoter?.whatsappNumber ?? event.whatsappNumber
+  const firstName = promoter ? promoterFirstName(promoter) : 'Cris'
   const names = tickets.map((ticket) => ticket.fullName.trim()).filter(Boolean).join(', ')
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    `Hola Cris, el registro online falló y quiero mis entradas 🙏 Nombres: ${names || '(pendiente)'}. N° de operación Yape: ${buyer.yapeOperation.trim() || '(pendiente)'}.`
+  return `https://wa.me/${number}?text=${encodeURIComponent(
+    `Hola ${firstName}, el registro online falló y quiero mis entradas 🙏 Nombres: ${names || '(pendiente)'}. N° de operación Yape: ${buyer.yapeOperation.trim() || '(pendiente)'}.`
   )}`
 }
 
