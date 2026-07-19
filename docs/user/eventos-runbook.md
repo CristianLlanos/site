@@ -27,7 +27,8 @@ Still yours to do:
 - **Daily (2 min):** open the Sheet, compare each purchase's "N° operación Yape" against
   your Yape history; mark ✓ in **Verificado** when the money matches. Rows of one purchase
   share the same **Compra** id. Expected amount = (entradas − ⌊entradas/6⌋) × S/ 15 —
-  the group promo gives 1 free per 5 paid (6 → S/ 75, 12 → S/ 150).
+  the group promo gives 1 free per 5 paid (6 → S/ 75, 12 → S/ 150). The promo is
+  PRESALE-ONLY: door sales are always S/ 20 each, no free tickets.
 - Mismatch or missing payment → WhatsApp the buyer (their number is in the row).
 - Share the page link everywhere: `https://cristianllanos.com/events/social-bachata-cumple-cris-2026/`
 - **Promoter links**: give each promoter their fragment URL — Miguel Duffoó sells with

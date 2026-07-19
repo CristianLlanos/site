@@ -48,7 +48,7 @@ The page must sell the night and make buying a ticket take under two minutes, mo
 | Door price | **S/ 20** — after 6:00 pm everything is door sales; no messages answered after 6 pm |
 | Payment | Yape QR + Yape number **986 821 895** (Cristian Alberto Llanos Malca) |
 | RSVP contact (secondary) | WhatsApp +51 986 821 895 ("¿Dudas?" link, not the main funnel) |
-| Capacity | No cap. Max **12 tickets per purchase**; group promo: 1 free per 5 paid (6 pay S/ 75, 12 pay S/ 150) |
+| Capacity | No cap. Max **12 tickets per purchase**; group promo PRESALE-ONLY: 1 free per 5 paid (6 pay S/ 75, 12 pay S/ 150; no promo at the door) |
 | Language | Spanish (es-PE), consistent with the site |
 | Nav | Unlisted — in sitemap, not in top navigation |
 

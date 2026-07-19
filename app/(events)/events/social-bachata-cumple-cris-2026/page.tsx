@@ -199,8 +199,9 @@ export default function CumpleCrisPage() {
             </div>
           </div>
           <p className="evento__prices-promo">
-            🎁 Trae al grupo: por cada 5 entradas, una gratis — 6 pagan S/{' '}
-            {presaleTotal(event, 6)} y 12 pagan S/ {presaleTotal(event, 12)}.
+            🎁 Solo en preventa online — trae al grupo: por cada 5 entradas, una gratis.
+            6 pagan S/ {presaleTotal(event, 6)} y 12 pagan S/ {presaleTotal(event, 12)}. En
+            puerta no aplica.
           </p>
         </ScrollReveal>
         <div className="evento__form-slot">

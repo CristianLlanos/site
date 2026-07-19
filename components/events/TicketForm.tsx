@@ -186,8 +186,8 @@ export default function TicketForm({ event, qrSrc }: { event: DanceEventData; qr
         </p>
         <p className="evento__form-promo">
           {freeTickets > 0
-            ? `🎁 Incluye ${freeTickets === 1 ? '1 entrada gratis' : `${freeTickets} entradas gratis`} por la promo de grupo.`
-            : '🎁 Promo grupal: 6 entradas pagan 5 y 12 pagan 10.'}
+            ? `🎁 Incluye ${freeTickets === 1 ? '1 entrada gratis' : `${freeTickets} entradas gratis`} por la promo de preventa.`
+            : '🎁 Promo de preventa: 6 entradas pagan 5 y 12 pagan 10 (solo online).'}
         </p>
       </section>
 
