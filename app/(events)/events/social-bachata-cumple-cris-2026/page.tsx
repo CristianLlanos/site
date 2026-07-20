@@ -304,6 +304,9 @@ export default function CumpleCrisPage() {
               Mesa alta · <strong>S/ {event.tablePrice}</strong>
             </span>
           </div>
+          <p className="evento__boxmap-consumo">
+            Lo que pagas se convierte en consumo dentro del local.
+          </p>
           <p className="evento__boxmap-note">
             Asegura el tuyo para tu grupo:{' '}
             <WaLink

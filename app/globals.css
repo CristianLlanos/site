@@ -3636,6 +3636,12 @@ code {
   height: auto;
 }
 
+.evento__boxmap-consumo {
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--ev-text-muted);
+}
+
 .evento__boxmap-hint {
   margin-top: var(--space-sm);
   font-size: var(--font-size-xs);
